@@ -1,7 +1,6 @@
 package main;
 
 public class AI implements Runnable {
-	//Test
 	public static boolean thinking = true; // is Cyrus doing any computations at all
 	
 	private String name;
