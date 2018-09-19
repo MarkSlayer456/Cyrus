@@ -11,5 +11,6 @@ public class AI {
 	public String getName() { // Only create one AI
 		return this.name;
 	}
+	
 
 }
