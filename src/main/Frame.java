@@ -10,7 +10,8 @@ import javax.swing.JFrame;
 
 public class Frame implements Runnable {
 	
-	public static boolean drawing = true; // Used if you ever want to stop drawing for some reason	
+	// Removed a static from drawing as it's not needed
+	public boolean drawing = true; // Used if you ever want to stop drawing for some reason	
 	
 	private Dimension size;
 	private JFrame frame;
@@ -21,13 +22,13 @@ public class Frame implements Runnable {
 		JFrame f = new JFrame("Cyrus");
 		this.frame = f;
 		this.frame.setSize(size.width, size.height);
-		this.frame.setUndecorated(false); // change this to true
+		this.frame.setUndecorated(false); //TODO change this to true
 		this.frame.setDefaultCloseOperation(this.frame.EXIT_ON_CLOSE);
 		this.frame.setVisible(true);
 	}
 	
 	public static void main(String[] args) { // Program begins
-		Frame mainFrame = new Frame(new Dimension(800, 600));
+		Frame mainFrame = new Frame(new Dimension(800, 600)); //TODO get screen size but this will do for now
 		AI cyrus = new AI("Cyrus"); // Creating Cyrus
 		Thread cyrusT = new Thread(cyrus, "cyrus");
 		cyrusT.setPriority(9); // 10 is max priority
@@ -43,12 +44,16 @@ public class Frame implements Runnable {
 			if(this.frame.getBufferStrategy() == null) { this.frame.createBufferStrategy(3); }
 			BufferStrategy bs = this.frame.getBufferStrategy();
 			Graphics g = bs.getDrawGraphics();
-			////////////////////////////////////
 			g.clearRect(0, 0, this.size.width, this.size.height);
+			//////////////////////////////////// 
+			// all drawing should be done between these /'s
+			
+			//TODO remove this; just testing
 			g.setColor(Color.RED);
 			g.fillRect(100, 400, 200, 200);
+			//TODO remove this ^; just testing
 			
-			
+			////////////////////////////////////
 			g.dispose();
 			bs.show();
 		} catch (Exception e) {
@@ -60,7 +65,7 @@ public class Frame implements Runnable {
 
 	@Override
 	public void run() {
-		while(drawing) {
+		while(drawing) { //TODO limit how often this runs to reduce cpu load
 			draw();
 		}
 		
