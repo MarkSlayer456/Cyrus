@@ -4,7 +4,7 @@ Month 1:
   - Setup UI
   - Create interpreter algorithm (interprets user inputs)
       - Make it so Cyrus can respond to greetings
-          - hello, hi, good morning etc.
+          - "hello", "hi", "good morning" etc.
   - Add a text box so user can ask cyrus things  
 Month 2:
   - Update interpreter
