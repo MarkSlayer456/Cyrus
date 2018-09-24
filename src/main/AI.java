@@ -10,13 +10,19 @@ public class AI implements Runnable {
 		this.hasGreeted = false;
 	}
 	
+	public void greet() {
+		//TODO this is just for testing
+		System.out.println("Hello, my name is " + this.name + ", this message is brought to you from the AI.java file under the greet method!");
+		this.hasGreeted = true;
+	}
+	
 	public String getName() {
 		return this.name;
 	}
 
 	public void logic() { // The thinking method
 		if(!this.hasGreeted) {
-		this.speak();
+		this.greet();
 		}
 	}
 	
@@ -33,9 +39,6 @@ public class AI implements Runnable {
 	///// Methods that Cyrus responds to /////
 	// Just test methods at the moment to test if cyrus is working
 	public String speak() { // Method is mostly for testing will be changed later as the starting message
-		System.out.println("Hello, I am " + this.name + "! [line 35 AI.java]");
-		this.hasGreeted = true;
-		return "Hello, I am " + this.name + "!";
-		
+		return null;
 	}	
 }
