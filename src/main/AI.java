@@ -10,10 +10,10 @@ public class AI implements Runnable {
 		this.hasGreeted = false;
 	}
 	
-	public void greet() {
+	public String greet() {
 		//TODO this is just for testing
-		System.out.println("Hello, my name is " + this.name + ", this message is brought to you from the AI.java file under the greet method!");
 		this.hasGreeted = true;
+		return "Hello, my name is " + this.name + ", this mmmmmessage is brought to you from the AI.java file under the greet method!";
 	}
 	
 	public String getName() {

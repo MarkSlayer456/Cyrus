@@ -4,14 +4,20 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
+
+import main.managers.ChatManager;
 
 
 public class Frame implements Runnable {
 	
 	// Removed a static from drawing as it's not needed
 	public boolean drawing = true; // Used if you ever want to stop drawing for some reason	
+	public static AI cyrus;
+	public static Frame mainFrame;
+	
 	
 	private Dimension size;
 	private JFrame frame;
@@ -27,9 +33,9 @@ public class Frame implements Runnable {
 		this.frame.setVisible(true);
 	}
 	
-	public static void main(String[] args) { // Program begins
-		Frame mainFrame = new Frame(new Dimension(800, 600)); //TODO get screen size but this will do for now
-		AI cyrus = new AI("Cyrus"); // Creating Cyrus
+	 public static void main(String[] args) { // Program begins
+		mainFrame = new Frame(new Dimension(800, 600)); //TODO get screen size but this will do for now
+		cyrus = new AI("Cyrus"); // Creating Cyrus
 		Thread cyrusT = new Thread(cyrus, "cyrus");
 		cyrusT.setPriority(9); // 10 is max priority
 		cyrusT.start();
@@ -37,7 +43,6 @@ public class Frame implements Runnable {
 		mainFrameT.setPriority(10);
 		mainFrameT.start();
 	}
-	
 	
 	public void draw() { // What to display from Cyrus thoughts
 		try {
@@ -49,8 +54,11 @@ public class Frame implements Runnable {
 			// all drawing should be done between these /'s
 			
 			//TODO remove this; just testing
+			//TODO move this loop to logic
 			g.setColor(Color.RED);
-			g.fillRect(100, 400, 200, 200);
+			ChatManager.seperateLines(cyrus.greet(), g);
+			//ChatManager.convertToMultipleLines(cyrus.greet(), g);
+			g.drawString(cyrus.greet(), 100, 400);
 			//TODO remove this ^; just testing
 			
 			////////////////////////////////////
@@ -65,8 +73,8 @@ public class Frame implements Runnable {
 
 	@Override
 	public void run() {
-		while(drawing) { //TODO limit how often this runs to reduce cpu load
-			draw();
+		while(drawing) {
+		draw();
 		}
 		
 	}
