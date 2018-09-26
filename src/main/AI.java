@@ -13,7 +13,7 @@ public class AI implements Runnable {
 	public String greet() {
 		//TODO this is just for testing
 		this.hasGreeted = true;
-		return "Hello, my name is " + this.name + ", this mmmmmessage is brought to you from the AI.java file under the greet method!";
+		return "Hello, my name is " + this.name + ", this message is brought to you from the AI.java file under the greet method!";
 	}
 	
 	public String getName() {

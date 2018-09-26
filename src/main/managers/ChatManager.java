@@ -68,6 +68,8 @@ public class ChatManager {
 		}
 		///////////////////////////////////////////////////
 		///// draws the string to the screen /////
+		//TODO this method will be removed later
+		//TODO add lines to consoleLines
 		for(int j = 0; j < lines.size(); j++) { // drawing the string
 			String str = lines.get(j);
 			g.drawString(str, 100, 200 + j*25);
