@@ -3,9 +3,8 @@ package main;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Toolkit;
 import java.awt.image.BufferStrategy;
-import java.util.ArrayList;
-
 import javax.swing.JFrame;
 
 import main.managers.ChatManager;
@@ -28,13 +27,14 @@ public class Frame implements Runnable {
 		JFrame f = new JFrame("Cyrus");
 		this.frame = f;
 		this.frame.setSize(size.width, size.height);
+		this.frame.setLocation(Toolkit.getDefaultToolkit().getScreenSize().width - size.width, 0);
 		this.frame.setUndecorated(false); //TODO change this to true
 		this.frame.setDefaultCloseOperation(this.frame.EXIT_ON_CLOSE);
 		this.frame.setVisible(true);
 	}
 	
 	 public static void main(String[] args) { // Program begins
-		mainFrame = new Frame(new Dimension(800, 600)); //TODO get screen size but this will do for now
+		mainFrame = new Frame(new Dimension(800, 300)); //TODO get screen size but this will do for now
 		cyrus = new AI("Cyrus"); // Creating Cyrus
 		Thread cyrusT = new Thread(cyrus, "cyrus");
 		cyrusT.setPriority(9); // 10 is max priority
@@ -57,8 +57,6 @@ public class Frame implements Runnable {
 			//TODO move this loop to logic
 			g.setColor(Color.RED);
 			ChatManager.seperateLines(cyrus.greet(), g);
-			//ChatManager.convertToMultipleLines(cyrus.greet(), g);
-			g.drawString(cyrus.greet(), 100, 400);
 			//TODO remove this ^; just testing
 			
 			////////////////////////////////////

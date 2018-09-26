@@ -15,7 +15,7 @@ public class ChatManager {
 	public static ArrayList<String> consoleLine = new ArrayList<String>();
 	
 	
-	public static void seperateLines(String s, Graphics g) { //TODO lines can still start with spaces
+	public static void seperateLines(String s, Graphics g) { //TODO BUG: lines can still start with spaces
 		int sl = s.length();
 		ArrayList<String> words = new ArrayList<String>();
 		ArrayList<String> lines = new ArrayList<String>();
