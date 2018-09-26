@@ -4,7 +4,8 @@ This program is designed to have an intelligent AI, named Cyrus, help you with d
 Please note: I am a college student, I taught myself how to code java, please do not except the code to be the best possible solution to the problem. If you think there is a better way to do something please let me know!
 
 
-here is a roadmap of what is to come with this program
+Here is a roadmap of what I will be trying to accomplish for each month:
+NOTE: If I don't complete something on the desinated month then it will be moved to top priority in the next month
 
 
 RoadMap
