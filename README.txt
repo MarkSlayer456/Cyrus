@@ -20,13 +20,13 @@ Month 2:
   - Update interpreter
       - Make it so Cyrus can respond to some questions
           - "what"
-  - Add default answers to commonly asked questions
+  - Create a file interpreter algorithm
   - Add a toggle button (a button on the keyboard) to make cyrus appear or go away
 Month 3:
   - Update interpreter
       - Make it so Cyrus can respond to more questions
           - "how", and "why"
-  - Add more default answers to commonly asked questions 
+  - Add default answers to commonly asked questions 
 Month 4:
   - Update interpreter
       - Make it so Cyrus can repsond to more questions
