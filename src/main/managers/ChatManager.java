@@ -46,7 +46,6 @@ public class ChatManager {
 		///// adds words into lines to make lines that are less than or equal to the line default value /////
 		for(int i = 0; i < words.size(); i++) {
 			String word = words.get(i); // gets the word
-			System.out.println(word);
 			int wordLength = word.length();
 			if(!(wordLength + currentLineLength > numberOfCharsPerLine)) {
 				tempLine += word;
