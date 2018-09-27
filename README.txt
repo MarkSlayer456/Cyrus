@@ -5,7 +5,7 @@ Please note: I am a college student, I taught myself how to code java, please do
 
 
 Here is a roadmap of what I will be trying to accomplish for each month:
-NOTE: If I don't complete something on the desinated month then it will be moved to top priority in the next month
+NOTE: If I don't complete something on the designated month then it will be moved to top priority in the next month
 
 
 RoadMap
