@@ -14,6 +14,7 @@ public class UIManager {
 		g.fillRect(0, 0, Frame.mainFrame.size().width, Frame.mainFrame.size().height);
 		g.setColor(Color.MAGENTA);
 		g.drawString("--/>", 20, 275);
+		//////////////////////////////////////
 	}
 
 }

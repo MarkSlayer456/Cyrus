@@ -7,6 +7,7 @@ import java.awt.Toolkit;
 import java.awt.image.BufferStrategy;
 import javax.swing.JFrame;
 import main.managers.ChatManager;
+import main.managers.InputManager;
 import main.managers.UIManager;
 
 
@@ -51,6 +52,7 @@ public class Frame implements Runnable {
 	 
 	public void doLogic() {
 		ChatManager.doLogic();
+		InputManager.doLogic();
 	}
 	
 	public void draw() { // What to display from Cyrus thoughts
@@ -77,10 +79,17 @@ public class Frame implements Runnable {
 		}
 	}
 
+	
+	private void setup() {
+		mainFrame.frame.addKeyListener(new InputManager());
+	}
+	
 	@Override
 	public void run() {
+		mainFrame.setup();
 		while(drawing) {
-		draw();
+			draw();
+			doLogic();
 		}
 		
 	}
