@@ -6,14 +6,15 @@ import java.util.ArrayList;
 public class ChatManager {
 	
 	public static int numberOfCharsPerLine = 30;
+	public static int maxLines = 10; // the maximum number of lines shown at a time
 	
 	/*
 	 * TODO is it wise to draw strings in here?
 	 * if so make this method void
 	 **/
 	
-	public static ArrayList<String> consoleLine = new ArrayList<String>();
-	
+	public static ArrayList<String> consoleLines = new ArrayList<String>(); // Whatever values are in this 
+	public static ArrayList<String> allConsoleLines = new ArrayList<String>(); // Stores all lines even the ones off screen
 	
 	public static void seperateLines(String s, Graphics g) { //TODO BUG: lines can still start with spaces
 		int sl = s.length();
@@ -66,14 +67,32 @@ public class ChatManager {
 			}
 			
 		}
+		for(int j = 0; j < lines.size(); j++) {
+			String str = lines.get(j);
+			consoleLines.add(str);
+			allConsoleLines.add(str);
+		}
+		drawChat(g);
+	}
+	
+	public static void doLogic() {
+		if(consoleLines.size() >= 10) {
+			consoleLines.remove(0); // will remove the last line
+		}
+	}
+	
+	private static void drawChat(Graphics g) {
 		///////////////////////////////////////////////////
 		///// draws the string to the screen /////
 		//TODO this method will be removed later
 		//TODO add lines to consoleLines
-		for(int j = 0; j < lines.size(); j++) { // drawing the string
-			String str = lines.get(j);
+		for(int j = 0; j < consoleLines.size(); j++) { // drawing the string
+			String str = consoleLines.get(j);
 			g.drawString(str, 100, 200 + j*25);
 		}
 		//////////////////////////////////////////////////
 	}
+	
+	
+	
 }

@@ -6,7 +6,6 @@ import java.awt.Graphics;
 import java.awt.Toolkit;
 import java.awt.image.BufferStrategy;
 import javax.swing.JFrame;
-
 import main.managers.ChatManager;
 
 
@@ -42,6 +41,10 @@ public class Frame implements Runnable {
 		Thread mainFrameT = new Thread(mainFrame, "frame");
 		mainFrameT.setPriority(10);
 		mainFrameT.start();
+	}
+	 
+	public void doLogic() {
+		ChatManager.doLogic();
 	}
 	
 	public void draw() { // What to display from Cyrus thoughts
