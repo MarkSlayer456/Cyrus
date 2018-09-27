@@ -7,6 +7,7 @@ import java.awt.Toolkit;
 import java.awt.image.BufferStrategy;
 import javax.swing.JFrame;
 import main.managers.ChatManager;
+import main.managers.UIManager;
 
 
 public class Frame implements Runnable {
@@ -32,6 +33,11 @@ public class Frame implements Runnable {
 		this.frame.setVisible(true);
 	}
 	
+	public Dimension size()  {
+		return this.size;
+	}
+	
+	
 	 public static void main(String[] args) { // Program begins
 		mainFrame = new Frame(new Dimension(800, 300)); //TODO get screen size but this will do for now
 		cyrus = new AI("Cyrus"); // Creating Cyrus
@@ -49,16 +55,17 @@ public class Frame implements Runnable {
 	
 	public void draw() { // What to display from Cyrus thoughts
 		try {
-			if(this.frame.getBufferStrategy() == null) { this.frame.createBufferStrategy(3); }
-			BufferStrategy bs = this.frame.getBufferStrategy();
+			if(mainFrame.frame.getBufferStrategy() == null) { mainFrame.frame.createBufferStrategy(3); }
+			BufferStrategy bs = mainFrame.frame.getBufferStrategy();
 			Graphics g = bs.getDrawGraphics();
-			g.clearRect(0, 0, this.size.width, this.size.height);
+			g.clearRect(0, 0, mainFrame.size.width, mainFrame.size.height);
 			//////////////////////////////////// 
 			// all drawing should be done between these /'s
 			
 			//TODO remove this; just testing
 			//TODO move this loop to logic
 			g.setColor(Color.RED);
+			UIManager.drawUI(g);
 			ChatManager.seperateLines(cyrus.greet(), g);
 			//TODO remove this ^; just testing
 			
@@ -68,8 +75,6 @@ public class Frame implements Runnable {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		
 	}
 
 	@Override

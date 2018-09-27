@@ -1,12 +1,14 @@
 package main.managers;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
 public class ChatManager {
 	
-	public static int numberOfCharsPerLine = 30;
+	public static int numberOfCharsPerLine = 30; //TODO keep at 30 for testing
 	public static int maxLines = 10; // the maximum number of lines shown at a time
+	public static int spaceInbetweenLines = 25;
 	
 	/*
 	 * TODO is it wise to draw strings in here?
@@ -67,12 +69,7 @@ public class ChatManager {
 			}
 			
 		}
-		for(int j = 0; j < lines.size(); j++) {
-			String str = lines.get(j);
-			consoleLines.add(str);
-			allConsoleLines.add(str);
-		}
-		drawChat(g);
+		drawChat(g, lines);
 	}
 	
 	public static void doLogic() {
@@ -81,14 +78,25 @@ public class ChatManager {
 		}
 	}
 	
-	private static void drawChat(Graphics g) {
+	private static void drawChat(Graphics g, ArrayList<String> lines) {
 		///////////////////////////////////////////////////
+		g.setColor(Color.CYAN);
 		///// draws the string to the screen /////
+		if(!consoleLines.contains(lines.get(0))) {
+			for(int i = 0; i < lines.size(); i++) {
+				String str = lines.get(i);
+				consoleLines.add(str);
+				allConsoleLines.add(str);
+			}
+		}
 		//TODO this method will be removed later
 		//TODO add lines to consoleLines
-		for(int j = 0; j < consoleLines.size(); j++) { // drawing the string
+		//TODO probably can just get rid of consoleLines and just use allConsoleLines
+		int iterator = 0;
+		for(int j = consoleLines.size() - 1; j >= 0; j--) { // drawing the string
+			iterator++;
 			String str = consoleLines.get(j);
-			g.drawString(str, 100, 200 + j*25);
+			g.drawString(str, 50, 275 - iterator*spaceInbetweenLines);
 		}
 		//////////////////////////////////////////////////
 	}
