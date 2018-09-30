@@ -17,7 +17,8 @@ public class Frame implements Runnable {
 	public boolean drawing = true; // Used if you ever want to stop drawing for some reason	
 	public static AI cyrus;
 	public static Frame mainFrame;
-	
+	private Graphics g;
+	private BufferStrategy bs;
 	
 	private Dimension size;
 	private JFrame frame;
@@ -25,6 +26,8 @@ public class Frame implements Runnable {
 	@SuppressWarnings("static-access")
 	public Frame(Dimension s) {
 		this.size = s;
+		this.g = null;
+		this.bs = null;
 		JFrame f = new JFrame("Cyrus");
 		this.frame = f;
 		this.frame.setSize(size.width, size.height);
@@ -32,10 +35,15 @@ public class Frame implements Runnable {
 		this.frame.setUndecorated(false); //TODO change this to true
 		this.frame.setDefaultCloseOperation(this.frame.EXIT_ON_CLOSE);
 		this.frame.setVisible(true);
+		this.frame.setResizable(true);
 	}
 	
-	public Dimension size()  {
+	public Dimension getSize()  {
 		return this.size;
+	}
+	
+	public Graphics getGraphics() {
+		return this.g;
 	}
 	
 	
@@ -58,22 +66,25 @@ public class Frame implements Runnable {
 	public void draw() { // What to display from Cyrus thoughts
 		try {
 			if(mainFrame.frame.getBufferStrategy() == null) { mainFrame.frame.createBufferStrategy(3); }
-			BufferStrategy bs = mainFrame.frame.getBufferStrategy();
-			Graphics g = bs.getDrawGraphics();
-			g.clearRect(0, 0, mainFrame.size.width, mainFrame.size.height);
+			this.bs = mainFrame.frame.getBufferStrategy();
+			this.g = bs.getDrawGraphics();
+			this.g.clearRect(0, 0, mainFrame.size.width, mainFrame.size.height);
 			//////////////////////////////////// 
 			// all drawing should be done between these /'s
 			
 			//TODO remove this; just testing
 			//TODO move this loop to logic
-			g.setColor(Color.RED);
-			UIManager.drawUI(g);
-			ChatManager.seperateLines(cyrus.greet(), g);
+			this.g.setColor(Color.RED);
+			UIManager.drawUI(this.g);
+			ChatManager.seperateLines(cyrus.greet(), this.g);
+			ChatManager.seperateLines("this is a test!", this.g);
+			ChatManager.seperateLines("This is another test message to see how well the console works so far!", g);
+			ChatManager.seperateLines("1001101010110" , this.g);
 			//TODO remove this ^; just testing
 			
 			////////////////////////////////////
-			g.dispose();
-			bs.show();
+			this.g.dispose();
+			this.bs.show();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -82,6 +93,7 @@ public class Frame implements Runnable {
 	
 	private void setup() {
 		mainFrame.frame.addKeyListener(new InputManager());
+		ChatManager.setup();
 	}
 	
 	@Override

@@ -8,6 +8,7 @@ public class ChatManager {
 	
 	public static int numberOfCharsPerLine = 30; //TODO keep at 30 for testing
 	public static int maxLines = 10; // the maximum number of lines shown at a time
+	public static int currentLine = 0; // which line the user is currently on (will be displayed at the bottom of the console)
 	public static int spaceInbetweenLines = 25;
 	
 	/*
@@ -15,9 +16,15 @@ public class ChatManager {
 	 * if so make this method void
 	 **/
 	
+	//TODO FIX: both of these aren't needed
 	public static ArrayList<String> consoleLines = new ArrayList<String>(); // Whatever values are in this 
 	public static ArrayList<String> allConsoleLines = new ArrayList<String>(); // Stores all lines even the ones off screen
+	public static ArrayList<String> repeatableMessages = new ArrayList<String>();
 	
+	//public static ArrayList<String> currentCommand = new ArrayList<String>(); // Stores what the user is currently typing
+	//public static String currentCommand = "";
+	
+	//TODO remove the g parameter for this method
 	public static void seperateLines(String s, Graphics g) { //TODO BUG: lines can still start with spaces
 		int sl = s.length();
 		ArrayList<String> words = new ArrayList<String>();
@@ -73,16 +80,36 @@ public class ChatManager {
 	}
 	
 	public static void doLogic() {
-		if(consoleLines.size() >= 10) {
+		/*if(consoleLines.size() >= 10) {
 			consoleLines.remove(0); // will remove the last line
-		}
+		}*/
+		//TODO this method might not be useful
+		
+	}
+	
+	public static void setup() {
+		
+		///// repeatableMessages /////
+		/* TODO add on to this as you add repeatableMessages
+		 * 0 = Error message 1
+		 * 1 = Error message 2
+		 * 
+		 */
+		repeatableMessages.add("I'm sorry I do not know what you want, I am terribly sorry about that!"); // Error Message 1
 	}
 	
 	private static void drawChat(Graphics g, ArrayList<String> lines) {
 		///////////////////////////////////////////////////
 		g.setColor(Color.CYAN);
+		
+		String repeatTemp = "";
+		for(int k = 0; k < lines.size(); k++) {
+			repeatTemp += lines.get(k);
+		}
+		
+		
 		///// draws the string to the screen /////
-		if(!consoleLines.contains(lines.get(0))) {
+		if((!consoleLines.contains(lines.get(0))) || repeatableMessages.contains(repeatTemp)) { //TODO somehow remove this line
 			for(int i = 0; i < lines.size(); i++) {
 				String str = lines.get(i);
 				consoleLines.add(str);

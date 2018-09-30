@@ -11,7 +11,7 @@ public class UIManager {
 		///// Command Line /////
 		// what the user is typing on
 		g.setColor(Color.BLACK);
-		g.fillRect(0, 0, Frame.mainFrame.size().width, Frame.mainFrame.size().height);
+		g.fillRect(0, 0, Frame.mainFrame.getSize().width, Frame.mainFrame.getSize().height);
 		g.setColor(Color.MAGENTA);
 		g.drawString("--/>", 20, 275);
 		//////////////////////////////////////
