@@ -1,6 +1,5 @@
 package main;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Toolkit;
@@ -38,6 +37,10 @@ public class Frame implements Runnable {
 		this.frame.setResizable(true);
 	}
 	
+	public void close() {
+		this.frame.setVisible(false);
+	}
+	
 	public Dimension getSize()  {
 		return this.size;
 	}
@@ -71,17 +74,8 @@ public class Frame implements Runnable {
 			this.g.clearRect(0, 0, mainFrame.size.width, mainFrame.size.height);
 			//////////////////////////////////// 
 			// all drawing should be done between these /'s
-			
-			//TODO remove this; just testing
-			//TODO move this loop to logic
-			this.g.setColor(Color.RED);
+			cyrus.greet();
 			UIManager.drawUI(this.g);
-			ChatManager.seperateLines(cyrus.greet(), this.g);
-			ChatManager.seperateLines("this is a test!", this.g);
-			ChatManager.seperateLines("This is another test message to see how well the console works so far!", g);
-			ChatManager.seperateLines("1001101010110" , this.g);
-			//TODO remove this ^; just testing
-			
 			////////////////////////////////////
 			this.g.dispose();
 			this.bs.show();

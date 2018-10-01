@@ -19,13 +19,18 @@ public class ChatManager {
 	//TODO FIX: both of these aren't needed
 	public static ArrayList<String> consoleLines = new ArrayList<String>(); // Whatever values are in this 
 	public static ArrayList<String> allConsoleLines = new ArrayList<String>(); // Stores all lines even the ones off screen
-	public static ArrayList<String> repeatableMessages = new ArrayList<String>();
 	
 	//public static ArrayList<String> currentCommand = new ArrayList<String>(); // Stores what the user is currently typing
 	//public static String currentCommand = "";
 	
+	
+	/*
+	 * seperateLines should return a list of strings and another method should make the messages
+	 * active given an array of strings
+	 */
+	
 	//TODO remove the g parameter for this method
-	public static void seperateLines(String s, Graphics g) { //TODO BUG: lines can still start with spaces
+	public static void seperateLines(String s) { //TODO BUG: lines can still start with spaces
 		int sl = s.length();
 		ArrayList<String> words = new ArrayList<String>();
 		ArrayList<String> lines = new ArrayList<String>();
@@ -76,7 +81,11 @@ public class ChatManager {
 			}
 			
 		}
-		drawChat(g, lines);
+		for(int i = 0; i < lines.size(); i++) {
+			String str = lines.get(i);
+			consoleLines.add(str);
+			allConsoleLines.add(str); //TODO might not need this
+		}
 	}
 	
 	public static void doLogic() {
@@ -87,47 +96,16 @@ public class ChatManager {
 		
 	}
 	
-	public static void setup() {
-		
-		///// repeatableMessages /////
-		/* TODO add on to this as you add repeatableMessages
-		 * 0 = Error message 1
-		 * 1 = Error message 2
-		 * 
-		 */
-		repeatableMessages.add("I'm sorry I do not know what you want, I am terribly sorry about that!"); // Error Message 1
-	}
+	public static void setup() { } //TODO
 	
-	private static void drawChat(Graphics g, ArrayList<String> lines) {
-		///////////////////////////////////////////////////
-		g.setColor(Color.CYAN);
-		
-		String repeatTemp = "";
-		for(int k = 0; k < lines.size(); k++) {
-			repeatTemp += lines.get(k);
-		}
-		
-		
-		///// draws the string to the screen /////
-		if((!consoleLines.contains(lines.get(0))) || repeatableMessages.contains(repeatTemp)) { //TODO somehow remove this line
-			for(int i = 0; i < lines.size(); i++) {
-				String str = lines.get(i);
-				consoleLines.add(str);
-				allConsoleLines.add(str);
-			}
-		}
-		//TODO this method will be removed later
-		//TODO add lines to consoleLines
-		//TODO probably can just get rid of consoleLines and just use allConsoleLines
+	
+	public static void draw(Graphics g, Color c) {
+		g.setColor(c);
 		int iterator = 0;
 		for(int j = consoleLines.size() - 1; j >= 0; j--) { // drawing the string
 			iterator++;
 			String str = consoleLines.get(j);
 			g.drawString(str, 50, 275 - iterator*spaceInbetweenLines);
 		}
-		//////////////////////////////////////////////////
 	}
-	
-	
-	
 }
