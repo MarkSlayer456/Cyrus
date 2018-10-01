@@ -9,7 +9,7 @@ public class AI implements Runnable {
 	public static boolean thinking = true; // is Cyrus doing any computations at all
 	private String name;
 	private boolean hasGreeted; // has Cyrus introduced himself
-	private Color color;
+	private Color color; // will implement later
 	private int argsRemaining; // how many args is Cyrus waiting for if 0 then no args needed
 	private String currentCommand; // used when dealing with arguments
 	private ArrayList<String> args;
@@ -21,6 +21,10 @@ public class AI implements Runnable {
 		this.argsRemaining = 0;
 		this.currentCommand = "";
 		this.args = new ArrayList<String>();
+	}
+	
+	public void setup() {
+		//TODO ask for name
 	}
 	
 	public void greet() {
@@ -52,7 +56,8 @@ public class AI implements Runnable {
 		this.argsRemaining = 0;
 	}
 	
-	public void interpretArgs(ArrayList<String> a) {
+	// the a in this method would just be this.args so it's kinda pointless
+	public void interpretArgs(ArrayList<String> a, String cmd) { //TODO edit this
 		for(int i = 0; i < a.size(); i++) {
 			String arg = a.get(i);
 			switch(this.currentCommand) { // TODO this is just a test and it works createkeybind is not finished
@@ -82,13 +87,17 @@ public class AI implements Runnable {
 		}
 	}
 	
-	public void interpret(String cmd) {
+	public void interpret(String cmd) { //TODO make it split the command into different strings if there are spaces and then run the interpret args method
 		//TODO finish this
 		if(this.argsRemaining >= 1) {
 			switch(this.currentCommand) { // each new command will have to be added here if it applies
 			case "createkeybind":
 				this.args.add(cmd);
-				interpretArgs(this.args);
+				interpretArgs(this.args, cmd);
+				break;
+			case "good": //TODO not done
+				this.args.add(cmd);
+				interpretArgs(this.args, cmd);
 			}
 			this.argsRemaining--;
 			return;
@@ -101,6 +110,18 @@ public class AI implements Runnable {
 			this.currentCommand = cmd; //TODO move to prompt if it makes sense later
 			prompt(cmd, 2);
 			break;
+			// greetings //
+		case "hi":
+		case "hey":
+		case "hello":
+		case "hola":
+			outputMessage("Hello!");
+			break;
+		case "good morning": //TODO change
+			outputMessage("Good morning!");
+			//prompt(cmd, 1);
+			break;
+			///////////////////////////////////
 		default:
 			//TODO make a file of responses for failed messages/commands
 			outputMessage("I'm sorry I do not know what you want, I am terribly sorry about that!");
