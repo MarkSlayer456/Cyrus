@@ -11,7 +11,12 @@ import main.Frame;
 public class InputManager implements KeyListener, MouseListener {
 
 	public static ArrayList<Integer> keysDown = new ArrayList<Integer>();
+	public static ArrayList<Character> currentCharacters = new ArrayList<Character>();
 	private String currentCommand = "";
+	
+	public static void clearCurrentChars() {
+		currentCharacters.clear();
+	}
 	
 	public static void doLogic() {
 		if(keysDown.contains(8)) { //TODO This is for testing can be removed later
@@ -27,6 +32,7 @@ public class InputManager implements KeyListener, MouseListener {
 	@Override
 	public void keyPressed(KeyEvent e) {
 		keysDown.add(e.getKeyCode());
+		currentCharacters.add(e.getKeyChar());
 		int keyCode = e.getKeyCode();
 		if(keyCode != 8 && keyCode != 10 && keyCode != 9 && keyCode != 16) { // checks for tab(9), enter(10), backspace(8), shift(16)
 		currentCommand += (e.getKeyChar() + "");
@@ -38,6 +44,7 @@ public class InputManager implements KeyListener, MouseListener {
 				break;
 			case 10:
 				Frame.cyrus.interpret(currentCommand);
+				clearCurrentChars();
 				System.out.println("You typed: " + currentCommand);
 				currentCommand = "";
 				break;

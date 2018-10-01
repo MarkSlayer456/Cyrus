@@ -60,10 +60,11 @@ public class AI implements Runnable {
 	public void interpretArgs(ArrayList<String> a, String cmd) { //TODO edit this
 		for(int i = 0; i < a.size(); i++) {
 			String arg = a.get(i);
-			switch(this.currentCommand) { // TODO this is just a test and it works createkeybind is not finished
+			switch(this.currentCommand) { 
+			// TODO this is just a test and it works, createkeybind is not finished
 			case "createkeybind":
 				System.out.println("createkeybind is the command what are you args?");
-				char z;
+				char z; // this will be used later
 				if(i == 0) { // first arg
 					if(arg.length() - 1 <= 0) {
 						z = arg.charAt(i); // gets the value of the first key you type
@@ -87,7 +88,8 @@ public class AI implements Runnable {
 		}
 	}
 	
-	public void interpret(String cmd) { //TODO make it split the command into different strings if there are spaces and then run the interpret args method
+	public void interpret(String cmd) { 
+		//TODO make it split the command into different strings if there are spaces and then run the interpret args method
 		//TODO finish this
 		if(this.argsRemaining >= 1) {
 			switch(this.currentCommand) { // each new command will have to be added here if it applies
@@ -111,6 +113,8 @@ public class AI implements Runnable {
 			prompt(cmd, 2);
 			break;
 			// greetings //
+			// could add multiple responses
+			// could add cases where if you misspell a word cyrus will correct you or try
 		case "hi":
 		case "hey":
 		case "hello":
@@ -120,6 +124,9 @@ public class AI implements Runnable {
 		case "good morning": //TODO change
 			outputMessage("Good morning!");
 			//prompt(cmd, 1);
+			break;
+		case "die":
+			outputMessage("That's kinda rude don't you think?");
 			break;
 			///////////////////////////////////
 		default:

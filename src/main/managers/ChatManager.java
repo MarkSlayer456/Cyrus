@@ -75,9 +75,11 @@ public class ChatManager {
 			} else {
 				lines.add(tempLine);
 				tempLine = "";
-				currentLineLength = 0;
+				currentLineLength = wordLength;
 				tempLine += word;
-				currentLineLength += wordLength;
+				if(words.size() == i + 1) { // checking to see if only one words needs to go on the last line
+					lines.add(tempLine);
+				}
 			}
 			
 		}

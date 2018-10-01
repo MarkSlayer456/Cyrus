@@ -37,7 +37,7 @@ public class Frame implements Runnable {
 		this.frame.setResizable(true);
 	}
 	
-	public void close() {
+	public void close() { // Please note this method just makes the frame not visible and doesn't close the application
 		this.frame.setVisible(false);
 	}
 	
