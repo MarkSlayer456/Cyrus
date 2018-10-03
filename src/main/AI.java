@@ -4,24 +4,46 @@ import java.awt.Color;
 import java.util.ArrayList;
 
 import main.managers.ChatManager;
+import main.managers.InputManager;
+import main.managers.UIManager;
 
 public class AI implements Runnable {
-	public static boolean thinking = true; // is Cyrus doing any computations at all
+	private boolean thinking; // is Cyrus doing any computations at all
 	private String name;
 	private boolean hasGreeted; // has Cyrus introduced himself
 	private Color color; // will implement later
 	private int argsRemaining; // how many args is Cyrus waiting for if 0 then no args needed
 	private String currentCommand; // used when dealing with arguments
 	private ArrayList<String> args;
+	private InputManager inputManager;
+	private UIManager uiManager;
+	private ChatManager chatManager;
 	
-	public AI(String n) { // Only create one AI
+	public AI(String n, InputManager input, UIManager ui, ChatManager chat) { // Only create one AI
 		this.name = n;
 		this.hasGreeted = false;
 		this.color = Color.CYAN;
 		this.argsRemaining = 0;
 		this.currentCommand = "";
 		this.args = new ArrayList<String>();
+		this.thinking = true;
+		this.inputManager = input;
+		this.uiManager = ui;
+		this.chatManager = chat;
 	}
+	
+	public ChatManager getChatManager() {
+		return this.chatManager;
+	}
+	
+	public UIManager getUIManager() {
+		return this.uiManager;
+	}
+	
+	public InputManager getInputManager() {
+		return this.inputManager;
+	}
+	
 	
 	public void setup() {
 		//TODO ask for name
@@ -47,7 +69,7 @@ public class AI implements Runnable {
 	
 	public void outputMessage(String str) { // output a message to Cyrus/console
 		//TODO finish this
-		ChatManager.seperateLines(str);
+		this.getChatManager().seperateLines(str);
 	}
 	
 	public void exitArgInterpreter() {
@@ -146,7 +168,7 @@ public class AI implements Runnable {
 	
 	@Override
 	public void run() { // Cyrus thought process
-		while(thinking) {
+		while(this.thinking) {
 			this.logic();
 		}
 	}

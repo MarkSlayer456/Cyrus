@@ -1,5 +1,6 @@
 package main.managers;
 
+import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -10,18 +11,35 @@ import main.Frame;
 
 public class InputManager implements KeyListener, MouseListener {
 
-	public static ArrayList<Integer> keysDown = new ArrayList<Integer>();
-	public static ArrayList<Character> currentCharacters = new ArrayList<Character>();
-	private String currentCommand = "";
+	private ArrayList<Integer> keysDown;
+	private ArrayList<Character> currentCharacters;
+	private String currentCommand;
 	
-	public static void clearCurrentChars() {
-		currentCharacters.clear();
+	public InputManager() { // creates inputmanager
+		this.keysDown = new ArrayList<Integer>();
+		this.currentCharacters = new ArrayList<Character>();
+		this.currentCommand = "";
 	}
 	
-	public static void doLogic() {
-		if(keysDown.contains(8)) { //TODO This is for testing can be removed later
-			System.out.println("8");
+	public void drawWhatUserIsCurrentlyTyping(Graphics g) { // Rename this
+		String temp = "";
+		for(int i = 0; i < this.currentCharacters.size(); i++) {
+			char z = this.currentCharacters.get(i);
+			temp += z;
+			g.drawString(temp, 40, 275);
 		}
+	}
+	
+	public ArrayList<Character> getCurrentChars() {
+		return this.currentCharacters;
+	}
+	
+	
+	public void clearCurrentChars() {
+		this.currentCharacters.clear();
+	}
+	
+	public void doLogic() {
 	}
 	
 	@Override
@@ -31,31 +49,40 @@ public class InputManager implements KeyListener, MouseListener {
 	
 	@Override
 	public void keyPressed(KeyEvent e) {
-		keysDown.add(e.getKeyCode());
-		currentCharacters.add(e.getKeyChar());
+		this.keysDown.add(e.getKeyCode());
 		int keyCode = e.getKeyCode();
 		if(keyCode != 8 && keyCode != 10 && keyCode != 9 && keyCode != 16) { // checks for tab(9), enter(10), backspace(8), shift(16)
-		currentCommand += (e.getKeyChar() + "");
+			this.currentCommand += (e.getKeyChar() + "");
+			this.currentCharacters.add(e.getKeyChar());
 		} else {
 			//TODO get what key was pressed and do what needs to be done
 			switch(keyCode) {
 			case 9:
-				currentCommand += ("    ");
+				this.currentCommand += ("    ");
 				break;
 			case 10:
-				Frame.cyrus.interpret(currentCommand);
-				clearCurrentChars();
-				System.out.println("You typed: " + currentCommand);
-				currentCommand = "";
+				Frame.cyrus.interpret(this.currentCommand);
+				this.clearCurrentChars();
+				System.out.println("You typed: " + this.currentCommand);
+				this.currentCommand = "";
 				break;
 			case 8:
 				//TODO
+				if(!(this.currentCharacters.isEmpty())) {
+					this.currentCharacters.remove(this.currentCharacters.size() - 1);
+					this.currentCommand = "";
+					for(int i = 0; i < this.currentCharacters.size(); i++) {
+						char a = this.currentCharacters.get(i);
+						this.currentCommand += a;
+					}
+				}
 				break;
 			case 16:
 				// Do nothing
 				break;
 				default:
 					System.out.println("Error, unknown key");
+					break;
 			}
 		}
 	}
@@ -63,9 +90,9 @@ public class InputManager implements KeyListener, MouseListener {
 	@Override
 	public void keyReleased(KeyEvent e) {
 		//TODO There has to be a better way to do this
-		for(int i = 0; i < keysDown.size(); i++) {
-			if(keysDown.get(i) == e.getKeyCode()) {
-				keysDown.remove(i);
+		for(int i = 0; i < this.keysDown.size(); i++) {
+			if(this.keysDown.get(i) == e.getKeyCode()) {
+				this.keysDown.remove(i);
 			}
 		}
 	}

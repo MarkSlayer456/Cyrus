@@ -12,12 +12,15 @@ import main.managers.UIManager;
 
 public class Frame implements Runnable {
 	
+	//TODO try to get rid of lots of the static methods
+	
 	// Removed a static from drawing as it's not needed
 	public boolean drawing = true; // Used if you ever want to stop drawing for some reason	
 	public static AI cyrus;
 	public static Frame mainFrame;
 	private Graphics g;
 	private BufferStrategy bs;
+	private String version;
 	
 	private Dimension size;
 	private JFrame frame;
@@ -27,6 +30,7 @@ public class Frame implements Runnable {
 		this.size = s;
 		this.g = null;
 		this.bs = null;
+		this.setVersion("Version: 1.0.0 Pre-Alpha");
 		JFrame f = new JFrame("Cyrus");
 		this.frame = f;
 		this.frame.setSize(size.width, size.height);
@@ -52,7 +56,7 @@ public class Frame implements Runnable {
 	
 	 public static void main(String[] args) { // Program begins
 		mainFrame = new Frame(new Dimension(800, 300)); //TODO get screen size but this will do for now
-		cyrus = new AI("Cyrus"); // Creating Cyrus
+		cyrus = new AI("Cyrus", new InputManager(), new UIManager(), new ChatManager(30, 10, 0, 25)); // Creating Cyrus
 		Thread cyrusT = new Thread(cyrus, "cyrus");
 		cyrusT.setPriority(9); // 10 is max priority
 		cyrusT.start();
@@ -62,8 +66,8 @@ public class Frame implements Runnable {
 	}
 	 
 	public void doLogic() {
-		ChatManager.doLogic();
-		InputManager.doLogic();
+		cyrus.getChatManager().doLogic();
+		cyrus.getInputManager().doLogic();
 	}
 	
 	public void draw() { // What to display from Cyrus thoughts
@@ -75,7 +79,7 @@ public class Frame implements Runnable {
 			//////////////////////////////////// 
 			// all drawing should be done between these /'s
 			cyrus.greet();
-			UIManager.drawUI(this.g);
+			cyrus.getUIManager().drawUI(this.g, cyrus);
 			////////////////////////////////////
 			this.g.dispose();
 			this.bs.show();
@@ -86,8 +90,8 @@ public class Frame implements Runnable {
 
 	
 	private void setup() {
-		mainFrame.frame.addKeyListener(new InputManager());
-		ChatManager.setup();
+		mainFrame.frame.addKeyListener(cyrus.getInputManager());
+		cyrus.getChatManager().setup();
 	}
 	
 	@Override
@@ -98,6 +102,14 @@ public class Frame implements Runnable {
 			doLogic();
 		}
 		
+	}
+
+	public String getVersion() {
+		return version;
+	}
+
+	public void setVersion(String version) {
+		this.version = version;
 	}
 	
 	
