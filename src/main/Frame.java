@@ -38,7 +38,7 @@ public class Frame implements Runnable {
 		this.frame.setUndecorated(false); //TODO change this to true
 		this.frame.setDefaultCloseOperation(this.frame.EXIT_ON_CLOSE);
 		this.frame.setVisible(true);
-		this.frame.setResizable(true);
+		this.frame.setResizable(false);
 	}
 	
 	public void close() { // Please note this method just makes the frame not visible and doesn't close the application
@@ -92,6 +92,7 @@ public class Frame implements Runnable {
 	private void setup() {
 		mainFrame.frame.addKeyListener(cyrus.getInputManager());
 		cyrus.getChatManager().setup();
+		Command.setup();
 	}
 	
 	@Override

@@ -6,6 +6,9 @@ import java.util.ArrayList;
 
 public class ChatManager {
 	
+	public static ArrayList<String> commands = new ArrayList<String>(); //TODO this will be a file later
+	
+	
 	private int numberOfCharsPerLine = 30; //TODO keep at 30 for testing
 	private int maxLines = 10; // the maximum number of lines shown at a time
 	private int currentLine = 0; // which line the user is currently on (will be displayed at the bottom of the console)
@@ -41,6 +44,7 @@ public class ChatManager {
 	 */
 	
 	//TODO remove the g parameter for this method
+	//TODO could've used .split(" "); here
 	public void seperateLines(String s) { //TODO BUG: lines can still start with spaces
 		int sl = s.length();
 		ArrayList<String> words = new ArrayList<String>();
@@ -109,7 +113,11 @@ public class ChatManager {
 		
 	}
 	
-	public void setup() { } //TODO
+	public void setup() { //TODO 
+		commands.add("hey");
+		commands.add("hello");
+		commands.add("hi");
+	}
 	
 	
 	public void draw(Graphics g, Color c) {

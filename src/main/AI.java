@@ -109,8 +109,83 @@ public class AI implements Runnable {
 			}
 		}
 	}
+	ArrayList<String> knownWords = new ArrayList<String>();
+	boolean added = false;
+	public boolean checkIfGibberish(String str) {
+		//TODO also loop through args
+		if(!added) {
+			knownWords.add("Hello".toLowerCase());
+			knownWords.add("Cyrus".toLowerCase());
+			knownWords.add("Hi".toLowerCase());
+			knownWords.add("Hey".toLowerCase());
+			knownWords.add("good".toLowerCase());
+			knownWords.add("morning".toLowerCase());
+			added = true;
+		}
+		if(knownWords.contains(str.toLowerCase())) {
+			return false;
+		}
+		return true;
+	}
 	
-	public void interpret(String cmd) { 
+	public void interpret(String cmd) {
+		// testing //
+		String output = "";
+		ArrayList<String> cmdArray = new ArrayList<String>();
+		for(String s : cmd.split(" ")) { // gets each word typed 
+			/*if(checkIfGibberish(s.toLowerCase())) {
+				outputMessage("Some of the words you typed are unknown to me... sorry!");
+				return;
+			}*/
+			cmdArray.add(s.toLowerCase());
+		}
+		//TODO update this for unlimited amount of arguments
+		if(cmdArray.size() == 1) {
+			switch(cmdArray.get(0).toLowerCase()) { // looking at the command name
+			case "hello":
+			case "hi":
+			case "hey":
+			case "hola":
+				output += "Hello!";
+				 //TODO just to void the stuff below for a minute
+				
+			}
+		} else if(cmdArray.size() == 2) {
+			switch(cmdArray.get(0)) {
+			case "hello":
+			case "hi":
+			case "hey":
+			case "hola":
+				output += "Hello!";
+				System.out.println(output);
+				break;
+			default:
+				output += "This is gibberish!";
+				return;
+			}
+			switch(cmdArray.get(1)) { // get second arg
+				case "hello":
+				case "hi":
+				case "hey":
+				case "hola":
+					output += " Hello!";
+					break;
+				default:
+					output += " This is gibberish!";
+					return;
+			}
+		}
+		outputMessage(output);
+		
+		if(output != null) {
+			return;
+		}
+		if(cmd.contains("is cyrus")) {
+			outputMessage("Wait.. I'm Cyrus why are you refering to me as Cyrus when you could say you?");
+			return;
+		}
+		
+		///////////////////////
 		//TODO make it split the command into different strings if there are spaces and then run the interpret args method
 		//TODO finish this
 		if(this.argsRemaining >= 1) {
@@ -129,6 +204,8 @@ public class AI implements Runnable {
 			exitArgInterpreter();
 		}
 		System.out.println("interpreting " + cmd);
+		
+		
 		switch(cmd.toLowerCase()) { // all commands go under this switch
 		case "createkeybind":
 			this.currentCommand = cmd; //TODO move to prompt if it makes sense later
