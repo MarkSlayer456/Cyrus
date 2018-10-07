@@ -109,9 +109,9 @@ public class AI implements Runnable {
 			}
 		}
 	}
-	ArrayList<String> knownWords = new ArrayList<String>();
-	boolean added = false;
-	public boolean checkIfGibberish(String str) {
+	//ArrayList<String> knownWords = new ArrayList<String>();
+	//boolean added = false;
+	/*public boolean checkIfGibberish(String str) {
 		//TODO also loop through args
 		if(!added) {
 			knownWords.add("Hello".toLowerCase());
@@ -126,9 +126,16 @@ public class AI implements Runnable {
 			return false;
 		}
 		return true;
-	}
+	}*/
 	
 	public void interpret(String cmd) {
+		if(Command.getCommand(cmd) != null) {
+		Command.getCommand(cmd).executeCommand(this);
+		} else {
+			outputMessage("I'm sorry I don't know what you are trying to say right now.");
+			return;
+		}
+		
 		// testing //
 		String output = "";
 		ArrayList<String> cmdArray = new ArrayList<String>();
@@ -140,42 +147,24 @@ public class AI implements Runnable {
 			cmdArray.add(s.toLowerCase());
 		}
 		//TODO update this for unlimited amount of arguments
-		if(cmdArray.size() == 1) {
-			switch(cmdArray.get(0).toLowerCase()) { // looking at the command name
+		for(int i = 0; i <= cmdArray.size() - 1; i++) {
+			switch(cmdArray.get(i).toLowerCase()) { 
 			case "hello":
 			case "hi":
 			case "hey":
 			case "hola":
-				output += "Hello!";
-				 //TODO just to void the stuff below for a minute
-				
-			}
-		} else if(cmdArray.size() == 2) {
-			switch(cmdArray.get(0)) {
-			case "hello":
-			case "hi":
-			case "hey":
-			case "hola":
-				output += "Hello!";
-				System.out.println(output);
+				//outputMessage("Hello!");
+				break;
+			case " ":
+				break;
+			case "":
 				break;
 			default:
-				output += "This is gibberish!";
-				return;
-			}
-			switch(cmdArray.get(1)) { // get second arg
-				case "hello":
-				case "hi":
-				case "hey":
-				case "hola":
-					output += " Hello!";
-					break;
-				default:
-					output += " This is gibberish!";
-					return;
+				//outputMessage("This is gibberish!");
+				break;
+				
 			}
 		}
-		outputMessage(output);
 		
 		if(output != null) {
 			return;
