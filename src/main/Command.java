@@ -28,8 +28,10 @@ public class Command {
 		Command cmd = null;
 		for(String s : str.split(" ")) { //TODO update this method
 			if(cmd == null) {
+				if(commands.get(s) != null) {
 				cmd = commands.get(s);
 				cmd.args.clear();
+				}
 			} else {
 				cmd.args.add(s);
 			}
