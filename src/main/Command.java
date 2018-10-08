@@ -13,19 +13,16 @@ public class Command {
 	private String command;
 	private ArrayList<String> args = new ArrayList<String>();
 	private int amountOfArgs; // how many arguments the command needs. 0 being just the command -1 being unlimited
-	private boolean entered; // was the command entered
 	//TODO might be able to remove this
 	/* The boolean tells if the argument was satisfied
 	 * 
 	 */
-	
+	//TODO make the command have a help string that tells you how to use the command
 	public Command(String cmd, int aoa) { // Creates a command
 		this.command = cmd;
 		this.amountOfArgs = aoa;
-		this.entered = false;
 		commands.put(this.command, this);
 	}
-	
 	public static Command getCommand(String str) { // not needed
 		System.out.println(str + " is being converted to a command");
 		Command cmd = null;
@@ -35,10 +32,6 @@ public class Command {
 				cmd.args.clear();
 			} else {
 				cmd.args.add(s);
-			}
-			if(cmd == null) {
-				Frame.cyrus.outputMessage("error unknown command");
-				return null; //TODO output message
 			}
 		}
 		return cmd; //TODO make a output message saying unknown command
@@ -50,80 +43,87 @@ public class Command {
 	
 	public void executeCommand(AI ai) {
 		int argSize = this.args.size(); // 0 being the first arg
-		if(this.command == "hey" || this.command == "hi" || this.command == "hello" || this.command == "hola") {
+		if(!(argSize >= this.amountOfArgs)) { // not enough args were entered
+			//TODO loop through all commands
+			switch(this.command) { // output what args you need
+			case "createkeybind":
+				ai.outputMessage("Use the command like this: ");
+				ai.outputMessage("    --/>createkeybind <any single key> <operation>");
+				break;
+			case "good":
+				ai.outputMessage("Use the command like this: ");
+				ai.outputMessage("    --/>createkeybind <time of day>");
+				break;
+			default:
+				ai.outputMessage("This command is unknown are you sure your spelling is correct?");
+			}
+			
+			
+		}
+		
+		switch(this.command) {
+		case "hi":
+		case "hey":
+		case "hello":
+		case "hola":
 			ai.outputMessage("Hello!");
-		} else if(this.command == "createkeybind") {
-			this.entered = true;
+			break;
+		case "goodmorning":
+		case "goodevening":
+		case "goodafternoon":
+			ai.outputMessage("There is a space after good silly.");
+			break;
+		case "goodnight": // this is allowed to be one word
+			ai.outputMessage("Goodnight!");
+			break;
+		case "createkeybind":
+			//TODO
+		case "good":
+			//TODO
 		}
 		for(int i = 0; i < argSize; i++) {
 			String compare = this.args.get(i).toLowerCase();
 					
-				if(i > this.amountOfArgs || !this.entered) { // make sure the args are needed and not just random
+				if(i > this.amountOfArgs) { // make sure the args are needed and not just random
 					ai.outputMessage("This command doesn't support that many args, however the command was still executed!");
 					return;
 				} else { // the args
 					// createkeybind args //
-					System.out.println("i = " + i + "  |  compare = " + compare + "  |  command = " + this.command);		
-					if(this.command == "createkeybind") {
+					if(this.command.equalsIgnoreCase("createkeybind")) { // this can't be a switch because using a break will break the for loop
 						if(i == 0) {
+							ai.outputMessage("This is a test message you typed 1");
 							// TODO add code
 						} else if(i == 1) {
-							if(compare == "close") {
+							if(compare.equalsIgnoreCase("close")) {
 								ai.outputMessage("Closing the frame...");
-								//Frame.mainFrame.close(); // this is for testing don't use this command from the desktop
+								Frame.mainFrame.close(); // this is for testing don't use this command from the desktop
+							}
+						}
+						// good args //
+					} else if(this.command.equalsIgnoreCase("good")) { //TODO maybe later make it so Cyrus can tell time and tell them based off time
+						if(i == 0) {
+							if(compare.equalsIgnoreCase("morning")) {
+								ai.outputMessage("Good morning!");
+							} else if(compare.equalsIgnoreCase("evening")) {
+								ai.outputMessage("Good evening!");
+							} else if(compare.equalsIgnoreCase("night")) {
+								ai.outputMessage("Good night!");
+							} else if(compare.equalsIgnoreCase("afternoon")) {
+								ai.outputMessage("Good afternoon!");
 							}
 						}
 					}
 				}
-				//TODO you have to use if else because break; breaks the for loop
-				/*switch(this.args.get(i).toLowerCase()) { // the command
-				case "hey":
-				case "hi":
-				case "hello":
-				case "hola":
-					System.out.println("Hello!");
-					//TODO add output
-					return; // these commands have no arguments
-				case "createkeybind":
-					System.out.println("createkeybind!");
-					break;
-				default:
-					return; // stop the method as the command is unknown
-				}
-				this.entered = true;
-			} else { // looking at arguments
-				System.out.println("yep");
-				if(i > this.amountOfArgs) {
-					System.out.println("I do not understand!");
-				} else {
-					if(this.entered) { // if the command was entered
-						switch(this.args.get(i).toLowerCase()) {
-						case "1":
-							System.out.println("your pressed 1");
-							break;
-						case "close":
-							if(i == 2) {
-							System.out.println("1 set to the close operation");
-							} else {
-								System.out.println("error");
-							}
-							break;
-						default:
-							System.out.println("error");
-						}
-					} else {
-						System.out.println("what?");
-					}
-				}
-			}*/
-			
-			
-			
 		}
 	}
 	
 	public static void setup() { 
-		new Command("createkeybind", 2);
+		new Command("createkeybind", 2); //TODO warning do not use this command
+		new Command("good", 1); // good morning/evening/night
+		new Command("goodmorning", 0); // give them an error saying good morning is not one word
+		new Command("goodafternoon", 0);
+		new Command("goodevening", 0);
+		new Command("goodnight", 0);
 		new Command("hi", 0);
 		new Command("hey", 0);
 		new Command("hello", 0);
