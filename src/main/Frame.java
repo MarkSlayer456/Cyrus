@@ -30,7 +30,7 @@ public class Frame implements Runnable {
 		this.size = s;
 		this.g = null;
 		this.bs = null;
-		this.setVersion("Version: 1.0.0 Pre-Alpha");
+		this.setVersion("Version: 1.1.0 Pre-Alpha");
 		JFrame f = new JFrame("Cyrus");
 		this.frame = f;
 		this.frame.setSize(size.width, size.height);

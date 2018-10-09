@@ -85,7 +85,6 @@ public class Command {
 		}
 		for(int i = 0; i < argSize; i++) {
 			String compare = this.args.get(i).toLowerCase();
-					
 				if(i > this.amountOfArgs) { // make sure the args are needed and not just random
 					ai.outputMessage("This command doesn't support that many args, however the command was still executed!");
 					return;
@@ -122,9 +121,11 @@ public class Command {
 	public static void setup() { 
 		new Command("createkeybind", 2); //TODO warning do not use this command
 		new Command("good", 1); // good morning/evening/night
+		// Error Commands // TODO maybe make a class called ErrorCommands
 		new Command("goodmorning", 0); // give them an error saying good morning is not one word
 		new Command("goodafternoon", 0);
 		new Command("goodevening", 0);
+		// Error Commands //
 		new Command("goodnight", 0);
 		new Command("hi", 0);
 		new Command("hey", 0);
