@@ -5,25 +5,28 @@ import java.util.HashMap;
 
 public class Command {
 	
-	//TODO redo this whole class
-	
 	//this could be attached to cyrus if you don't want it to be static but just testing for right now
 	public static HashMap<String, Command> commands = new HashMap<String, Command>();
+	//TODO make a array list of strings so you can make alias 
+	//TODO make the command have a help string that tells you how to use the command
+	private HashMap<ArrayList<String>, ArrayList<String>> argResponse = new HashMap<ArrayList<String>, ArrayList<String>>();
+	//TODO finish this later
+	/*for each argument there can be aliases and each argument has 
+	* a string answer but I will want multiple answers
+	* for each arg later so you can have a array of possible answers
+	*/
 	
 	private String command;
 	private ArrayList<String> args = new ArrayList<String>();
 	private int amountOfArgs; // how many arguments the command needs. 0 being just the command -1 being unlimited
 	//TODO might be able to remove this
-	/* The boolean tells if the argument was satisfied
-	 * 
-	 */
-	//TODO make the command have a help string that tells you how to use the command
+	
 	public Command(String cmd, int aoa) { // Creates a command
 		this.command = cmd;
 		this.amountOfArgs = aoa;
 		commands.put(this.command, this);
 	}
-	public static Command getCommand(String str) { // not needed
+	public static Command getCommand(String str) {
 		System.out.println(str + " is being converted to a command");
 		Command cmd = null;
 		for(String s : str.split(" ")) { //TODO update this method
@@ -59,8 +62,6 @@ public class Command {
 			default:
 				ai.outputMessage("This command is unknown are you sure your spelling is correct?");
 			}
-			
-			
 		}
 		
 		switch(this.command) {
@@ -82,10 +83,17 @@ public class Command {
 			//TODO
 		case "good":
 			//TODO
+		case "what's":
+		case "what":
+			if(this.args.contains(" ") || this.args.isEmpty()) {
+				ai.outputMessage("What would you like to know?");
+			}
+			break;
+			//TODO 
 		}
 		for(int i = 0; i < argSize; i++) {
 			String compare = this.args.get(i).toLowerCase();
-				if(i > this.amountOfArgs) { // make sure the args are needed and not just random
+				if(i > this.amountOfArgs && this.amountOfArgs != -1) { // make sure the args are needed and not just random
 					ai.outputMessage("This command doesn't support that many args, however the command was still executed!");
 					return;
 				} else { // the args
@@ -113,6 +121,23 @@ public class Command {
 								ai.outputMessage("Good afternoon!");
 							}
 						}
+					} else if(this.command.equalsIgnoreCase("what") || this.command.equalsIgnoreCase("what's")) { //TODO finish this 
+						if(this.args.contains("weather")) {
+							ai.outputMessage("<insert the weather here>");
+						} else if(this.args.contains("favorite") && this.args.contains("color")) {
+							ai.outputMessage("My favorite color is blue!");
+						} else if(this.args.contains("favorite") && this.args.contains("game")) {
+							ai.outputMessage("I hate all games they just seem to be too easy to me!");
+						} else if(this.args.contains("time")) {
+							ai.outputMessage("<insert system time here>");
+						} else if(this.args.contains("you") && this.args.contains("doing")) {
+							ai.outputMessage("I'm helping you of course!");
+						} else if(this.args.contains("happening") || this.args.contains("up")) {
+							ai.outputMessage("<insert the news>");
+						}
+						return; // otherwise the loop will print the message multiple times
+						
+						
 					}
 				}
 		}
@@ -131,6 +156,8 @@ public class Command {
 		new Command("hey", 0);
 		new Command("hello", 0);
 		new Command("hola", 0);
+		new Command("what", -1);
+		new Command("what's", -1);
 	}
 
 }

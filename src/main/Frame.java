@@ -65,10 +65,7 @@ public class Frame implements Runnable {
 		mainFrameT.start();
 	}
 	 
-	public void doLogic() {
-		cyrus.getChatManager().doLogic();
-		cyrus.getInputManager().doLogic();
-	}
+	public void doLogic() { } // probably will need this later
 	
 	public void draw() { // What to display from Cyrus thoughts
 		try {
@@ -91,7 +88,6 @@ public class Frame implements Runnable {
 	
 	private void setup() {
 		mainFrame.frame.addKeyListener(cyrus.getInputManager());
-		cyrus.getChatManager().setup();
 		Command.setup();
 	}
 	

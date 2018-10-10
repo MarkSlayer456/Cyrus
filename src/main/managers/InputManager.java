@@ -39,9 +39,6 @@ public class InputManager implements KeyListener, MouseListener {
 		this.currentCharacters.clear();
 	}
 	
-	public void doLogic() {
-	}
-	
 	@Override
 	public void keyTyped(KeyEvent e) {
 	}

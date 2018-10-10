@@ -6,9 +6,6 @@ import java.util.ArrayList;
 
 public class ChatManager {
 	
-	public static ArrayList<String> commands = new ArrayList<String>(); //TODO this will be a file later
-	
-	
 	private int numberOfCharsPerLine = 30; //TODO keep at 30 for testing
 	private int maxLines = 10; // the maximum number of lines shown at a time
 	private int currentLine = 0; // which line the user is currently on (will be displayed at the bottom of the console)
@@ -104,22 +101,6 @@ public class ChatManager {
 			this.allConsoleLines.add(str); //TODO might not need this
 		}
 	}
-	
-	public void doLogic() {
-		/*if(consoleLines.size() >= 10) {
-			consoleLines.remove(0); // will remove the last line
-		}*/
-		//TODO this method might not be useful
-		
-	}
-	
-	public void setup() { //TODO 
-		commands.add("hey");
-		commands.add("hello");
-		commands.add("hi");
-	}
-	
-	
 	public void draw(Graphics g, Color c) {
 		g.setColor(c);
 		int iterator = 0;
