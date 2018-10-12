@@ -60,11 +60,12 @@ public class FileManager {
 		 */
 			ArrayList<String> str = readFullFile(file);
 			if(parent != "" && parent != null) { // they entered a parent string
-				if(str.contains(parent)) { // parent string is in the file
+				if(str.contains(parent) && str.size() >= lineNumb) { // parent string is in the file
 					int index = str.indexOf(parent); // get where the parent string is
-					return str.get(++index); // return the string below
+					lineNumb++; // this is because I want to use 0 for the first item under the parent but adding 0 will do nothing
+					return str.get(index + lineNumb); // return the string below
 				} else { // the parent string is not in the file return nothing this shouldn't happen
-					return "";
+					return "Error: readFileLine lineNumb was too big!";
 				}
 			}
 		return "";
@@ -122,7 +123,7 @@ public class FileManager {
 			writeToFile(file, "  - hey", -1);
 			writeToFile(file, "  - hello", -1);
 			writeToFile(file, "  - hola", -1);
-			String test = readFileLine(file, 3, "greetings:"); // the int isn't changing the value of the string
+			String test = readFileLine(file, 1, "greetings:");
 			test = test.replace(" ", "");
 			test = test.replace("-", "");
 			System.out.println(test); //TODO this is a test it works!
