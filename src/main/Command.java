@@ -9,8 +9,10 @@ public class Command {
 	public static HashMap<String, Command> commands = new HashMap<String, Command>();
 	//TODO make a array list of strings so you can make alias 
 	//TODO make the command have a help string that tells you how to use the command
-	private HashMap<ArrayList<String>, ArrayList<String>> argResponse = new HashMap<ArrayList<String>, ArrayList<String>>();
+	//private HashMap<ArrayList<String>, ArrayList<String>> argResponse = new HashMap<ArrayList<String>, ArrayList<String>>();
 	//TODO finish this later
+	private ArrayList<String> alias = new ArrayList<String>();
+	
 	/*for each argument there can be aliases and each argument has 
 	* a string answer but I will want multiple answers
 	* for each arg later so you can have a array of possible answers
@@ -18,12 +20,14 @@ public class Command {
 	
 	private String command;
 	private ArrayList<String> args = new ArrayList<String>();
+	private ArrayList<String> helpString = new ArrayList<String>();
 	private int amountOfArgs; // how many arguments the command needs. 0 being just the command -1 being unlimited
 	//TODO might be able to remove this
 	
-	public Command(String cmd, int aoa) { // Creates a command
+	public Command(String cmd, int aoa, ArrayList<String> help) { // Creates a command
 		this.command = cmd;
 		this.amountOfArgs = aoa;
+		this.helpString = help;
 		commands.put(this.command, this);
 	}
 	public static Command getCommand(String str) {
@@ -49,19 +53,10 @@ public class Command {
 	public void executeCommand(AI ai) {
 		int argSize = this.args.size(); // 0 being the first arg
 		if(!(argSize >= this.amountOfArgs)) { // not enough args were entered
-			//TODO loop through all commands
-			switch(this.command) { // output what args you need
-			case "createkeybind":
+				ai.outputMessage(this.command);
 				ai.outputMessage("Use the command like this: ");
-				ai.outputMessage("    --/>createkeybind <any single key> <operation>");
-				break;
-			case "good":
-				ai.outputMessage("Use the command like this: ");
-				ai.outputMessage("    --/>createkeybind <time of day>");
-				break;
-			default:
-				ai.outputMessage("This command is unknown are you sure your spelling is correct?");
-			}
+				ai.outputMessage(this.helpString.get(0));
+			return;
 		}
 		
 		switch(this.command) {
@@ -75,6 +70,7 @@ public class Command {
 		case "goodevening":
 		case "goodafternoon":
 			ai.outputMessage("There is a space after good silly.");
+			ai.outputMessage(this.helpString.get(0));
 			break;
 		case "goodnight": // this is allowed to be one word
 			ai.outputMessage("Goodnight!");
@@ -142,22 +138,39 @@ public class Command {
 				}
 		}
 	}
-	
 	public static void setup() { 
-		new Command("createkeybind", 2); //TODO warning do not use this command
-		new Command("good", 1); // good morning/evening/night
+		ArrayList<String> a = new ArrayList<String>(); // This will be changed later
+		a.add("createkeybind <key> <operation>");
+		new Command("createkeybind", 2, a); //TODO warning do not use this command
+		ArrayList<String> a1 = new ArrayList<String>();
+		a1.add("good <time of day>");
+		new Command("good", 1, a1); // good morning/evening/night
 		// Error Commands // TODO maybe make a class called ErrorCommands
-		new Command("goodmorning", 0); // give them an error saying good morning is not one word
-		new Command("goodafternoon", 0);
-		new Command("goodevening", 0);
+		// since these are error commands there isn't a way you're suppose to enter them
+		ArrayList<String> a2 = new ArrayList<String>();
+		ArrayList<String> a3 = new ArrayList<String>();
+		ArrayList<String> a4 = new ArrayList<String>();
+		new Command("goodmorning", 0, a2); // give them an error saying good morning is not one word
+		new Command("goodafternoon", 0, a3);
+		new Command("goodevening", 0, a4);
 		// Error Commands //
-		new Command("goodnight", 0);
-		new Command("hi", 0);
-		new Command("hey", 0);
-		new Command("hello", 0);
-		new Command("hola", 0);
-		new Command("what", -1);
-		new Command("what's", -1);
+		ArrayList<String> a5 = new ArrayList<String>();
+		a5.add("goodnight");
+		new Command("goodnight", 0, a5);
+		ArrayList<String> a6 = new ArrayList<String>();
+		a6.add("hey");
+		a6.add("hi");
+		a6.add("hello");
+		a6.add("hola");
+		new Command("hi", 0, a6);
+		new Command("hey", 0, a6);
+		new Command("hello", 0, a6);
+		new Command("hola", 0, a6);
+		ArrayList<String> a7 = new ArrayList<String>();
+		a7.add("what <question>");
+		new Command("what", -1, a7);
+		a7.add("what's <question>");
+		new Command("what's", -1, a7); // this won't exist later
 	}
 
 }

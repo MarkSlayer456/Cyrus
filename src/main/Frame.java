@@ -6,6 +6,7 @@ import java.awt.Toolkit;
 import java.awt.image.BufferStrategy;
 import javax.swing.JFrame;
 import main.managers.ChatManager;
+import main.managers.FileManager;
 import main.managers.InputManager;
 import main.managers.UIManager;
 
@@ -56,7 +57,7 @@ public class Frame implements Runnable {
 	
 	 public static void main(String[] args) { // Program begins
 		mainFrame = new Frame(new Dimension(800, 300)); //TODO get screen size but this will do for now
-		cyrus = new AI("Cyrus", new InputManager(), new UIManager(), new ChatManager(30, 10, 0, 25)); // Creating Cyrus
+		cyrus = new AI("Cyrus", new InputManager(), new UIManager(), new ChatManager(30, 10, 0, 25), new FileManager()); // Creating Cyrus
 		Thread cyrusT = new Thread(cyrus, "cyrus");
 		cyrusT.setPriority(9); // 10 is max priority
 		cyrusT.start();
@@ -89,6 +90,7 @@ public class Frame implements Runnable {
 	private void setup() {
 		mainFrame.frame.addKeyListener(cyrus.getInputManager());
 		Command.setup();
+		cyrus.getFileManager().setup();
 	}
 	
 	@Override

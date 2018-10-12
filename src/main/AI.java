@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.util.ArrayList;
 
 import main.managers.ChatManager;
+import main.managers.FileManager;
 import main.managers.InputManager;
 import main.managers.UIManager;
 
@@ -16,8 +17,9 @@ public class AI implements Runnable {
 	private InputManager inputManager;
 	private UIManager uiManager;
 	private ChatManager chatManager;
+	private FileManager fileManager;
 	
-	public AI(String n, InputManager input, UIManager ui, ChatManager chat) { // Only create one AI
+	public AI(String n, InputManager input, UIManager ui, ChatManager chat, FileManager file) { // Only create one AI
 		this.name = n;
 		this.hasGreeted = false;
 		this.color = Color.CYAN;
@@ -26,6 +28,11 @@ public class AI implements Runnable {
 		this.inputManager = input;
 		this.uiManager = ui;
 		this.chatManager = chat;
+		this.fileManager = file;
+	}
+	
+	public FileManager getFileManager() {
+		return this.fileManager;
 	}
 	
 	public ChatManager getChatManager() {
