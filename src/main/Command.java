@@ -1,7 +1,10 @@
 package main;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import main.managers.FileManager;
 
 public class Command {
 	
@@ -16,6 +19,8 @@ public class Command {
 	* for each arg later so you can have a array of possible answers
 	*/
 	
+	// Not sure how to deal with needing the AI information on all these methods yet will find a work around
+		// maybe make this a commandManager and make AI have a commandManager
 	private String command;
 	private ArrayList<String> args = new ArrayList<String>(); // might be able to remove this but could be used to loop through all valid arguments later
 	private ArrayList<String> helpString = new ArrayList<String>();
@@ -34,7 +39,6 @@ public class Command {
 		}
 	}
 	public static Command getCommand(String str) {
-		System.out.println(str + " is being converted to a command");
 		Command cmd = null;
 		for(String s : str.split(" ")) { //TODO update this method
 			if(cmd == null) {
@@ -63,7 +67,6 @@ public class Command {
 				ai.outputMessage(this.helpString.get(0));
 			return;
 		}
-		
 		switch(this.command) {
 		case "hi":
 			ai.outputMessage("Hello!");
@@ -138,39 +141,32 @@ public class Command {
 				}
 		}
 	}
-	public static void setup() { 
-		ArrayList<String> a = new ArrayList<String>(); // This will be changed later
-		a.add("createkeybind <key> <operation>");
-		new Command("createkeybind", 2, a, null); //TODO warning do not use this command
-		ArrayList<String> a1 = new ArrayList<String>();
-		a1.add("good <time of day>");
-		new Command("good", 1, a1, null); // good morning/evening/night
-		// Error Commands // TODO maybe make a class called ErrorCommands
-		// since these are error commands there isn't a way you're suppose to enter them
-		ArrayList<String> a2 = new ArrayList<String>();
-		a2.add("There is a space after good silly!");
-		new Command("goodmorning", 0, a2, null); // give them an error saying good morning is not one word
-		new Command("goodafternoon", 0, a2, null);
-		new Command("goodevening", 0, a2, null);
-		// Error Commands //
-		ArrayList<String> a5 = new ArrayList<String>();
-		a5.add("goodnight");
-		new Command("goodnight", 0, a5, null);
-		ArrayList<String> a6 = new ArrayList<String>();
-		ArrayList<String> b = new ArrayList<String>();
-		a6.add("hey");
-		a6.add("hi");
-		a6.add("hello");
-		a6.add("hola");
-		b.add("hey");
-		b.add("hello");
-		b.add("hola");
-		new Command("hi", 0, a6, b);
-		ArrayList<String> a7 = new ArrayList<String>();
-		a7.add("what <question>");
-		ArrayList<String> b1 = new ArrayList<String>();
-		b1.add("what's");
-		new Command("what", -1, a7, b1);
+	public static void setup(AI ai) { 
+		FileManager fileMan = ai.getFileManager();
+		// need to get a file here
+		File file = new File("commands.cy");
+		for(int k = 0; k < fileMan.readFullFile(file).size(); k++) {
+			String command = fileMan.readFileLine(file, k);
+			if(command.startsWith("- ")) { // make sure it's the command
+				String helpStr = fileMan.readFileLine(file, k + 1); // reads the next line which is the help string
+				helpStr = helpStr.replaceFirst("  - ", "");
+				String numberOfArgs = fileMan.readFileLine(file, k + 2); // reads the next line which is the help string
+				ArrayList<String> helpStrArray = new ArrayList<String>();
+				helpStrArray.add(helpStr);
+				numberOfArgs = numberOfArgs.replaceAll(" ", "");
+				numberOfArgs = numberOfArgs.replaceAll("-", "");
+				String copyCommands = fileMan.readFileLine(file, k + 3); // aliases
+				copyCommands = copyCommands.replaceAll(" ", "");
+				copyCommands = copyCommands.replaceAll("-", "");
+				ArrayList<String> copyCommandArray = new ArrayList<String>();
+				String[] copyCommandStrings = copyCommands.split(",");
+				for(String str : copyCommandStrings ) {
+					copyCommandArray.add(str);
+				}
+				command = command.replaceAll("-", "");
+				command = command.replaceAll(" ", "");
+				new Command(command, Integer.parseInt(numberOfArgs), helpStrArray, copyCommandArray);
+			}
+		}
 	}
-
 }

@@ -1,5 +1,12 @@
-greetings:
-  - hi
-  - hey
-  - hello
-  - hola
+- hi
+  - <hi/hey/hello/hola>
+    - 0
+      - hey, hello, hola
+- createkeybind
+  - <createkeybind> <key> <operation>
+    - 2
+      -
+- what
+  - <what/what's> <question>
+    - 1
+      - what's

@@ -89,7 +89,7 @@ public class Frame implements Runnable {
 	
 	private void setup() {
 		mainFrame.frame.addKeyListener(cyrus.getInputManager());
-		Command.setup();
+		Command.setup(cyrus);
 		cyrus.getFileManager().setup();
 	}
 	
