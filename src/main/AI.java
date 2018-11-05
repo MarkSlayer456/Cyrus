@@ -7,6 +7,7 @@ import main.managers.ChatManager;
 import main.managers.FileManager;
 import main.managers.InputManager;
 import main.managers.UIManager;
+import main.utilities.Calculator;
 
 public class AI implements Runnable {
 	private boolean thinking; // is Cyrus doing any computations at all
@@ -18,8 +19,9 @@ public class AI implements Runnable {
 	private UIManager uiManager;
 	private ChatManager chatManager;
 	private FileManager fileManager;
+	private Calculator calc;
 	
-	public AI(String n, InputManager input, UIManager ui, ChatManager chat, FileManager file) { // Only create one AI
+	public AI(String n, InputManager input, UIManager ui, ChatManager chat, FileManager file, Calculator c) { // Only create one AI
 		this.name = n;
 		this.hasGreeted = false;
 		this.color = Color.CYAN;
@@ -29,6 +31,7 @@ public class AI implements Runnable {
 		this.uiManager = ui;
 		this.chatManager = chat;
 		this.fileManager = file;
+		this.calc = c;
 	}
 	
 	public FileManager getFileManager() {

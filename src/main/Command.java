@@ -26,6 +26,8 @@ public class Command {
 	private ArrayList<String> helpString = new ArrayList<String>();
 	private int amountOfArgs; // how many arguments the command needs. 0 being just the command -1 being unlimited
 	
+	static String prefixHelpString = "Use the command like this";
+	
 	public Command(String cmd, int aoa, ArrayList<String> help, ArrayList<String> a) { // Creates a command
 		this.command = cmd;
 		this.amountOfArgs = aoa;
@@ -60,8 +62,76 @@ public class Command {
 		return this.args;
 	}
 	
+	public void outputHelpMessage(AI ai) {
+		ai.outputMessage(prefixHelpString);
+		ai.outputMessage(this.helpString.get(0)); //TODO for now just always get 0
+	}
+	
 	public void executeCommand(AI ai) {
-		int argSize = this.args.size(); // 0 being the first arg
+		int argSize1 = this.args.size(); // 0 being the first arg
+		if(!(argSize1 >= this.amountOfArgs)) {
+			outputHelpMessage(ai);
+		}
+		switch(this.command) {
+		
+		case "hi":
+			ai.outputMessage("Hello!");
+			break;
+			
+		case "createkeybind": // needs to args
+			if(argSize1 == 2) {
+				//TODO do something..
+			} else {
+				outputHelpMessage(ai);
+			}
+			break;
+			
+		case "what":
+			if(argSize1 >= 1) {
+				if(this.args.contains("weather")) {
+					ai.outputMessage("<insert the weather here>");
+				} else if(this.args.contains("favorite") && this.args.contains("color")) {
+					ai.outputMessage("My favorite color is blue!");
+				} else if(this.args.contains("favorite") && this.args.contains("game")) {
+					ai.outputMessage("I hate all games they just seem to be too easy to me!");
+				} else if(this.args.contains("time")) {
+					ai.outputMessage("<insert system time here>");
+				} else if(this.args.contains("you") && this.args.contains("doing")) {
+					ai.outputMessage("I'm helping you of course!");
+				} else if(this.args.contains("happening") || this.args.contains("up")) {
+					ai.outputMessage("<insert the news>");
+				}
+			} else {
+				outputHelpMessage(ai);
+			}
+			break;
+			
+		case "how":
+			if(argSize1 >= 1) {
+				if(this.args.contains("weather")) { //TODO add more here
+					ai.outputMessage("<insert the weather here>");
+				}
+			} else {
+				outputHelpMessage(ai);
+			}
+			break;
+			
+		case "math":
+			//TODO launch math mode / calculator
+			if(!Frame.calc.isRunning()) {
+				Frame.cyrusCalc.start();
+			} else {
+				if(Frame.calcFrame.getFrame().isVisible()) {
+					ai.outputMessage("There is already a calculator open!");
+				} else {
+					Frame.calcFrame.getFrame().setVisible(true);
+				}
+			}
+			break;
+		}
+		
+		
+		/*int argSize = this.args.size(); // 0 being the first arg
 		if(!(argSize >= this.amountOfArgs)) { // not enough args were entered
 				ai.outputMessage("Use the " + this.command + " command like this: ");
 				ai.outputMessage(this.helpString.get(0));
@@ -139,7 +209,7 @@ public class Command {
 						
 					}
 				}
-		}
+		}*/
 	}
 	public static void setup(AI ai) { 
 		FileManager fileMan = ai.getFileManager();

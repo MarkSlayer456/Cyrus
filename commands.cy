@@ -10,3 +10,11 @@
   - <what/what's> <question>
     - 1
       - what's
+- how
+  - <how/how's/how'd> <question>
+    - 1
+      - how's, how'd
+- math
+  - <math>
+    - 0
+     - 
