@@ -9,7 +9,7 @@
 - what
   - <what/what's> <question>
     - 1
-      - what's
+      - what's, whats
 - how
   - <how/how's/how'd> <question>
     - 1
@@ -18,3 +18,7 @@
   - <math>
     - 0
      - 
+- open
+  - <open> <program file location>
+    - 1
+      - launch, start

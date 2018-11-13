@@ -1,5 +1,6 @@
 package main;
 
+import java.awt.Toolkit;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -42,7 +43,15 @@ public class Command {
 	}
 	public static Command getCommand(String str) {
 		Command cmd = null;
-		for(String s : str.split(" ")) { //TODO update this method
+		//TODO update this method
+		
+		// if it contains any non char value ignore it
+		if(str.contains("?")) str = str.replace("?", " ");
+		if(str.contains(".")) str = str.replace(".", " ");
+		if(str.contains("!")) str = str.replace("!", " ");
+		if(str.contains(",")) str = str.replace(",", " ");
+			
+		for(String s : str.split(" ")) { 
 			if(cmd == null) {
 				if(commands.get(s) != null) {
 				cmd = commands.get(s);
@@ -68,10 +77,7 @@ public class Command {
 	}
 	
 	public void executeCommand(AI ai) {
-		int argSize1 = this.args.size(); // 0 being the first arg
-		if(!(argSize1 >= this.amountOfArgs)) {
-			outputHelpMessage(ai);
-		}
+		int argSize = this.args.size(); // 0 being the first arg
 		switch(this.command) {
 		
 		case "hi":
@@ -79,7 +85,7 @@ public class Command {
 			break;
 			
 		case "createkeybind": // needs to args
-			if(argSize1 == 2) {
+			if(argSize == 2) {
 				//TODO do something..
 			} else {
 				outputHelpMessage(ai);
@@ -87,7 +93,7 @@ public class Command {
 			break;
 			
 		case "what":
-			if(argSize1 >= 1) {
+			if(argSize >= 1) {
 				if(this.args.contains("weather")) {
 					ai.outputMessage("<insert the weather here>");
 				} else if(this.args.contains("favorite") && this.args.contains("color")) {
@@ -107,7 +113,7 @@ public class Command {
 			break;
 			
 		case "how":
-			if(argSize1 >= 1) {
+			if(argSize >= 1) {
 				if(this.args.contains("weather")) { //TODO add more here
 					ai.outputMessage("<insert the weather here>");
 				}
@@ -117,7 +123,7 @@ public class Command {
 			break;
 			
 		case "math":
-			//TODO launch math mode / calculator
+			//TODO launch math mode / calculator without static reference
 			if(!Frame.calc.isRunning()) {
 				Frame.cyrusCalc.start();
 			} else {
@@ -126,6 +132,21 @@ public class Command {
 				} else {
 					Frame.calcFrame.getFrame().setVisible(true);
 				}
+			}
+			break;
+			
+		case "open":
+			//TODO this command causes issues use at own risk
+			if(argSize > 1) {
+				for(int i = 0; i < argSize; i++) {
+					this.args.set(1, this.args.get(1) + this.args.get(i));
+				}
+			}
+			try {
+				String fileLoc = this.args.get(1);
+				new ProcessBuilder(fileLoc).start();
+			} catch (Exception e) {
+				ai.outputMessage("This program can not be found; are you sure you're looking in the right place!");
 			}
 			break;
 		}
