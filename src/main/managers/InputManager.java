@@ -52,7 +52,6 @@ public class InputManager implements KeyListener, MouseListener {
 			this.currentCommand += (e.getKeyChar() + "");
 			this.currentCharacters.add(e.getKeyChar());
 		} else {
-			//TODO get what key was pressed and do what needs to be done
 			switch(keyCode) {
 			case 9:
 				this.currentCommand += ("    ");
@@ -60,11 +59,10 @@ public class InputManager implements KeyListener, MouseListener {
 			case 10:
 				Frame.cyrus.interpret(this.currentCommand);
 				this.clearCurrentChars();
-				System.out.println("You typed: " + this.currentCommand);
+				System.out.println("You typed: " + this.currentCommand); //TODO remove later
 				this.currentCommand = "";
 				break;
 			case 8:
-				//TODO
 				if(!(this.currentCharacters.isEmpty())) {
 					this.currentCharacters.remove(this.currentCharacters.size() - 1);
 					this.currentCommand = "";
@@ -77,16 +75,12 @@ public class InputManager implements KeyListener, MouseListener {
 			case 16:
 				// Do nothing
 				break;
-				default:
-					System.out.println("Error, unknown key");
-					break;
 			}
 		}
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		//TODO There has to be a better way to do this
 		for(int i = 0; i < this.keysDown.size(); i++) {
 			if(this.keysDown.get(i) == e.getKeyCode()) {
 				this.keysDown.remove(i);

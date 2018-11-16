@@ -6,14 +6,13 @@ import java.util.ArrayList;
 
 public class ChatManager {
 	
-	private int numberOfCharsPerLine = 30; //TODO keep at 30 for testing
-	private int maxLines = 10; // the maximum number of lines shown at a time
-	private int currentLine = 0; // which line the user is currently on (will be displayed at the bottom of the console)
-	private int spaceInbetweenLines = 25;
+	private int numberOfCharsPerLine;
+	private int maxLines; // the maximum number of lines shown at a time
+	private int currentLine; // which line the user is currently on (will be displayed at the bottom of the console)
+	private int spaceInbetweenLines;
 	
 	//TODO FIX: both of these aren't needed
 	private ArrayList<String> consoleLines; // Whatever values are in this 
-	private ArrayList<String> allConsoleLines; // Stores all lines even the ones off screen
 	
 	public ChatManager(Integer charsPerLine, Integer ml, Integer cl, Integer sil) {
 		this.numberOfCharsPerLine = charsPerLine;
@@ -21,28 +20,11 @@ public class ChatManager {
 		this.currentLine = cl;
 		this.spaceInbetweenLines = sil;
 		this.consoleLines = new ArrayList<String>();
-		this.allConsoleLines = new ArrayList<String>();
 	}
 	
-	
-	/*
-	 * TODO is it wise to draw strings in here?
-	 * if so make this method void
-	 **/
-	
-	
-	//public static ArrayList<String> currentCommand = new ArrayList<String>(); // Stores what the user is currently typing
-	//public static String currentCommand = "";
-	
-	
-	/*
-	 * seperateLines should return a list of strings and another method should make the messages
-	 * active given an array of strings
-	 */
-	
-	//TODO remove the g parameter for this method
 	//TODO could've used .split(" "); here
 	public void seperateLines(String s) { //TODO BUG: lines can still start with spaces
+		//TODO this method could be made way easier
 		int sl = s.length();
 		ArrayList<String> words = new ArrayList<String>();
 		ArrayList<String> lines = new ArrayList<String>();
@@ -98,7 +80,6 @@ public class ChatManager {
 		for(int i = 0; i < lines.size(); i++) {
 			String str = lines.get(i);
 			this.consoleLines.add(str);
-			this.allConsoleLines.add(str); //TODO might not need this
 		}
 	}
 	public void draw(Graphics g, Color c) {

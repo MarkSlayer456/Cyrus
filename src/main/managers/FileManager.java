@@ -17,10 +17,6 @@ public class FileManager {
 		
 	}
 	
-	public boolean checkIfFileIsDone() { //TODO
-		return false;
-	}
-	
 	public ArrayList<File> getFiles() {
 		return this.files;
 	}
@@ -95,11 +91,6 @@ public class FileManager {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	     
-	    
-		
-		
-		
 	}
 	
 	
@@ -119,13 +110,11 @@ public class FileManager {
 		}
 		this.files.add(file);
 		return file;
-		
 	}
 	
 	
 	public void setup() {
 		try {
-			//TODO there is an error when clearing the commands.cy file, can't use commands unless you restart twice needs fixed
 			//TODO need a better file location 
 			File file = createFile("commands");
 			int i = 0;
@@ -133,10 +122,26 @@ public class FileManager {
 				writeToFile(file, "  - <hi/hey/hello/hola>", i++); // this would be the help string
 				writeToFile(file, "    - 0", i++); // amount of args
 				writeToFile(file, "      - hey, hello, hola", i++);
+				
 				writeToFile(file, "- createkeybind", i++);
 				writeToFile(file, "  - <createkeybind> <key> <operation>", i++);
 				writeToFile(file, "    - 2", i++);
 				writeToFile(file, "      - ", i++);
+				
+				writeToFile(file, "- what", i++);
+				writeToFile(file, "  - <what/what's> <question>", i++);
+				writeToFile(file, "    - 1", i++);
+				writeToFile(file, "      - what's", i++);
+				
+				writeToFile(file, "- math", i++);
+				writeToFile(file, "  - <math>", i++);
+				writeToFile(file, "    - 0", i++);
+				writeToFile(file, "      - ", i++);
+				
+				writeToFile(file, "- how", i++);
+				writeToFile(file, "  - <how/how's/how'd> <question>", i++);
+				writeToFile(file, "    - 1", i++);
+				writeToFile(file, "      - how's, how'd", i++);
 			/*
 			String test = readFileLine(file, 0, "greetings:");
 			test = test.replace(" ", "");

@@ -50,7 +50,6 @@ public class AI implements Runnable {
 		return this.inputManager;
 	}
 	
-	
 	public void setup() {
 		//TODO ask for name
 	}

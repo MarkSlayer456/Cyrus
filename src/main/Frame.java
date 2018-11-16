@@ -39,7 +39,7 @@ public class Frame implements Runnable {
 		this.g = null;
 		this.bs = null;
 		this.calcB = cb;
-		this.setVersion("Version: 1.1.0 Pre-Alpha");
+		this.setVersion("Version: 1.1.1 Pre-Alpha");
 		this.frame = new JFrame(name);
 		this.frame.setSize(size.width, size.height);
 		this.frame.setLocation(Toolkit.getDefaultToolkit().getScreenSize().width - size.width, 0);
@@ -50,12 +50,10 @@ public class Frame implements Runnable {
 		this.frame.setResizable(false);
 	}
 	
+	
+	
 	public JFrame getFrame() {
 		return this.frame;
-	}
-	
-	public void close() { // Please note this method just makes the frame not visible and doesn't close the application
-		this.frame.setVisible(false);
 	}
 	
 	public Dimension getSize()  {
@@ -71,7 +69,7 @@ public class Frame implements Runnable {
 		mainFrame = new Frame(new Dimension(800, 300), false, "Cyrus"); //TODO get screen size but this will do for now
 		calcFrame = new Frame(new Dimension(600, 500), true, "Calculator");
 		calc = new Calculator(false);
-		cyrus = new AI("Cyrus", new InputManager(), new UIManager(), new ChatManager(30, 10, 0, 25), new FileManager(), calc); // Creating Cyrus
+		cyrus = new AI("Cyrus", new InputManager(), new UIManager(), new ChatManager(100, 10, 0, 25), new FileManager(), calc); // Creating Cyrus
 		Thread cyrusT = new Thread(cyrus, "cyrus");
 		cyrusCalc = new Thread(calc, "cyrus");
 		cyrusT.setPriority(9); // 10 is max priority
@@ -107,15 +105,15 @@ public class Frame implements Runnable {
 
 	
 	private void setup() {
-		this.frame.setVisible(true);
-		mainFrame.frame.addKeyListener(cyrus.getInputManager());
-		Command.setup(cyrus);
 		cyrus.getFileManager().setup();
+		this.frame.setVisible(true);
+		this.frame.addKeyListener(cyrus.getInputManager());
+		Command.setup(cyrus);
 	}
 	
 	@Override
 	public void run() {
-		mainFrame.setup();
+		this.setup();
 		while(drawing) {
 			draw();
 			doLogic();

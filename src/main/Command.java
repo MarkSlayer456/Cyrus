@@ -1,6 +1,5 @@
 package main;
 
-import java.awt.Toolkit;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -43,7 +42,6 @@ public class Command {
 	}
 	public static Command getCommand(String str) {
 		Command cmd = null;
-		//TODO update this method
 		
 		// if it contains any non char value ignore it
 		if(str.contains("?")) str = str.replace("?", " ");
@@ -64,16 +62,16 @@ public class Command {
 				cmd.args.add(s);
 			}
 		}
-		return cmd; //TODO make a output message saying unknown command
+		return cmd;
 	}
 	
 	public ArrayList<String> getArgs() {
 		return this.args;
 	}
 	
-	public void outputHelpMessage(AI ai) {
+	public void outputHelpMessage(AI ai) { //TODO move to the ai.java class, will take some work
 		ai.outputMessage(prefixHelpString);
-		ai.outputMessage(this.helpString.get(0)); //TODO for now just always get 0
+		ai.outputMessage(this.helpString.get(0));
 	}
 	
 	public void executeCommand(AI ai) {
@@ -86,7 +84,7 @@ public class Command {
 			
 		case "createkeybind": // needs to args
 			if(argSize == 2) {
-				//TODO do something..
+				
 			} else {
 				outputHelpMessage(ai);
 			}
@@ -114,7 +112,7 @@ public class Command {
 			
 		case "how":
 			if(argSize >= 1) {
-				if(this.args.contains("weather")) { //TODO add more here
+				if(this.args.contains("weather")) {
 					ai.outputMessage("<insert the weather here>");
 				}
 			} else {
@@ -123,7 +121,6 @@ public class Command {
 			break;
 			
 		case "math":
-			//TODO launch math mode / calculator without static reference
 			if(!Frame.calc.isRunning()) {
 				Frame.cyrusCalc.start();
 			} else {
@@ -150,87 +147,6 @@ public class Command {
 			}
 			break;
 		}
-		
-		
-		/*int argSize = this.args.size(); // 0 being the first arg
-		if(!(argSize >= this.amountOfArgs)) { // not enough args were entered
-				ai.outputMessage("Use the " + this.command + " command like this: ");
-				ai.outputMessage(this.helpString.get(0));
-			return;
-		}
-		switch(this.command) {
-		case "hi":
-			ai.outputMessage("Hello!");
-			break;
-		case "goodmorning":
-		case "goodevening":
-		case "goodafternoon":
-			ai.outputMessage(this.helpString.get(0));
-			break;
-		case "goodnight": // this is allowed to be one word
-			ai.outputMessage("Goodnight!");
-			break;
-		case "createkeybind":
-			break;
-		case "good":
-			break;
-		case "what":
-			if(this.args.contains(" ") || this.args.isEmpty()) {
-				ai.outputMessage("What would you like to know?");
-			}
-			break;
-			//TODO 
-		}
-		for(int i = 0; i < argSize; i++) {
-			String compare = this.args.get(i).toLowerCase();
-				if(i > this.amountOfArgs && this.amountOfArgs != -1) { // make sure the args are needed and not just random
-					ai.outputMessage("This command doesn't support that many args, however the command was still executed!");
-					return;
-				} else { // the args
-					// createkeybind args //
-					if(this.command.equalsIgnoreCase("createkeybind")) { // this can't be a switch because using a break will break the for loop
-						if(i == 0) {
-							ai.outputMessage("This is a test message you typed 1");
-							// TODO add code
-						} else if(i == 1) {
-							if(compare.equalsIgnoreCase("close")) {
-								ai.outputMessage("Closing the frame...");
-								Frame.mainFrame.close(); // this is for testing don't use this command from the desktop
-							}
-						}
-						// good args //
-					} else if(this.command.equalsIgnoreCase("good")) { //TODO maybe later make it so Cyrus can tell time and tell them based off time
-						if(i == 0) {
-							if(compare.equalsIgnoreCase("morning")) {
-								ai.outputMessage("Good morning!");
-							} else if(compare.equalsIgnoreCase("evening")) {
-								ai.outputMessage("Good evening!");
-							} else if(compare.equalsIgnoreCase("night")) {
-								ai.outputMessage("Good night!");
-							} else if(compare.equalsIgnoreCase("afternoon")) {
-								ai.outputMessage("Good afternoon!");
-							}
-						}
-					} else if(this.command.equalsIgnoreCase("what") || this.command.equalsIgnoreCase("what's")) { //TODO finish this 
-						if(this.args.contains("weather")) {
-							ai.outputMessage("<insert the weather here>");
-						} else if(this.args.contains("favorite") && this.args.contains("color")) {
-							ai.outputMessage("My favorite color is blue!");
-						} else if(this.args.contains("favorite") && this.args.contains("game")) {
-							ai.outputMessage("I hate all games they just seem to be too easy to me!");
-						} else if(this.args.contains("time")) {
-							ai.outputMessage("<insert system time here>");
-						} else if(this.args.contains("you") && this.args.contains("doing")) {
-							ai.outputMessage("I'm helping you of course!");
-						} else if(this.args.contains("happening") || this.args.contains("up")) {
-							ai.outputMessage("<insert the news>");
-						}
-						return; // otherwise the loop will print the message multiple times
-						
-						
-					}
-				}
-		}*/
 	}
 	public static void setup(AI ai) { 
 		FileManager fileMan = ai.getFileManager();

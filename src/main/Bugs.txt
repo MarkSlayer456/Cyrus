@@ -1,0 +1,8 @@
+Bugs:
+	- Process doesn't end when closing out of the program
+	- Can still get squares in the console when using the ctrl key and typing letters
+	- The first character on a line can be a space
+	
+	
+Resolved: These are bugs that I think are resolved but not 100% sure
+	- There is an error when clearing the commands.cy file, can't use commands unless you restart twice needs fixed

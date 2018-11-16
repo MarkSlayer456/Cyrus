@@ -7,7 +7,6 @@ import main.Frame;
 
 public class Calculator implements Runnable {
 	
-	//TODO make it so if this is already running you can't use the math command again
 	private boolean running;
 	
 	public Calculator(Boolean r) {
@@ -42,9 +41,4 @@ public class Calculator implements Runnable {
 		}
 		
 	}
-	
-	//TODO will add more complex math here later
-	
-	
-	
 }

@@ -1,0 +1,13 @@
+Todo:
+	- Create a default file location for the storage of files
+	- Reduce amount of static variables
+	- Add a randomizer so Cyrus gives different error messages
+	- Finish createkeybind command 
+		- This command was made for fun, doesn't have an intended use at the moment
+	- Update how command, add more logic
+	- Launch math mode/ calculator without static variables/objects
+	- Move outputHelpMessage method from command.java to AI.java
+	- Add more complex math to Calculator.java
+	- Add openCL support
+		- This may prove to be a little challenging
+	- Update seperateLines method in chatManager.java
