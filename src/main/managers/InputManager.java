@@ -48,6 +48,11 @@ public class InputManager implements KeyListener, MouseListener {
 	public void keyPressed(KeyEvent e) {
 		this.keysDown.add(e.getKeyCode());
 		int keyCode = e.getKeyCode();
+		for(int i = 0; i < this.keysDown.size(); i++) {
+			if(this.keysDown.get(i) == 17 || keyCode == 17) { // probably a better way to do this but still works
+				return;
+			}
+		}
 		if(keyCode != 8 && keyCode != 10 && keyCode != 9 && keyCode != 16) { // checks for tab(9), enter(10), backspace(8), shift(16)
 			this.currentCommand += (e.getKeyChar() + "");
 			this.currentCharacters.add(e.getKeyChar());

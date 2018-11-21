@@ -5,20 +5,20 @@
 - createkeybind
   - <createkeybind> <key> <operation>
     - 2
-      -
+      - 
 - what
   - <what/what's> <question>
     - 1
-      - what's, whats
+      - what's
+- math
+  - <math>
+    - 0
+      - 
 - how
   - <how/how's/how'd> <question>
     - 1
       - how's, how'd
-- math
-  - <math>
+- clear
+  - <clear>
     - 0
-     - 
-- open
-  - <open> <program file location>
-    - 1
-      - launch, start
+      - cl

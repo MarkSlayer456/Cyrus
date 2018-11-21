@@ -15,6 +15,9 @@ import main.utilities.Calculator;
 public class Frame implements Runnable {
 	
 	//TODO try to get rid of lots of the static methods
+	public static Thread cyrusT;
+	public static Thread mainFrameT;
+	
 	
 	// Removed a static from drawing as it's not needed
 	public boolean drawing = true; // Used if you ever want to stop drawing for some reason	
@@ -70,16 +73,24 @@ public class Frame implements Runnable {
 		calcFrame = new Frame(new Dimension(600, 500), true, "Calculator");
 		calc = new Calculator(false);
 		cyrus = new AI("Cyrus", new InputManager(), new UIManager(), new ChatManager(100, 10, 0, 25), new FileManager(), calc); // Creating Cyrus
-		Thread cyrusT = new Thread(cyrus, "cyrus");
+		cyrusT = new Thread(cyrus, "cyrus");
 		cyrusCalc = new Thread(calc, "cyrus");
-		cyrusT.setPriority(9); // 10 is max priority
+		cyrusT.setPriority(5); // 10 is max priority
 		cyrusT.start();
-		Thread mainFrameT = new Thread(mainFrame, "frame");
-		mainFrameT.setPriority(10);
+		mainFrameT = new Thread(mainFrame, "frame");
+		mainFrameT.setPriority(5);
 		mainFrameT.start();
 	}
 	 
-	public void doLogic() { } // probably will need this later
+	public void doLogic() { 
+	// check if program is still running	
+		if(!this.frame.isShowing()) { 
+			//TODO don't use static make each thread check back to see if main thread is still running
+			drawing = false;
+			AI.thinking = false;
+			Calculator.running = false;
+		}
+	}
 	
 	public void draw() { // What to display from Cyrus thoughts
 		try {

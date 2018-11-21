@@ -3,6 +3,7 @@ package main;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
 
 import main.managers.FileManager;
 
@@ -26,7 +27,7 @@ public class Command {
 	private ArrayList<String> helpString = new ArrayList<String>();
 	private int amountOfArgs; // how many arguments the command needs. 0 being just the command -1 being unlimited
 	
-	static String prefixHelpString = "Use the command like this";
+	public String prefixHelpString = "Use the command like this"; // this can stay static
 	
 	public Command(String cmd, int aoa, ArrayList<String> help, ArrayList<String> a) { // Creates a command
 		this.command = cmd;
@@ -40,6 +41,12 @@ public class Command {
 			}
 		}
 	}
+	
+	public ArrayList<String> getHelpString() {
+		return this.helpString;
+	}
+	
+	
 	public static Command getCommand(String str) {
 		Command cmd = null;
 		
@@ -69,11 +76,6 @@ public class Command {
 		return this.args;
 	}
 	
-	public void outputHelpMessage(AI ai) { //TODO move to the ai.java class, will take some work
-		ai.outputMessage(prefixHelpString);
-		ai.outputMessage(this.helpString.get(0));
-	}
-	
 	public void executeCommand(AI ai) {
 		int argSize = this.args.size(); // 0 being the first arg
 		switch(this.command) {
@@ -86,7 +88,7 @@ public class Command {
 			if(argSize == 2) {
 				
 			} else {
-				outputHelpMessage(ai);
+				ai.outputHelpMessage(this);
 			}
 			break;
 			
@@ -104,9 +106,11 @@ public class Command {
 					ai.outputMessage("I'm helping you of course!");
 				} else if(this.args.contains("happening") || this.args.contains("up")) {
 					ai.outputMessage("<insert the news>");
+				} else {
+					ai.outputHelpMessage(this);
 				}
 			} else {
-				outputHelpMessage(ai);
+				ai.outputHelpMessage(this);
 			}
 			break;
 			
@@ -114,9 +118,13 @@ public class Command {
 			if(argSize >= 1) {
 				if(this.args.contains("weather")) {
 					ai.outputMessage("<insert the weather here>");
+				} else if(this.args.contains("are") && this.args.contains("you")) {
+					ai.outputMessage("I am great!");
+				} else {
+					ai.outputHelpMessage(this);
 				}
 			} else {
-				outputHelpMessage(ai);
+				ai.outputHelpMessage(this);
 			}
 			break;
 			
@@ -145,6 +153,13 @@ public class Command {
 			} catch (Exception e) {
 				ai.outputMessage("This program can not be found; are you sure you're looking in the right place!");
 			}
+			break;
+		case "clear":
+			ai.getChatManager().clearConsoleLines();
+			ai.outputMessage("I have cleared the console for you!");
+			break;
+		default:
+			//TODO do something
 			break;
 		}
 	}

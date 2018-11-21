@@ -1,7 +1,9 @@
 package main;
 
 import java.awt.Color;
+import java.io.File;
 import java.util.ArrayList;
+import java.util.Random;
 
 import main.managers.ChatManager;
 import main.managers.FileManager;
@@ -10,7 +12,7 @@ import main.managers.UIManager;
 import main.utilities.Calculator;
 
 public class AI implements Runnable {
-	private boolean thinking; // is Cyrus doing any computations at all
+	public static boolean thinking; // is Cyrus doing any computations at all
 	private String name;
 	private boolean hasGreeted; // has Cyrus introduced himself
 	private Color color; // will implement later
@@ -77,11 +79,23 @@ public class AI implements Runnable {
 		this.getChatManager().seperateLines(str);
 	}
 	
+	public void outputHelpMessage(Command cmd) {
+		this.outputMessage(cmd.prefixHelpString);
+		this.outputMessage(cmd.getHelpString().get(0));
+	}
+	
+	public void outputErrorMessage() {
+		Random r = new Random();
+		int ran = r.nextInt(3);
+		File file = this.getFileManager().getFile("error messages");
+		this.outputMessage(this.getFileManager().readFileLine(file, ran));
+	}
+	
 	public void interpret(String cmd) {
 		if(Command.getCommand(cmd) != null) {
 		Command.getCommand(cmd).executeCommand(this);
 		} else {
-			outputMessage("I'm sorry I don't know what you are trying to say right now.");
+			this.outputErrorMessage();
 			return;
 		}
 	}

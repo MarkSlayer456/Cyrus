@@ -7,7 +7,7 @@ import main.Frame;
 
 public class Calculator implements Runnable {
 	
-	private boolean running;
+	public static boolean running;
 	
 	public Calculator(Boolean r) {
 		this.running = r;

@@ -82,6 +82,11 @@ public class ChatManager {
 			this.consoleLines.add(str);
 		}
 	}
+	
+	public void clearConsoleLines() {
+		this.consoleLines.clear();
+	}
+	
 	public void draw(Graphics g, Color c) {
 		g.setColor(c);
 		int iterator = 0;
