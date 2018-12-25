@@ -13,7 +13,7 @@
 - math
   - <math>
     - 0
-      - 
+      -
 - how
   - <how/how's/how'd> <question>
     - 1
@@ -22,3 +22,7 @@
   - <clear>
     - 0
       - cl
+- quit
+  - <quit>
+    - 0
+      - exit

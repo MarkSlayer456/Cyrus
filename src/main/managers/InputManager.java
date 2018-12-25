@@ -26,7 +26,7 @@ public class InputManager implements KeyListener, MouseListener {
 		for(int i = 0; i < this.currentCharacters.size(); i++) {
 			char z = this.currentCharacters.get(i);
 			temp += z;
-			g.drawString(temp, 40, 275);
+			g.drawString(temp, 53, 275);
 		}
 	}
 	

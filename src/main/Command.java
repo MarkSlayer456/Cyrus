@@ -79,11 +79,16 @@ public class Command {
 	public void executeCommand(AI ai) {
 		int argSize = this.args.size(); // 0 being the first arg
 		switch(this.command) {
-		
+		default:
+			//TODO do something
+			break;
 		case "hi":
 			ai.outputMessage("Hello!");
 			break;
 			
+		case "quit":
+			Frame.quit();
+			break;
 		case "createkeybind": // needs to args
 			if(argSize == 2) {
 				
@@ -157,9 +162,6 @@ public class Command {
 		case "clear":
 			ai.getChatManager().clearConsoleLines();
 			ai.outputMessage("I have cleared the console for you!");
-			break;
-		default:
-			//TODO do something
 			break;
 		}
 	}

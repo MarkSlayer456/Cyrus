@@ -3,7 +3,7 @@ Todo:
 		- More difficult than I thought
 	- Reduce amount of static variables
 		- Working on this
-	- Add a randomizer so Cyrus gives different error messages
+	+ Add a randomizer so Cyrus gives different error messages
 	- Finish createkeybind command 
 		- This command was made for fun, doesn't have an intended use at the moment
 	- Update how command, add more logic
@@ -12,4 +12,4 @@ Todo:
 	- Add openCL support
 		- This may prove to be a little challenging
 	- Update seperateLines method in chatManager.java
-	- add an exit/quit/terminate command
+	+ add an exit/quit/terminate command

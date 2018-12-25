@@ -152,7 +152,7 @@ public class FileManager {
 				writeToFile(command, "- math", i++);
 				writeToFile(command, "  - <math>", i++);
 				writeToFile(command, "    - 0", i++);
-				writeToFile(command, "      - ", i++);
+				writeToFile(command, "      -", i++);
 				
 				writeToFile(command, "- how", i++);
 				writeToFile(command, "  - <how/how's/how'd> <question>", i++);
@@ -163,6 +163,12 @@ public class FileManager {
 				writeToFile(command, "  - <clear>", i++);
 				writeToFile(command, "    - 0", i++);
 				writeToFile(command, "      - cl", i++);
+				
+				writeToFile(command, "- quit", i++);
+				writeToFile(command, "  - <quit>", i++);
+				writeToFile(command, "    - 0", i++);
+				writeToFile(command, "      -", i++);
+				
 				
 				File errorMessages = createFile("error messages");
 				int j = 0;

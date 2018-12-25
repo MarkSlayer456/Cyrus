@@ -15,34 +15,36 @@ import main.utilities.Calculator;
 public class Frame implements Runnable {
 	
 	//TODO try to get rid of lots of the static methods
+	///// Static Variables /////
 	public static Thread cyrusT;
 	public static Thread mainFrameT;
+	public static Thread cyrusCalc;
 	
-	
-	// Removed a static from drawing as it's not needed
-	public boolean drawing = true; // Used if you ever want to stop drawing for some reason	
 	public static AI cyrus;
 	public static Frame mainFrame;
 	public static Frame calcFrame;
 	public static Calculator calc;
-	public static Thread cyrusCalc;
+	//////////////////////////////////////////////
 	
 	private Graphics g;
 	private BufferStrategy bs;
 	private String version;
 	private boolean calcB; // is this the calculator frame?
+	private boolean drawing = true; // Used if you ever want to stop drawing for some reason	
 	
 	private Dimension size;
 	private JFrame frame;
 	
 	
+	
+	// add the private vars on to the frame class
 	@SuppressWarnings("static-access")
 	public Frame(Dimension s, Boolean cb, String name) {
 		this.size = s;
 		this.g = null;
 		this.bs = null;
 		this.calcB = cb;
-		this.setVersion("Version: 1.1.1 Pre-Alpha");
+		this.setVersion("Version: 1.2.0 Pre-Alpha");
 		this.frame = new JFrame(name);
 		this.frame.setSize(size.width, size.height);
 		this.frame.setLocation(Toolkit.getDefaultToolkit().getScreenSize().width - size.width, 0);
@@ -72,7 +74,7 @@ public class Frame implements Runnable {
 		mainFrame = new Frame(new Dimension(800, 300), false, "Cyrus"); //TODO get screen size but this will do for now
 		calcFrame = new Frame(new Dimension(600, 500), true, "Calculator");
 		calc = new Calculator(false);
-		cyrus = new AI("Cyrus", new InputManager(), new UIManager(), new ChatManager(100, 10, 0, 25), new FileManager(), calc); // Creating Cyrus
+		cyrus = new AI("Cyrus", new InputManager(), new UIManager(), new ChatManager(75, 10, 0, 25), new FileManager(), calc); // Creating Cyrus
 		cyrusT = new Thread(cyrus, "cyrus");
 		cyrusCalc = new Thread(calc, "cyrus");
 		cyrusT.setPriority(5); // 10 is max priority
@@ -86,9 +88,10 @@ public class Frame implements Runnable {
 	// check if program is still running	
 		if(!this.frame.isShowing()) { 
 			//TODO don't use static make each thread check back to see if main thread is still running
-			drawing = false;
+			quit();
+			/*drawing = false;
 			AI.thinking = false;
-			Calculator.running = false;
+			Calculator.running = false;*/
 		}
 	}
 	
@@ -120,6 +123,10 @@ public class Frame implements Runnable {
 		this.frame.setVisible(true);
 		this.frame.addKeyListener(cyrus.getInputManager());
 		Command.setup(cyrus);
+	}
+	
+	public static void quit() { // very useful
+		System.exit(0);
 	}
 	
 	@Override

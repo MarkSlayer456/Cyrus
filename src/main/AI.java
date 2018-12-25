@@ -54,6 +54,7 @@ public class AI implements Runnable {
 	
 	public void setup() {
 		//TODO ask for name
+		// check if setup file exists and make sure nothing is invalid
 	}
 	
 	public void greet() {
@@ -92,7 +93,7 @@ public class AI implements Runnable {
 	}
 	
 	public void interpret(String cmd) {
-		if(Command.getCommand(cmd) != null) {
+		if(Command.getCommand(cmd) != null && cmd != "") {
 		Command.getCommand(cmd).executeCommand(this);
 		} else {
 			this.outputErrorMessage();
