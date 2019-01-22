@@ -29,7 +29,6 @@ public class Frame implements Runnable {
 	private Graphics g;
 	private BufferStrategy bs;
 	private String version;
-	private boolean calcB; // is this the calculator frame?
 	private boolean drawing = true; // Used if you ever want to stop drawing for some reason	
 	
 	private Dimension size;
@@ -43,19 +42,47 @@ public class Frame implements Runnable {
 		this.size = s;
 		this.g = null;
 		this.bs = null;
-		this.calcB = cb;
 		this.setVersion("Version: 1.2.0 Pre-Alpha");
 		this.frame = new JFrame(name);
 		this.frame.setSize(size.width, size.height);
 		this.frame.setLocation(Toolkit.getDefaultToolkit().getScreenSize().width - size.width, 0);
-		this.frame.setUndecorated(false); //TODO change this to true
+		this.frame.setUndecorated(false);
 		if(this.frame.getName().equalsIgnoreCase("Cyrus")) this.frame.setDefaultCloseOperation(this.frame.EXIT_ON_CLOSE);
 		else this.frame.setDefaultCloseOperation(this.frame.HIDE_ON_CLOSE);
 		//this.frame.setVisible(true);
 		this.frame.setResizable(false);
 	}
 	
+	//TODO add the rest of the getters and setters
 	
+	public int getWidth() {
+		return this.size.width;
+	}
+	
+	public int getHeight() {
+		return this.size.height;
+	}
+	
+	public void setBS(BufferStrategy bufferStr) {
+		this.bs = bufferStr;
+	}
+	
+	public BufferStrategy getBS() {
+		return this.bs;
+	}
+	
+	public void setGraphics(Graphics graphics) {
+		this.g = graphics;
+	}
+	
+	
+	public JFrame getJFrame() {
+		return this.frame;
+	}
+	
+	public void setVisible(boolean bool) {
+		this.frame.setVisible(bool);
+	}
 	
 	public JFrame getFrame() {
 		return this.frame;
@@ -73,7 +100,7 @@ public class Frame implements Runnable {
 	 public static void main(String[] args) { // Program begins
 		mainFrame = new Frame(new Dimension(800, 300), false, "Cyrus"); //TODO get screen size but this will do for now
 		calcFrame = new Frame(new Dimension(600, 500), true, "Calculator");
-		calc = new Calculator(false);
+		calc = new Calculator(false, calcFrame);
 		cyrus = new AI("Cyrus", new InputManager(), new UIManager(), new ChatManager(75, 10, 0, 25), new FileManager(), calc); // Creating Cyrus
 		cyrusT = new Thread(cyrus, "cyrus");
 		cyrusCalc = new Thread(calc, "cyrus");
@@ -103,12 +130,17 @@ public class Frame implements Runnable {
 			this.g.clearRect(0, 0, this.size.width, this.size.height);
 			//////////////////////////////////// 
 			// all drawing should be done between these /'s
-			if(this.calcB) { // won't this need to be on the frame class and no the calc class for this to work
+			cyrus.greet();
+			cyrus.getUIManager().drawUI(this.g, cyrus);
+			/*if(calc.isRunning()) {
+				calc.drawCalc();
+			}*/
+			/*if(this.calcB) { // won't this need to be on the frame class and no the calc class for this to work
 				calc.drawCalc(g, this);
 			} else {
 				cyrus.greet();
 				cyrus.getUIManager().drawUI(this.g, cyrus);
-			}
+			}*/
 			////////////////////////////////////
 			this.g.dispose();
 			this.bs.show();

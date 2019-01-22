@@ -10,7 +10,6 @@ import main.Frame;
 public class UIManager {
 	
 	public void drawUI(Graphics g, AI ai) {
-		Font normal = g.getFont();
 		///// Command Line /////
 		// what the user is typing on
 		g.setFont(new Font("Cyrus Commandline", 1, 20));
@@ -25,7 +24,7 @@ public class UIManager {
 		
 		///// Version /////
 		g.setColor(Color.WHITE);
-		g.setFont(new Font("Cyrus", 1, 25));
+		g.setFont(new Font("Cyrus Version", 1, 25));
 		g.drawString(Frame.mainFrame.getVersion(), Frame.mainFrame.getSize().width - 300, 75);
 		///////////////////////////////////////
 	}

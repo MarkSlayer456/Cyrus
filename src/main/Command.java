@@ -79,8 +79,10 @@ public class Command {
 	public void executeCommand(AI ai) {
 		int argSize = this.args.size(); // 0 being the first arg
 		switch(this.command) {
+		case "": // pretty much the same thing
 		default:
 			//TODO do something
+			ai.outputErrorMessage();
 			break;
 		case "hi":
 			ai.outputMessage("Hello!");

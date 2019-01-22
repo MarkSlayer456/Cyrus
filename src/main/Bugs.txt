@@ -1,7 +1,29 @@
 Bugs:
-	- Process doesn't end when closing out of the program
 	- The first character on a line can be a space
-	- If you don't type a command the calculator opens
+	
 	
 Resolved: These are bugs that I think are resolved but not 100% sure
 	- There is an error when clearing the commands.cy file, can't use commands unless you restart twice needs fixed
+	- Process doesn't end when closing out of the program
+	- If you don't type a command the calculator opens
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
