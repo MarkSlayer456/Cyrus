@@ -7,6 +7,9 @@ Todo:
 		- This command was made for fun, doesn't have an intended use at the moment
 	- Add more complex math to Calculator.java
 	- Update seperateLines method in chatManager.java
+	- Organize files more
+	- Allow Cyrus to play music for you
+	- finish calculator
 	
 	
 Finished:
