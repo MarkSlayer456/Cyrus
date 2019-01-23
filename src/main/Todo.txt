@@ -12,6 +12,7 @@ Todo:
 	- finish calculator
 	- Add documentation
 		- An example is above the add method in calculator
+	- Add a schedule function to Cyrus
 	
 	
 Finished:
