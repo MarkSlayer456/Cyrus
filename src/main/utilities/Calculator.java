@@ -18,6 +18,12 @@ public class Calculator implements Runnable {
 		return this.frame;
 	}
 	
+	/**
+	 * Adds two numbers together
+	 * @param num1 the first number to add
+	 * @param num2 the second number to add
+	 * @return the combination of both numbers
+	 */
 	public double add(int num1, int num2) {
 		return num1 + num2;
 	}
