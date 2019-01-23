@@ -17,23 +17,25 @@ public class AI implements Runnable {
 	private boolean hasGreeted; // has Cyrus introduced himself
 	private Color color; // will implement later
 	private ArrayList<String> args;
-	private InputManager inputManager;
-	private UIManager uiManager;
-	private ChatManager chatManager;
-	private FileManager fileManager;
-	private Calculator calc;
+	private final InputManager inputManager;
+	private final UIManager uiManager;
+	private final ChatManager chatManager;
+	private final FileManager fileManager;
+	private final Calculator calc;
 	
 	public AI(String n, InputManager input, UIManager ui, ChatManager chat, FileManager file, Calculator c) { // Only create one AI
 		this.name = n;
 		this.hasGreeted = false;
 		this.color = Color.CYAN;
 		this.args = new ArrayList<String>();
-		this.thinking = true;
 		this.inputManager = input;
 		this.uiManager = ui;
 		this.chatManager = chat;
 		this.fileManager = file;
 		this.calc = c;
+                
+                // static vars //
+                thinking = true;
 	}
 	
 	public FileManager getFileManager() {
@@ -70,9 +72,7 @@ public class AI implements Runnable {
 	}
 
 	public void logic() { // The thinking method
-		if(!this.hasGreeted) {
-		this.greet();
-		}
+                    this.greet();
 	}
 	
 	public void outputMessage(String str) { // output a message to Cyrus/console
@@ -93,18 +93,17 @@ public class AI implements Runnable {
 	}
 	
 	public void interpret(String cmd) {
-		if(Command.getCommand(cmd) != null && cmd != "") {
+		if(Command.getCommand(cmd) != null && !cmd.equalsIgnoreCase("")) {
 		Command.getCommand(cmd).executeCommand(this);
 		} else {
 			this.outputErrorMessage();
-			return;
 		}
 	}
 	
 	@Override
 	public void run() { // Cyrus thought process
-		while(this.thinking) {
-			this.logic();
+		while(thinking) {
+			this.logic(); //TODO Cyrus logic doesn't do anything
 		}
 	}
 	
