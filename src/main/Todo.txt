@@ -13,6 +13,8 @@ Todo:
 	- Add documentation
 		- An example is above the add method in calculator
 	- Add a schedule function to Cyrus
+	- Change current readme.txt to roadmap.txt
+	- Create proper readme.txt
 	
 	
 Finished:
