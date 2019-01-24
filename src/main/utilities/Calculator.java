@@ -22,7 +22,7 @@ public class Calculator implements Runnable {
 	 * Adds two numbers together
 	 * @param num1 the first number to add
 	 * @param num2 the second number to add
-	 * @return the combination of both numbers
+	 * @return the numbers added together
 	 */
 	public double add(int num1, int num2) {
 		return num1 + num2;

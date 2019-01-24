@@ -46,7 +46,7 @@ public class Frame implements Runnable {
                 
 		this.frame.setSize(size.width, size.height);
 		this.frame.setLocation(Toolkit.getDefaultToolkit().getScreenSize().width - size.width, 0);
-		this.frame.setUndecorated(true); //TODO setting this to true because I like it
+		this.frame.setUndecorated(false); //TODO setting this to true because I like it
 		if(this.frame.getName().equalsIgnoreCase("Cyrus")) this.frame.setDefaultCloseOperation(this.frame.EXIT_ON_CLOSE);
 		else this.frame.setDefaultCloseOperation(this.frame.HIDE_ON_CLOSE);
 		//this.frame.setVisible(true);
@@ -101,7 +101,7 @@ public class Frame implements Runnable {
 		mainFrame = new Frame(new Dimension(800, 300), false, "Cyrus"); //TODO get screen size but this will do for now
 		calcFrame = new Frame(new Dimension(600, 500), true, "Calculator");
 		calc = new Calculator(false, calcFrame);
-		cyrus = new AI("Cyrus", new InputManager(), new UIManager(), new ChatManager(75, 10, 0, 25), new FileManager(), calc); // Creating Cyrus
+		cyrus = new AI("Cyrus", new InputManager(), new UIManager(), new ChatManager(50, 10, 0, 25), new FileManager(), calc); // Creating Cyrus
 		cyrusT = new Thread(cyrus, "cyrus");
 		cyrusCalc = new Thread(calc, "cyrus");
 		cyrusT.setPriority(5); // 10 is max priority

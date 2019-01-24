@@ -8,7 +8,7 @@ import java.util.HashMap;
 import main.managers.FileManager;
 
 public class Command {
-	
+    
 	//this could be attached to cyrus if you don't want it to be static but just testing for right now
 	public static HashMap<String, Command> commands = new HashMap<>();
 	public static HashMap<String, Command> aliasesS = new HashMap<>();
