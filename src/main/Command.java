@@ -2,18 +2,18 @@ package main;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Random;
 
 import main.managers.FileManager;
 
 public class Command {
 	
 	//this could be attached to cyrus if you don't want it to be static but just testing for right now
-	public static HashMap<String, Command> commands = new HashMap<String, Command>();
-	public static HashMap<String, Command> aliasesS = new HashMap<String, Command>();
+	public static HashMap<String, Command> commands = new HashMap<>();
+	public static HashMap<String, Command> aliasesS = new HashMap<>();
 	//private HashMap<ArrayList<String>, ArrayList<String>> argResponse = new HashMap<ArrayList<String>, ArrayList<String>>();
-	private ArrayList<String> aliases = new ArrayList<String>();
+	private ArrayList<String> aliases = new ArrayList<>();
 	
 	/*for each argument there can be aliases and each argument has 
 	* a string answer but I will want multiple answers
@@ -23,8 +23,8 @@ public class Command {
 	// Not sure how to deal with needing the AI information on all these methods yet will find a work around
 		// maybe make this a commandManager and make AI have a commandManager
 	private String command;
-	private ArrayList<String> args = new ArrayList<String>(); // might be able to remove this but could be used to loop through all valid arguments later
-	private ArrayList<String> helpString = new ArrayList<String>();
+	private ArrayList<String> args = new ArrayList<>(); // might be able to remove this but could be used to loop through all valid arguments later
+	private ArrayList<String> helpString = new ArrayList<>();
 	private int amountOfArgs; // how many arguments the command needs. 0 being just the command -1 being unlimited
 	
 	public String prefixHelpString = "Use the command like this"; // this can stay static
@@ -177,18 +177,17 @@ public class Command {
 				String helpStr = fileMan.readFileLine(file, k + 1); // reads the next line which is the help string
 				helpStr = helpStr.replaceFirst("  - ", "");
 				String numberOfArgs = fileMan.readFileLine(file, k + 2); // reads the next line which is the help string
-				ArrayList<String> helpStrArray = new ArrayList<String>();
+				ArrayList<String> helpStrArray = new ArrayList<>();
 				helpStrArray.add(helpStr);
 				numberOfArgs = numberOfArgs.replaceAll(" ", "");
 				numberOfArgs = numberOfArgs.replaceAll("-", "");
 				String copyCommands = fileMan.readFileLine(file, k + 3); // aliases
 				copyCommands = copyCommands.replaceAll(" ", "");
 				copyCommands = copyCommands.replaceAll("-", "");
-				ArrayList<String> copyCommandArray = new ArrayList<String>();
+				ArrayList<String> copyCommandArray = new ArrayList<>();
 				String[] copyCommandStrings = copyCommands.split(",");
-				for(String str : copyCommandStrings ) {
-					copyCommandArray.add(str);
-				}
+                                copyCommandArray.addAll(Arrays.asList(copyCommandStrings));
+                                 // loop was replaced with the above method
 				command = command.replaceAll("-", "");
 				command = command.replaceAll(" ", "");
 				new Command(command, Integer.parseInt(numberOfArgs), helpStrArray, copyCommandArray);

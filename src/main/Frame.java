@@ -28,11 +28,11 @@ public class Frame implements Runnable {
 	
 	private Graphics g;
 	private BufferStrategy bs;
-	private String version;
+	private static String version;
 	private boolean drawing = true; // Used if you ever want to stop drawing for some reason	
 	
-	private Dimension size;
-	private JFrame frame;
+	private Dimension size; // this will be able to change later
+	private final JFrame frame;
 	
 	
 	
@@ -42,11 +42,11 @@ public class Frame implements Runnable {
 		this.size = s;
 		this.g = null;
 		this.bs = null;
-		this.setVersion("Version: 1.2.0 Pre-Alpha");
 		this.frame = new JFrame(name);
+                
 		this.frame.setSize(size.width, size.height);
 		this.frame.setLocation(Toolkit.getDefaultToolkit().getScreenSize().width - size.width, 0);
-		this.frame.setUndecorated(false);
+		this.frame.setUndecorated(true); //TODO setting this to true because I like it
 		if(this.frame.getName().equalsIgnoreCase("Cyrus")) this.frame.setDefaultCloseOperation(this.frame.EXIT_ON_CLOSE);
 		else this.frame.setDefaultCloseOperation(this.frame.HIDE_ON_CLOSE);
 		//this.frame.setVisible(true);
@@ -110,7 +110,9 @@ public class Frame implements Runnable {
 		mainFrameT.setPriority(5);
 		mainFrameT.start();
 	}
-	 
+	 /**
+          * Contains all the logic for the given frame
+          */
 	public void doLogic() { 
 	// check if program is still running	
 		if(!this.frame.isShowing()) { 
@@ -122,12 +124,19 @@ public class Frame implements Runnable {
 		}
 	}
 	
+        /**
+         * Draws all the information for the given frame
+         */
 	public void draw() { // What to display from Cyrus thoughts
-		try {
-			if(this.frame.getBufferStrategy() == null) { this.frame.createBufferStrategy(3); }
+                   if(this.getBS() == null) { this.getJFrame().createBufferStrategy(3); }
+                    this.setBS(this.getJFrame().getBufferStrategy());
+                    this.setGraphics(this.getBS().getDrawGraphics());
+                    this.getGraphics().clearRect(0, 0, this.getWidth(), this.getHeight());
+                        // removed try statement here
+			/*if(this.frame.getBufferStrategy() == null) { this.frame.createBufferStrategy(3); }
 			this.bs = this.frame.getBufferStrategy();
 			this.g = bs.getDrawGraphics();
-			this.g.clearRect(0, 0, this.size.width, this.size.height);
+			this.g.clearRect(0, 0, this.size.width, this.size.height);*/
 			//////////////////////////////////// 
 			// all drawing should be done between these /'s
 			cyrus.greet();
@@ -144,19 +153,22 @@ public class Frame implements Runnable {
 			////////////////////////////////////
 			this.g.dispose();
 			this.bs.show();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 	}
 
-	
+	/**
+         * Setups the program, adding listeners and setting visibility if needed
+         */
 	private void setup() {
+                setVersion("Version: 1.2.1 Pre-Alpha");
 		cyrus.getFileManager().setup();
 		this.frame.setVisible(true);
 		this.frame.addKeyListener(cyrus.getInputManager());
 		Command.setup(cyrus);
 	}
-	
+	/**
+         * Quits the program, closing all open windows and shutting down
+         * the process
+         */
 	public static void quit() { // very useful
 		System.exit(0);
 	}
@@ -171,17 +183,20 @@ public class Frame implements Runnable {
 		
 	}
 
+        /**
+         * 
+         * @return the version of the program is currently running 
+         */
 	public String getVersion() {
 		return version;
 	}
-
-	public void setVersion(String version) {
-		this.version = version;
-	}
-	
-	
-	
-	
-	
+        
+        /**
+         * Changes the version number of the program
+         * @param newVersion the version you want to change too
+         */
+        public void setVersion(String newVersion) {
+            version = newVersion;
+        }
 
 }
