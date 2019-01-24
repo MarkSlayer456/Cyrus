@@ -6,7 +6,6 @@ Todo:
 	- Finish createkeybind command 
 		- This command was made for fun, doesn't have an intended use at the moment
 	- Add more complex math to Calculator.java
-	- Update seperateLines method in chatManager.java
 	- Organize files more
 	- Allow Cyrus to play music for you
 	- finish calculator
@@ -17,13 +16,16 @@ Todo:
 	- Create proper readme.txt
         - Change how all the list are implemented
             - Already started this
-	
+        - Remove unused comments
+        - Move getters and setters to the bottom of classes
+	- Update ChatManager seperateLines method
 	
 Finished:
 	+ Add a randomizer so Cyrus gives different error messages
 	+ add an exit/quit/terminate command
 	+ Launch math mode/ calculator without static variables/objects
 	+ Update how command, add more logic
+        + Update seperateLines method in chatManager.java
 	
 	
 	
