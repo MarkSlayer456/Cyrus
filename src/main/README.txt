@@ -1,4 +1,4 @@
-Current Version: Cyrus 1.2.1
+Current Version: Cyrus 1.2.2
 
 Team:
     - Mark (Lead Programmer)
