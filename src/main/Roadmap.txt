@@ -11,6 +11,7 @@ Project Start Date: 10/1/18
     - Finish Calculator Design
         - Add calc and calculator aliases for math
     - Add a toggle button (a button on the keyboard) to make Cyrus appear or go away
+    - Add Documentation to all methods
 1.4.0:
     - Add Basic Calculator functionality
     - Add Schedule functionality
