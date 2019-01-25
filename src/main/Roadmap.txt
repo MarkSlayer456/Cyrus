@@ -1,0 +1,24 @@
+Once an update is released it will be moved to the bottom of this file, 
+however the last update release date will remain at the top
+RoadMap:
+Project Start Date: 10/1/18
+1.2.2 Release Date: 1/25/18
+1.3.0:
+    - Create Buttons that will be used for the calculator
+    - Add default answers to commonly asked questions
+    - Add default jokes for Cyrus to tell
+        - Add joke command
+    - Finish Calculator Design
+        - Add calc and calculator aliases for math
+    - Add a toggle button (a button on the keyboard) to make Cyrus appear or go away
+1.4.0:
+    - Add Basic Calculator functionality
+    - Add Schedule functionality
+1.5.0:
+    - Add email functionality
+        - Allow Cyrus to email people
+1.2.2: 
+    - Add Roadmap.txt
+    - Change README.txt to be more useful
+    - Fix a bug where a space could be the first character when Cyrus was talking/writing
+    - Update how the calculator is opened

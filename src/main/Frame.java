@@ -159,7 +159,7 @@ public class Frame implements Runnable {
          * Setups the program, adding listeners and setting visibility if needed
          */
 	private void setup() {
-                setVersion("Version: 1.2.1 Pre-Alpha");
+                setVersion("Version: 1.2.2 Pre-Alpha");
 		cyrus.getFileManager().setup();
 		this.frame.setVisible(true);
 		this.frame.addKeyListener(cyrus.getInputManager());
