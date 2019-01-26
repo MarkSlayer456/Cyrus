@@ -17,6 +17,7 @@ Todo:
         - Remove unused comments
         - Move getters and setters to the bottom of classes
 	- Update ChatManager seperateLines method
+	- Make it so the cy files are not able to be edited
 	
 Finished:
 	+ Add a randomizer so Cyrus gives different error messages
