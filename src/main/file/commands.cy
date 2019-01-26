@@ -25,4 +25,4 @@
 - quit
   - <quit>
     - 0
-      -
+      - exit
