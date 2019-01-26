@@ -1,6 +1,4 @@
 Todo:
-	- Create a default file location for the storage of files
-		- More difficult than I thought
 	- Reduce amount of static variables
 		- Working on this
 	- Finish createkeybind command 
@@ -26,6 +24,8 @@ Finished:
 	+ Launch math mode/ calculator without static variables/objects
 	+ Update how command, add more logic
         + Update seperateLines method in chatManager.java
+	+ Create a default file location for the storage of files
+		+ More difficult than I thought        
 	
 	
 	

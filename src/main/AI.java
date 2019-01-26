@@ -88,7 +88,7 @@ public class AI implements Runnable {
 	public void outputErrorMessage() {
 		Random r = new Random();
 		int ran = r.nextInt(3);
-		File file = this.getFileManager().getFile("error messages");
+		File file = this.getFileManager().getFile("C:\\Users\\MarkSlayer456\\AppData\\Local\\Cyrus\\error messages.cy");
 		this.outputMessage(this.getFileManager().readFileLine(file, ran));
 	}
 	
