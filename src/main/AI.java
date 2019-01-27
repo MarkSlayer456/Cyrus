@@ -86,9 +86,10 @@ public class AI implements Runnable {
 	}
 	
 	public void outputErrorMessage() {
+		String user = System.getProperty("user.name").toString().toLowerCase();
+		File file = this.getFileManager().getFile("C:\\Users\\" + user + "\\AppData\\Local\\Cyrus\\error messages.cy");
 		Random r = new Random();
-		int ran = r.nextInt(3);
-		File file = this.getFileManager().getFile("C:\\Users\\MarkSlayer456\\AppData\\Local\\Cyrus\\error messages.cy");
+		int ran = r.nextInt(this.getFileManager().readFullFile(file).size());
 		this.outputMessage(this.getFileManager().readFileLine(file, ran));
 	}
 	

@@ -132,8 +132,8 @@ public class FileManager {
 	
 	public void setup() {
 		try {
-			//TODO need a better file location 
-			File command = createFile("C:\\Users\\MarkSlayer456\\AppData\\Local\\Cyrus\\commands");
+			String user = System.getProperty("user.name").toString().toLowerCase();
+			File command = createFile("C:\\Users\\" + user + "\\AppData\\Local\\Cyrus\\commands");
 			int i = 0;
 				writeToFile(command, "- hi", i++);
 				writeToFile(command, "  - <hi/hey/hello/hola>", i++); // this would be the help string
@@ -171,12 +171,12 @@ public class FileManager {
 				writeToFile(command, "      -", i++);
 				
 				
-				File errorMessages = createFile("C:\\Users\\MarkSlayer456\\AppData\\Local\\Cyrus\\error messages");
+				File errorMessages = createFile("C:\\Users\\" + user + "\\AppData\\Local\\Cyrus\\error messages");
 				int j = 0;
 				writeToFile(errorMessages, "I'm sorry I don't understand what you are trying to say.", j++);
 				writeToFile(errorMessages, "Are you sure your words make sense?", j++);
 				writeToFile(errorMessages, "ERROR: please check your command and make sure it is correct!", j++);
-				
+				writeToFile(errorMessages, "This is an unknown word or phrase sorry I can't help you!", j++);
 			/*
 			String test = readFileLine(file, 0, "greetings:");
 			test = test.replace(" ", "");

@@ -170,7 +170,8 @@ public class Command {
 	public static void setup(AI ai) { 
 		FileManager fileMan = ai.getFileManager();
 		// need to get a file here
-		File file = new File("C:\\Users\\MarkSlayer456\\AppData\\Local\\Cyrus\\commands.cy");
+		String user = System.getProperty("user.name").toString().toLowerCase();
+		File file = new File("C:\\Users\\" + user + "\\AppData\\Local\\Cyrus\\commands.cy");
 		for(int k = 0; k < fileMan.readFullFile(file).size(); k++) {
 			String command = fileMan.readFileLine(file, k);
 			if(command.startsWith("- ")) { // make sure it's the command
