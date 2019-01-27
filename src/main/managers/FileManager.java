@@ -170,6 +170,11 @@ public class FileManager {
 				writeToFile(command, "    - 0", i++);
 				writeToFile(command, "      -", i++);
 				
+				writeToFile(command, "- joke", i++);
+				writeToFile(command, "  - <joke>", i++);
+				writeToFile(command, "    - 0", i++);
+				writeToFile(command, "      -", i++);
+				
 				
 				File errorMessages = createFile("C:\\Users\\" + user + "\\AppData\\Local\\Cyrus\\error messages");
 				int j = 0;
@@ -177,6 +182,27 @@ public class FileManager {
 				writeToFile(errorMessages, "Are you sure your words make sense?", j++);
 				writeToFile(errorMessages, "ERROR: please check your command and make sure it is correct!", j++);
 				writeToFile(errorMessages, "This is an unknown word or phrase sorry I can't help you!", j++);
+			
+				int i1 = 0;
+				File commonQuestions = createFile("C:\\Users\\" + user + "\\AppData\\Local\\Cyrus\\commonly asked questions");
+				writeToFile(commonQuestions, "", i1++);
+				writeToFile(commonQuestions, "", i1++);
+				writeToFile(commonQuestions, "", i1++);
+				writeToFile(commonQuestions, "", i1++);
+				
+				int i2 = 0;
+				File jokes = createFile("C:\\Users\\" + user + "\\AppData\\Local\\Cyrus\\jokes");
+				writeToFile(jokes, "Yo' mama so stupid, she walked into an antique shop and asked, \"What's new?\"", i2++);
+				writeToFile(jokes, "Your Mama's so fat that when she went to school she sat next to the whole class!", i2++);
+				writeToFile(jokes, "Yo mamma's so fat, she tripped on 4th Avenue and landed on 12th.", i2++);
+				writeToFile(jokes, "What do you call 500 lawyers at the bottom of the ocean?" + "A good start.", i2++);
+				
+				
+				
+				
+				
+				
+				
 			/*
 			String test = readFileLine(file, 0, "greetings:");
 			test = test.replace(" ", "");

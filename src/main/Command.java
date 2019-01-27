@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Random;
 
 import main.managers.FileManager;
 
@@ -165,6 +166,13 @@ public class Command {
 			ai.getChatManager().clearConsoleLines();
 			ai.outputMessage("I have cleared the console for you!");
 			break;
+		case "joke":
+			String user = System.getProperty("user.name").toString().toLowerCase();
+			File file = ai.getFileManager().getFile("C:\\Users\\" + user + "\\AppData\\Local\\Cyrus\\jokes.cy");
+			Random r = new Random();
+			int ran = r.nextInt(ai.getFileManager().readFullFile(file).size());
+			ai.outputMessage(ai.getFileManager().readFileLine(file, ran));
+			break;
 		}
 	}
 	public static void setup(AI ai) { 
@@ -187,8 +195,8 @@ public class Command {
 				copyCommands = copyCommands.replaceAll("-", "");
 				ArrayList<String> copyCommandArray = new ArrayList<>();
 				String[] copyCommandStrings = copyCommands.split(",");
-                                copyCommandArray.addAll(Arrays.asList(copyCommandStrings));
-                                 // loop was replaced with the above method
+                copyCommandArray.addAll(Arrays.asList(copyCommandStrings));
+                // loop was replaced with the above method
 				command = command.replaceAll("-", "");
 				command = command.replaceAll(" ", "");
 				new Command(command, Integer.parseInt(numberOfArgs), helpStrArray, copyCommandArray);
