@@ -18,18 +18,16 @@ public class AI implements Runnable {
 	private Color color; // will implement later
 	private ArrayList<String> args;
 	private final InputManager inputManager;
-	private final UIManager uiManager;
 	private final ChatManager chatManager;
 	private final FileManager fileManager;
 	private final Calculator calc;
 	
-	public AI(String n, InputManager input, UIManager ui, ChatManager chat, FileManager file, Calculator c) { // Only create one AI
+	public AI(String n, InputManager input, ChatManager chat, FileManager file, Calculator c) { // Only create one AI
 		this.name = n;
 		this.hasGreeted = false;
 		this.color = Color.CYAN;
 		this.args = new ArrayList<String>();
 		this.inputManager = input;
-		this.uiManager = ui;
 		this.chatManager = chat;
 		this.fileManager = file;
 		this.calc = c;
@@ -44,10 +42,6 @@ public class AI implements Runnable {
 	
 	public ChatManager getChatManager() {
 		return this.chatManager;
-	}
-	
-	public UIManager getUIManager() {
-		return this.uiManager;
 	}
 	
 	public InputManager getInputManager() {

@@ -1,7 +1,5 @@
 package main.utilities;
 
-import java.awt.Color;
-
 import main.Frame;
 
 public class Calculator implements Runnable {
@@ -40,24 +38,6 @@ public class Calculator implements Runnable {
 		return num1 / num2;
 	}
 
-	public void drawCalc() { //TODO this is just drawing not VISUAL EFFECT ONLY
-		if(this.getFrame().getJFrame().getBufferStrategy() == null) { this.getFrame().getJFrame().createBufferStrategy(3); }
-		this.getFrame().setBS(this.getFrame().getJFrame().getBufferStrategy());
-		this.getFrame().setGraphics(this.getFrame().getBS().getDrawGraphics());
-		this.getFrame().getGraphics().clearRect(0, 0, this.getFrame().getWidth(), this.getFrame().getHeight());
-		///////////////////////////////////////////////////////////////
-		this.getFrame().getGraphics().setColor(Color.BLACK);
-		this.getFrame().getGraphics().fillRect(0, 0, frame.getWidth(), frame.getHeight());
-		this.getFrame().getGraphics().setColor(Color.WHITE);
-		//TODO finish this
-		this.getFrame().getGraphics().fillRect(1, 100, 75, 50);
-		this.getFrame().getGraphics().fillRect(77, 100, 75, 50);
-		this.getFrame().getGraphics().fillRect(153, 100, 75, 50);
-		///////////////////////////////////////////////////////////////
-		this.getFrame().getGraphics().dispose();
-		this.getFrame().getBS().show();
-	}
-	
 	public boolean isRunning() {
 		return this.running;
 	}
@@ -72,7 +52,11 @@ public class Calculator implements Runnable {
 		this.setup();
 		this.running = true;
 		while(this.running) {
-			this.drawCalc();
+			this.getFrame().setupBufferStrategy();
+			////////////////////////////////////////////
+			this.getFrame().getUIManager().drawCalc();
+			////////////////////////////////////////////
+			this.getFrame().disposeAndShow();
 		}
 		
 	}

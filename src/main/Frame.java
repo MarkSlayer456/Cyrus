@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Toolkit;
 import java.awt.image.BufferStrategy;
+
 import javax.swing.JFrame;
 import main.managers.ChatManager;
 import main.managers.FileManager;
@@ -33,15 +34,17 @@ public class Frame implements Runnable {
 	
 	private Dimension size; // this will be able to change later
 	private final JFrame frame;
+	private UIManager uiManager;
 	
 	
 	
 	@SuppressWarnings("static-access")
 	public Frame(Dimension s, String name) {
-		this.size = s;
 		this.g = null;
 		this.bs = null;
+		this.size = s;
 		this.frame = new JFrame(name);
+		this.uiManager = new UIManager(s, null);
                 
 		this.frame.setSize(size.width, size.height);
 		this.frame.setLocation(Toolkit.getDefaultToolkit().getScreenSize().width - size.width, 0);
@@ -56,7 +59,7 @@ public class Frame implements Runnable {
 		mainFrame = new Frame(new Dimension(800, 300), "Cyrus"); //TODO get screen size but this will do for now
 		calcFrame = new Frame(new Dimension(600, 500), "Calculator");
 		calc = new Calculator(false, calcFrame);
-		cyrus = new AI("Cyrus", new InputManager(), new UIManager(), new ChatManager(50, 10, 0, 25), new FileManager(), calc); // Creating Cyrus
+		cyrus = new AI("Cyrus", new InputManager(), new ChatManager(50, 10, 0, 25), new FileManager(), calc); // Creating Cyrus
 		cyrusT = new Thread(cyrus, "cyrus");
 		cyrusCalc = new Thread(calc, "cyrus");
 		cyrusT.setPriority(5); // 10 is max priority
@@ -74,29 +77,37 @@ public class Frame implements Runnable {
 		}
 	}
 
+	public void setupBufferStrategy() {
+		if(this.getBS() == null) { this.getJFrame().createBufferStrategy(3); }
+		this.setBS(this.getJFrame().getBufferStrategy());
+		this.setGraphics(this.getBS().getDrawGraphics());
+		this.uiManager.setGraphics(this.getGraphics());
+		this.getGraphics().clearRect(0, 0, this.getWidth(), this.getHeight());
+	}
+	
+	public void disposeAndShow() {
+		this.g.dispose();
+		this.bs.show();
+	}
+	
+	
 	 /**
       * Draws all the information for the given frame
       */
 	public void draw() { // What to display from Cyrus thoughts
-		if(this.getBS() == null) { this.getJFrame().createBufferStrategy(3); }
-		this.setBS(this.getJFrame().getBufferStrategy());
-		this.setGraphics(this.getBS().getDrawGraphics());
-		this.getGraphics().clearRect(0, 0, this.getWidth(), this.getHeight());
-		//////////////////////////////////// 
-        
-		cyrus.greet();
-		cyrus.getUIManager().drawUI(this.g, cyrus);
-		
+		setupBufferStrategy();
 		////////////////////////////////////
-		this.g.dispose();
-		this.bs.show();
+		cyrus.greet();
+		this.uiManager.drawConsole(cyrus);
+		////////////////////////////////////
+		disposeAndShow();
 	}
 
 	/**
 	 * Setups the program, adding listeners and setting visibility if needed
      */
 	private void setup() {
-                setVersion("Version: 1.2.2 Pre-Alpha");
+        setVersion("Version: 1.2.2 Pre-Alpha");
 		cyrus.getFileManager().setup();
 		this.frame.setVisible(true);
 		this.frame.addKeyListener(cyrus.getInputManager());
@@ -124,6 +135,7 @@ public class Frame implements Runnable {
 	
 	public void setWidth(int width) {
 		this.size.width = width;
+		this.uiManager.setSize(width, this.uiManager.getSize().height);
 	}
 	
 	public void setHeight(int height) {
@@ -170,6 +182,10 @@ public class Frame implements Runnable {
 	
 	public Graphics getGraphics() {
 		return this.g;
+	}
+	
+	public UIManager getUIManager() {
+		return this.uiManager;
 	}
 	
 	/**
