@@ -139,10 +139,10 @@ public class Command {
 			if(!Frame.calc.isRunning()) {
 				Frame.cyrusCalc.start();
 			} else {
-				if(Frame.calcFrame.getFrame().isVisible()) {
+				if(Frame.calcFrame.getJFrame().isVisible()) {
 					ai.outputMessage("There is already a calculator open!");
 				} else {
-					Frame.calcFrame.getFrame().setVisible(true);
+					Frame.calcFrame.getJFrame().setVisible(true);
 				}
 			}
 			break;

@@ -47,7 +47,7 @@ public class Calculator implements Runnable {
 		this.getFrame().getGraphics().clearRect(0, 0, this.getFrame().getWidth(), this.getFrame().getHeight());
 		///////////////////////////////////////////////////////////////
 		this.getFrame().getGraphics().setColor(Color.BLACK);
-		this.getFrame().getGraphics().fillRect(0, 0, frame.getSize().width, frame.getSize().height);
+		this.getFrame().getGraphics().fillRect(0, 0, frame.getWidth(), frame.getHeight());
 		this.getFrame().getGraphics().setColor(Color.WHITE);
 		//TODO finish this
 		this.getFrame().getGraphics().fillRect(1, 100, 75, 50);
@@ -63,7 +63,7 @@ public class Calculator implements Runnable {
 	}
 	
 	public void setup() {
-		Frame.calcFrame.getFrame().setVisible(true);
+		Frame.calcFrame.getJFrame().setVisible(true);
 	}
 	
 	
@@ -73,8 +73,6 @@ public class Calculator implements Runnable {
 		this.running = true;
 		while(this.running) {
 			this.drawCalc();
-			//this.getFrame().draw();
-			//Frame.calcFrame.draw(); // shows calculator
 		}
 		
 	}
