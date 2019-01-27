@@ -13,8 +13,6 @@ import main.utilities.Calculator;
 
 
 public class Frame implements Runnable {
-	//test
-	
 	
 	//TODO try to get rid of lots of the static methods
 	///// Static Variables /////
