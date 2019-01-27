@@ -16,6 +16,7 @@ Project Start Date: 10/1/18
     - Add Basic Calculator functionality
     - Add Schedule functionality
 1.5.0 - Alpha:
+	- Add music playback functionality
     - Add email functionality
         - Allow Cyrus to email people
 1.2.2 - Alpha: 

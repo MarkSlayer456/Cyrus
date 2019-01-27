@@ -153,7 +153,7 @@ public class FileManager {
 				writeToFile(command, "- math", i++);
 				writeToFile(command, "  - <math>", i++);
 				writeToFile(command, "    - 0", i++);
-				writeToFile(command, "      -", i++);
+				writeToFile(command, "      -calc, calculator", i++);
 				
 				writeToFile(command, "- how", i++);
 				writeToFile(command, "  - <how/how's/how'd> <question>", i++);

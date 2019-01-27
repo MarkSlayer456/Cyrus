@@ -64,7 +64,7 @@ public class AI implements Runnable {
 	}
 
 	public void logic() { // The thinking method
-                    this.greet();
+		this.greet();
 	}
 	
 	public void outputMessage(String str) { // output a message to Cyrus/console
