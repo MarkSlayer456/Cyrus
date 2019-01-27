@@ -8,7 +8,6 @@ import java.util.Random;
 import main.managers.ChatManager;
 import main.managers.FileManager;
 import main.managers.InputManager;
-import main.managers.UIManager;
 import main.utilities.Calculator;
 
 public class AI implements Runnable {
@@ -31,9 +30,8 @@ public class AI implements Runnable {
 		this.chatManager = chat;
 		this.fileManager = file;
 		this.calc = c;
-                
-                // static vars //
-                thinking = true;
+		// static vars //
+		thinking = true;
 	}
 	
 	public FileManager getFileManager() {
@@ -70,7 +68,6 @@ public class AI implements Runnable {
 	}
 	
 	public void outputMessage(String str) { // output a message to Cyrus/console
-		//TODO finish this
 		this.getChatManager().seperateLines(str);
 	}
 	

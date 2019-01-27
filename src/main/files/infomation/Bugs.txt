@@ -1,5 +1,5 @@
 Bugs:
-	
+	- the question "what are you up to" causes Cyrus to respond with <insert news> this is incorrect
 	
 	
 Resolved: These are bugs that I are resolved

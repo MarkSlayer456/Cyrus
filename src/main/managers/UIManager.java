@@ -33,7 +33,13 @@ public class UIManager {
 		this.graphics.fillRect(0, 0, Frame.mainFrame.getWidth(), Frame.mainFrame.getHeight());
 		this.graphics.setColor(Color.CYAN);
 		this.graphics.drawString("--/>", 20, 275);
-		ai.getChatManager().draw(this.graphics, Color.CYAN);
+		this.graphics.setColor(Color.CYAN);
+		int iterator = 0;
+		for(int j = ai.getChatManager().getConsoleLines().size() - 1; j >= 0; j--) { // drawing the string
+			iterator++;
+			String str = ai.getChatManager().getConsoleLines().get(j);
+			this.graphics.drawString(str, 50, 275 - iterator*ai.getChatManager().getSpaceInbetweenLines());
+		}
 		ai.getInputManager().drawWhatUserIsCurrentlyTyping(this.graphics);
 		//////////////////////////////////////
 		
