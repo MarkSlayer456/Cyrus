@@ -21,7 +21,7 @@ public class FileManager {
 		return this.files;
 	}
 	
-	public File getFile(String name) { //TODO this causes a crash if a file isn't found
+	public File getFile(String name) {
 		try {
 			File file;
 			if(name.contains(".")) { // there is an extension
@@ -35,7 +35,8 @@ public class FileManager {
 		} catch(Exception e) {
 			
 		}
-		return null;
+		// TODO check on startup if an error file exists and find a way to deal with it
+		return new File("ERROR.cy"); // this way the program doesn't crash if a file isn't found should never happen
 	}
 	
 	public ArrayList<String> readFullFile(File file) { // returns each line of the file stored in a array of strings

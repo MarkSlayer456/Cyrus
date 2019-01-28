@@ -45,7 +45,7 @@ public class Frame implements Runnable {
 		this.size = s;
 		this.frame = new JFrame(name);
 		this.uiManager = new UIManager(s, null);
-                
+		
 		this.frame.setSize(size.width, size.height);
 		this.frame.setLocation(Toolkit.getDefaultToolkit().getScreenSize().width - size.width, 0);
 		this.frame.setUndecorated(false);
