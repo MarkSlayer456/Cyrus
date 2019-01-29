@@ -196,15 +196,4 @@ public class Frame implements Runnable {
 		return version;
 	}
 	
-	
-	
-	
-	
-	
-	
-
-    
-        
-        
-
 }
