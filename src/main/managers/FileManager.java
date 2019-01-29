@@ -133,7 +133,7 @@ public class FileManager {
 	
 	public void setup() {
 		try {
-			String user = System.getProperty("user.name").toString().toLowerCase();
+			String user = System.getProperty("user.name").toLowerCase();
 			File command = createFile("C:\\Users\\" + user + "\\AppData\\Local\\Cyrus\\commands");
 			int i = 0;
 				writeToFile(command, "- hi", i++);
