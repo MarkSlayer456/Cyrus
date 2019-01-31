@@ -7,44 +7,46 @@ import java.util.Random;
 
 import main.managers.ChatManager;
 import main.managers.FileManager;
-import main.managers.InputManager;
-import main.utilities.Calculator;
 
 public class AI implements Runnable {
+	
+	FileManager fileManager = FileManager.getInstance();
+	
+	
 	public static boolean thinking; // is Cyrus doing any computations at all
 	private String name;
 	private boolean hasGreeted; // has Cyrus introduced himself
 	private Color color; // will implement later
 	private ArrayList<String> args;
-	private final InputManager inputManager;
+	//private final InputManager inputManager;
 	private final ChatManager chatManager;
-	private final FileManager fileManager;
-	private final Calculator calc;
+	//private final FileManager fileManager;
+	//private final Calculator calc;
 	
-	public AI(String n, InputManager input, ChatManager chat, FileManager file, Calculator c) { // Only create one AI
+	public AI(String n, ChatManager chat) {
 		this.name = n;
 		this.hasGreeted = false;
 		this.color = Color.CYAN;
 		this.args = new ArrayList<String>();
-		this.inputManager = input;
+		//this.inputManager = input;
 		this.chatManager = chat;
-		this.fileManager = file;
-		this.calc = c;
+		//this.fileManager = file;
+		//this.calc = c;
 		// static vars //
 		thinking = true;
 	}
 	
-	public FileManager getFileManager() {
+	/*public FileManager getFileManager() {
 		return this.fileManager;
-	}
+	}*/
 	
 	public ChatManager getChatManager() {
 		return this.chatManager;
 	}
 	
-	public InputManager getInputManager() {
+	/*public InputManager getInputManager() {
 		return this.inputManager;
-	}
+	}*/
 	
 	public void setup() {
 		//TODO ask for name
@@ -78,10 +80,10 @@ public class AI implements Runnable {
 	
 	public void outputErrorMessage() {
 		String user = System.getProperty("user.name").toString().toLowerCase();
-		File file = this.getFileManager().getFile("C:\\Users\\" + user + "\\AppData\\Local\\Cyrus\\error messages.cy");
+		File file = fileManager.getFile("C:\\Users\\" + user + "\\AppData\\Local\\Cyrus\\error messages.cy");
 		Random r = new Random();
-		int ran = r.nextInt(this.getFileManager().readFullFile(file).size());
-		this.outputMessage(this.getFileManager().readFileLine(file, ran));
+		int ran = r.nextInt(fileManager.readFullFile(file).size());
+		this.outputMessage(fileManager.readFileLine(file, ran));
 	}
 	
 	public void interpret(String cmd) {

@@ -10,9 +10,12 @@ import main.managers.FileManager;
 
 public class Command {
     
+	
+	private static FileManager fileManager = FileManager.getInstance();
+	
 	//this could be attached to cyrus if you don't want it to be static but just testing for right now
-	public static HashMap<String, Command> commands = new HashMap<>();
-	public static HashMap<String, Command> aliasesS = new HashMap<>();
+	private static HashMap<String, Command> commands = new HashMap<>();
+	private static HashMap<String, Command> aliasesS = new HashMap<>();
 	//private HashMap<ArrayList<String>, ArrayList<String>> argResponse = new HashMap<ArrayList<String>, ArrayList<String>>();
 	private ArrayList<String> aliases = new ArrayList<>();
 	
@@ -82,7 +85,6 @@ public class Command {
 		switch(this.command) {
 		case "": // pretty much the same thing
 		default:
-			//TODO do something
 			ai.outputErrorMessage();
 			break;
 		case "hi":
@@ -168,29 +170,28 @@ public class Command {
 			break;
 		case "joke":
 			String user = System.getProperty("user.name").toString().toLowerCase();
-			File file = ai.getFileManager().getFile("C:\\Users\\" + user + "\\AppData\\Local\\Cyrus\\jokes.cy");
+			File file = fileManager.getFile("C:\\Users\\" + user + "\\AppData\\Local\\Cyrus\\jokes.cy");
 			Random r = new Random();
-			int ran = r.nextInt(ai.getFileManager().readFullFile(file).size());
-			ai.outputMessage(ai.getFileManager().readFileLine(file, ran));
+			int ran = r.nextInt(fileManager.readFullFile(file).size());
+			ai.outputMessage(fileManager.readFileLine(file, ran));
 			break;
 		}
 	}
 	public static void setup(AI ai) { 
-		FileManager fileMan = ai.getFileManager();
 		// need to get a file here
 		String user = System.getProperty("user.name").toString().toLowerCase();
 		File file = new File("C:\\Users\\" + user + "\\AppData\\Local\\Cyrus\\commands.cy");
-		for(int k = 0; k < fileMan.readFullFile(file).size(); k++) {
-			String command = fileMan.readFileLine(file, k);
+		for(int k = 0; k < fileManager.readFullFile(file).size(); k++) {
+			String command = fileManager.readFileLine(file, k);
 			if(command.startsWith("- ")) { // make sure it's the command
-				String helpStr = fileMan.readFileLine(file, k + 1); // reads the next line which is the help string
+				String helpStr = fileManager.readFileLine(file, k + 1); // reads the next line which is the help string
 				helpStr = helpStr.replaceFirst("  - ", "");
-				String numberOfArgs = fileMan.readFileLine(file, k + 2); // reads the next line which is the help string
+				String numberOfArgs = fileManager.readFileLine(file, k + 2); // reads the next line which is the help string
 				ArrayList<String> helpStrArray = new ArrayList<>();
 				helpStrArray.add(helpStr);
 				numberOfArgs = numberOfArgs.replaceAll(" ", "");
 				numberOfArgs = numberOfArgs.replaceAll("-", "");
-				String copyCommands = fileMan.readFileLine(file, k + 3); // aliases
+				String copyCommands = fileManager.readFileLine(file, k + 3); // aliases
 				copyCommands = copyCommands.replaceAll(" ", "");
 				copyCommands = copyCommands.replaceAll("-", "");
 				ArrayList<String> copyCommandArray = new ArrayList<>();

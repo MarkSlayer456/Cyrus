@@ -1,15 +1,19 @@
 package main.utilities;
 
+import java.util.ArrayList;
+
 import main.Frame;
 
 public class Calculator implements Runnable {
 	
 	private boolean running;
 	private Frame frame;
+	private ArrayList<Button> buttons;
 	
-	public Calculator(Boolean r, Frame f) { // only one of these is ever created
+	public Calculator(Boolean r, Frame f, ArrayList<Button> buttons) { // only one of these is ever created
 		this.running = r;
 		this.frame = f;
+		this.buttons = buttons;
 	}
 	
 	public Frame getFrame() {
@@ -54,10 +58,19 @@ public class Calculator implements Runnable {
 		while(this.running) {
 			this.getFrame().setupBufferStrategy();
 			////////////////////////////////////////////
-			this.getFrame().getUIManager().drawCalc();
+			this.getFrame().getUIManager().drawCalc(this.buttons);
 			////////////////////////////////////////////
 			this.getFrame().disposeAndShow();
 		}
 		
+	}
+	
+	///// Setter /////
+	public void addButton(Button button) {
+		this.buttons.add(button);
+	}
+	///// Getter /////
+	public ArrayList<Button> getButtons() {
+		return this.buttons;
 	}
 }

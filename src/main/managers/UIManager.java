@@ -4,19 +4,22 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.util.ArrayList;
 
 import main.AI;
 import main.Frame;
+import main.utilities.Button;
 
 public class UIManager {
+		
+	InputManager inputManager = InputManager.getInstance();
 	
-	//TODO this file should be completely reworked
-
-	private Graphics graphics;
+	private Graphics2D graphics;
 	private Dimension size;
 	
 	
-	public UIManager(Dimension size, Graphics graphics) {
+	public UIManager(Dimension size, Graphics2D graphics) {
 		this.size = size;
 		this.graphics = graphics;
 	}
@@ -40,7 +43,7 @@ public class UIManager {
 			String str = ai.getChatManager().getConsoleLines().get(j);
 			this.graphics.drawString(str, 50, 275 - iterator*ai.getChatManager().getSpaceInbetweenLines());
 		}
-		ai.getInputManager().drawWhatUserIsCurrentlyTyping(this.graphics);
+		inputManager.drawWhatUserIsCurrentlyTyping(this.graphics);
 		//////////////////////////////////////
 		
 		///// Version /////
@@ -50,10 +53,16 @@ public class UIManager {
 		///////////////////////////////////////
 	}
 	
-	public void drawCalc() { //TODO this is just drawing not VISUAL EFFECT ONLY
+	public void drawCalc(ArrayList<Button> buttons) {
 		this.getGraphics().setColor(Color.BLACK);
 		this.getGraphics().fillRect(0, 0, Frame.calcFrame.getWidth(), Frame.calcFrame.getHeight());
 		this.getGraphics().setColor(Color.WHITE);
+		for(int i = 0; i < buttons.size(); i++) { //TODO will be updated
+			this.graphics.fill(buttons.get(i).getRect());
+		}
+		
+		
+		
 		//TODO finish this
 		this.getGraphics().fillRect(1, 100, 75, 50);
 		this.getGraphics().fillRect(77, 100, 75, 50);
@@ -62,7 +71,7 @@ public class UIManager {
 	}
 	
 	///// Setter /////
-	public void setGraphics(Graphics graphics) {
+	public void setGraphics(Graphics2D graphics) {
 		this.graphics = graphics;
 	}
 	

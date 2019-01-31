@@ -11,6 +11,12 @@ import main.Frame;
 
 public class InputManager implements KeyListener, MouseListener {
 
+	public static InputManager inputManager = new InputManager();
+
+	public static InputManager getInstance() {
+		return inputManager;
+	}
+	
 	private ArrayList<Integer> keysDown;
 	private ArrayList<Character> currentCharacters;
 	private String currentCommand;
@@ -21,6 +27,7 @@ public class InputManager implements KeyListener, MouseListener {
 		this.currentCommand = "";
 	}
 	
+	//TODO move to UIManager
 	public void drawWhatUserIsCurrentlyTyping(Graphics g) { // Rename this
 		String temp = "";
 		for(int i = 0; i < this.currentCharacters.size(); i++) {

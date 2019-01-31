@@ -2,18 +2,24 @@ package main;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Toolkit;
 import java.awt.image.BufferStrategy;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import main.managers.ChatManager;
 import main.managers.FileManager;
 import main.managers.InputManager;
 import main.managers.UIManager;
+import main.utilities.Button;
 import main.utilities.Calculator;
 
 
 public class Frame implements Runnable {
+	
+	FileManager fileManager = FileManager.getInstance();
+	InputManager inputManager = InputManager.getInstance();
 	
 	//TODO try to get rid of lots of the static methods
 	///// Static Variables /////
@@ -27,7 +33,7 @@ public class Frame implements Runnable {
 	public static Calculator calc;
 	//////////////////////////////////////////////
 	
-	private Graphics g;
+	private Graphics2D g;
 	private BufferStrategy bs;
 	private static String version;
 	private boolean drawing = true; // Used if you ever want to stop drawing for some reason	
@@ -58,8 +64,8 @@ public class Frame implements Runnable {
 	 public static void main(String[] args) { // Program begins
 		mainFrame = new Frame(new Dimension(800, 300), "Cyrus"); //TODO get screen size but this will do for now
 		calcFrame = new Frame(new Dimension(600, 500), "Calculator");
-		calc = new Calculator(false, calcFrame);
-		cyrus = new AI("Cyrus", new InputManager(), new ChatManager(50, 10, 0, 25), new FileManager(), calc); // Creating Cyrus
+		calc = new Calculator(false, calcFrame, new ArrayList<Button>());
+		cyrus = new AI("Cyrus", new ChatManager(50, 10, 0, 25)); // Creating Cyrus
 		cyrusT = new Thread(cyrus, "cyrus");
 		cyrusCalc = new Thread(calc, "cyrus");
 		cyrusT.setPriority(5); // 10 is max priority
@@ -80,7 +86,7 @@ public class Frame implements Runnable {
 	public void setupBufferStrategy() {
 		if(this.getBS() == null) { this.getJFrame().createBufferStrategy(3); }
 		this.setBS(this.getJFrame().getBufferStrategy());
-		this.setGraphics(this.getBS().getDrawGraphics());
+		this.setGraphics((Graphics2D) this.getBS().getDrawGraphics());
 		this.uiManager.setGraphics(this.getGraphics());
 		this.getGraphics().clearRect(0, 0, this.getWidth(), this.getHeight());
 	}
@@ -108,10 +114,11 @@ public class Frame implements Runnable {
      */
 	private void setup() {
         setVersion("Version: 1.2.2 Pre-Alpha");
-		cyrus.getFileManager().setup();
+		fileManager.setup();
 		this.frame.setVisible(true);
-		this.frame.addKeyListener(cyrus.getInputManager());
+		this.frame.addKeyListener(inputManager);
 		Command.setup(cyrus);
+		Button.setup(calc);
 	}
 	/**
      * Quits the program, closing all open windows and shutting down
@@ -146,7 +153,7 @@ public class Frame implements Runnable {
 		this.bs = bufferStr;
 	}
 	
-	public void setGraphics(Graphics graphics) {
+	public void setGraphics(Graphics2D graphics) {
 		this.g = graphics;
 	}
 	
@@ -180,7 +187,7 @@ public class Frame implements Runnable {
 		return this.frame;
 	}
 	
-	public Graphics getGraphics() {
+	public Graphics2D getGraphics() {
 		return this.g;
 	}
 	

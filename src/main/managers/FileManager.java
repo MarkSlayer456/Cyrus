@@ -11,6 +11,13 @@ import java.util.ArrayList;
 
 public class FileManager {
 	
+	public static FileManager fileManager = new FileManager();
+	
+	public static FileManager getInstance() {
+		return fileManager;
+	}
+	
+	
 	private ArrayList<File> files = new ArrayList<File>(); // All the files the ai knows about
 	
 	public FileManager() {

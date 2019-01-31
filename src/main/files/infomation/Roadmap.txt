@@ -19,6 +19,8 @@ Project Start Date: 10/1/18
 	- Add music playback functionality
     - Add email functionality
         - Allow Cyrus to email people
+1.6.0 - Alpha:
+	- Make another AI
 1.2.2 - Alpha: 
     - Add Roadmap.txt
     - Change README.txt to be more useful
