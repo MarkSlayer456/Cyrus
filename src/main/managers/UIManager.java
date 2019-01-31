@@ -26,8 +26,9 @@ public class UIManager {
 	
 	/**
 	 * Draws the console UI
+	 * @param ai the AI that you want to draw the console for
 	 */
-	public void drawConsole(AI ai) {
+	public void drawConsole(AI ai) { //TODO make everything change with the screen size
 		///// Command Line /////
 		// what the user is typing on
 		this.graphics.setFont(new Font("Cyrus Commandline", 1, 20));
