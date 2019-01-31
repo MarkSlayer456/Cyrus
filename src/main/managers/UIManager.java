@@ -28,24 +28,22 @@ public class UIManager {
 	 * Draws the console UI
 	 * @param ai the AI that you want to draw the console for
 	 */
-	public void drawConsole(AI ai) { //TODO make everything change with the screen size
+	public void drawConsole(AI ai) {
 		///// Command Line /////
 		// what the user is typing on
 		this.graphics.setFont(new Font("Cyrus Commandline", 1, 20));
 		//g.setFont(normal);
 		this.graphics.setColor(Color.BLACK);
 		this.graphics.fillRect(0, 0, Frame.mainFrame.getJFrame().getWidth(), Frame.mainFrame.getJFrame().getHeight());
-		this.graphics.setColor(new Color(255, 51, 51));
+		this.graphics.setColor(new Color(153, 0, 255));
 		this.graphics.drawString("--/>", 20, Frame.mainFrame.getJFrame().getHeight() - 25);
-		//this.graphics.drawString("--/>", 20, 275);
-		this.graphics.setColor(new Color(255, 51, 51));
+		this.graphics.setColor(new Color(153, 0, 255));
 		int iterator = 0;
 		for(int j = ai.getChatManager().getConsoleLines().size() - 1; j >= 0; j--) { // drawing the string
 			iterator++;
 			String str = ai.getChatManager().getConsoleLines().get(j);
 			this.graphics.drawString(str, 50, Frame.mainFrame.getJFrame().getHeight() - 25 - iterator*ai.getChatManager().getSpaceInbetweenLines());
 		}
-		//inputManager.drawWhatUserIsCurrentlyTyping(this.graphics);
 		String temp = "";
 		for(int i = 0; i < inputManager.getCurrentCharacters().size(); i++) {
 			char z = inputManager.getCurrentCharacters().get(i);
@@ -61,7 +59,7 @@ public class UIManager {
 		///////////////////////////////////////
 	}
 	
-	public void drawCalc(ArrayList<Button> buttons) {
+	public void drawCalc(ArrayList<Button> buttons) { // TODO needs to adjust with frame
 		this.getGraphics().setColor(Color.BLACK);
 		this.getGraphics().fillRect(0, 0, Frame.calcFrame.getWidth(), Frame.calcFrame.getHeight());
 		this.getGraphics().setColor(Color.WHITE);
