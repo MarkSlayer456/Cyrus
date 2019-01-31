@@ -27,16 +27,6 @@ public class InputManager implements KeyListener, MouseListener {
 		this.currentCommand = "";
 	}
 	
-	//TODO move to UIManager
-	public void drawWhatUserIsCurrentlyTyping(Graphics g) { // Rename this
-		String temp = "";
-		for(int i = 0; i < this.currentCharacters.size(); i++) {
-			char z = this.currentCharacters.get(i);
-			temp += z;
-			g.drawString(temp, 53, 275);
-		}
-	}
-	
 	public ArrayList<Character> getCurrentChars() {
 		return this.currentCharacters;
 	}
@@ -125,4 +115,15 @@ public class InputManager implements KeyListener, MouseListener {
 		
 	}
 
+	///// Setters /////
+
+	///// Getters /////
+	public ArrayList<Character> getCurrentCharacters() {
+		return this.currentCharacters;
+	}
+	
+	public String getCurrentCommand() {
+		return this.currentCommand;
+	}
+	
 }

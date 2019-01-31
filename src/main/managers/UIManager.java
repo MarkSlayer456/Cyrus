@@ -34,23 +34,30 @@ public class UIManager {
 		this.graphics.setFont(new Font("Cyrus Commandline", 1, 20));
 		//g.setFont(normal);
 		this.graphics.setColor(Color.BLACK);
-		this.graphics.fillRect(0, 0, Frame.mainFrame.getWidth(), Frame.mainFrame.getHeight());
-		this.graphics.setColor(Color.CYAN);
-		this.graphics.drawString("--/>", 20, 275);
-		this.graphics.setColor(Color.CYAN);
+		this.graphics.fillRect(0, 0, Frame.mainFrame.getJFrame().getWidth(), Frame.mainFrame.getJFrame().getHeight());
+		this.graphics.setColor(new Color(255, 51, 51));
+		this.graphics.drawString("--/>", 20, Frame.mainFrame.getJFrame().getHeight() - 25);
+		//this.graphics.drawString("--/>", 20, 275);
+		this.graphics.setColor(new Color(255, 51, 51));
 		int iterator = 0;
 		for(int j = ai.getChatManager().getConsoleLines().size() - 1; j >= 0; j--) { // drawing the string
 			iterator++;
 			String str = ai.getChatManager().getConsoleLines().get(j);
-			this.graphics.drawString(str, 50, 275 - iterator*ai.getChatManager().getSpaceInbetweenLines());
+			this.graphics.drawString(str, 50, Frame.mainFrame.getJFrame().getHeight() - 25 - iterator*ai.getChatManager().getSpaceInbetweenLines());
 		}
-		inputManager.drawWhatUserIsCurrentlyTyping(this.graphics);
+		//inputManager.drawWhatUserIsCurrentlyTyping(this.graphics);
+		String temp = "";
+		for(int i = 0; i < inputManager.getCurrentCharacters().size(); i++) {
+			char z = inputManager.getCurrentCharacters().get(i);
+			temp += z;
+			this.graphics.drawString(temp, 53, Frame.mainFrame.getJFrame().getHeight() - 25);
+		}
 		//////////////////////////////////////
 		
 		///// Version /////
 		this.graphics.setColor(Color.WHITE);
 		this.graphics.setFont(new Font("Cyrus Version", 1, 25));
-		this.graphics.drawString(Frame.mainFrame.getVersion(), Frame.mainFrame.getWidth() - 300, 75);
+		this.graphics.drawString(Frame.mainFrame.getVersion(), Frame.mainFrame.getJFrame().getWidth() - 300, 75);
 		///////////////////////////////////////
 	}
 	

@@ -1,7 +1,6 @@
 package main;
 
 import java.awt.Dimension;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Toolkit;
 import java.awt.image.BufferStrategy;
@@ -38,10 +37,9 @@ public class Frame implements Runnable {
 	private static String version;
 	private boolean drawing = true; // Used if you ever want to stop drawing for some reason	
 	
-	private Dimension size; // this will be able to change later
+	private final Dimension size; // this will be able to change later
 	private final JFrame frame;
 	private UIManager uiManager;
-	
 	
 	
 	@SuppressWarnings("static-access")
@@ -51,14 +49,14 @@ public class Frame implements Runnable {
 		this.size = s;
 		this.frame = new JFrame(name);
 		this.uiManager = new UIManager(s, null);
-		
 		this.frame.setSize(size.width, size.height);
 		this.frame.setLocation(Toolkit.getDefaultToolkit().getScreenSize().width - size.width, 0);
 		this.frame.setUndecorated(false);
 		if(this.frame.getName().equalsIgnoreCase("Cyrus")) this.frame.setDefaultCloseOperation(this.frame.EXIT_ON_CLOSE);
 		else this.frame.setDefaultCloseOperation(this.frame.HIDE_ON_CLOSE);
 		//this.frame.setVisible(true);
-		this.frame.setResizable(false);
+		this.frame.setResizable(true);
+		this.frame.setMinimumSize(new Dimension(800, 300));
 	}
 	
 	 public static void main(String[] args) { // Program begins
