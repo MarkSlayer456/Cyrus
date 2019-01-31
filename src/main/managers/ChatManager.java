@@ -24,24 +24,18 @@ public class ChatManager {
                 String line = "";
                 String currentWord = "";
                 String[] words = s.split(" ");
-            for (int i = 0; i < words.length; i++) {
-                if (line.length() + words[i].length() <= maxChars) {
+            for (int i = 0; i < words.length;) {
                     currentWord = words[i];
                     if(line.length() + currentWord.length() <= maxChars) {
                         line += currentWord + " ";
+                        i++;
                     } else {
                         this.consoleLines.add(line);
                         line = "";
-                        words[i] = "";
                     }
-                    if(words.length - 1 == i) {
+                    if(words.length == i) {
                         this.consoleLines.add(line);
                     }
-                } else {
-                    this.consoleLines.add(line);
-                    line = "";
-                    words[i] = "";
-                }
             }
 	}
 	
