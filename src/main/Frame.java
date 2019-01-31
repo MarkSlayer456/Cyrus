@@ -83,7 +83,7 @@ public class Frame implements Runnable {
 		}
 	}
 
-	public void setupBufferStrategy() {
+	public void setupBufferStrategy() { //TODO maybe move to UIManager
 		if(this.getBS() == null) { this.getJFrame().createBufferStrategy(3); }
 		this.setBS(this.getJFrame().getBufferStrategy());
 		this.setGraphics((Graphics2D) this.getBS().getDrawGraphics());
