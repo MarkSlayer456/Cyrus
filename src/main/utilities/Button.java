@@ -11,11 +11,11 @@ import java.awt.geom.Rectangle2D;
 public class Button implements Runnable {
     
     private Point pos;
-    private double height;
-    private double width;
+    private final double height;
+    private final double width;
     private Rectangle2D.Double rect;
-    private boolean isActive;
-    private Image image;
+    private final boolean isActive;
+    private final Image image;
     
     /**
      * 
@@ -48,7 +48,7 @@ public class Button implements Runnable {
     /**
      * All button creation will be executed here
      */
-    public static void setup(Calculator calc) {
+    public static void setup(Calculator calc) { // TODO Get rid of the Calculator variable here
     	///// Calc /////
     	
     	Button plus = new Button(new Point(475, 150), 50, 50, false, null);
