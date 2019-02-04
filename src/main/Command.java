@@ -16,24 +16,17 @@ public class Command {
 	//this could be attached to cyrus if you don't want it to be static but just testing for right now
 	private static HashMap<String, Command> commands = new HashMap<>();
 	private static HashMap<String, Command> aliasesS = new HashMap<>();
-	//private HashMap<ArrayList<String>, ArrayList<String>> argResponse = new HashMap<ArrayList<String>, ArrayList<String>>();
 	private ArrayList<String> aliases = new ArrayList<>();
 	
-	/*for each argument there can be aliases and each argument has 
-	* a string answer but I will want multiple answers
-	* for each arg later so you can have a array of possible answers
-	*/
-	
 	// Not sure how to deal with needing the AI information on all these methods yet will find a work around
-		// maybe make this a commandManager and make AI have a commandManager
 	private String command;
 	private ArrayList<String> args = new ArrayList<>(); // might be able to remove this but could be used to loop through all valid arguments later
 	private ArrayList<String> helpString = new ArrayList<>();
 	private int amountOfArgs; // how many arguments the command needs. 0 being just the command -1 being unlimited
 	
-	public String prefixHelpString = "Use the command like this"; // this can stay static
+	private final String prefixHelpString = "Use the command like this:";
 	
-	public Command(String cmd, int aoa, ArrayList<String> help, ArrayList<String> a) { // Creates a command
+	public Command(String cmd, int aoa, ArrayList<String> help, ArrayList<String> a) {
 		this.command = cmd;
 		this.amountOfArgs = aoa;
 		this.helpString = help;
@@ -137,8 +130,7 @@ public class Command {
 	 * Sets up the given AI
 	 * @param ai - The AI you want to setup
 	 */
-	public static void setup(AI ai) { 
-		// need to get a file here
+	public static void setup() {
 		String user = System.getProperty("user.name").toString().toLowerCase();
 		File file = new File("C:\\Users\\" + user + "\\AppData\\Local\\Cyrus\\commands.cy");
 		for(int k = 0; k < fileManager.readFullFile(file).size(); k++) {
@@ -146,7 +138,7 @@ public class Command {
 			if(command.startsWith("- ")) { // make sure it's the command
 				String helpStr = fileManager.readFileLine(file, k + 1); // reads the next line which is the help string
 				helpStr = helpStr.replaceFirst("  - ", "");
-				String numberOfArgs = fileManager.readFileLine(file, k + 2); // reads the next line which is the help string
+				String numberOfArgs = fileManager.readFileLine(file, k + 2); // reads the next line which is the number of args
 				ArrayList<String> helpStrArray = new ArrayList<>();
 				helpStrArray.add(helpStr);
 				numberOfArgs = numberOfArgs.replaceAll(" ", "");
@@ -157,7 +149,6 @@ public class Command {
 				ArrayList<String> copyCommandArray = new ArrayList<>();
 				String[] copyCommandStrings = copyCommands.split(",");
                 copyCommandArray.addAll(Arrays.asList(copyCommandStrings));
-                // loop was replaced with the above method
 				command = command.replaceAll("-", "");
 				command = command.replaceAll(" ", "");
 				new Command(command, Integer.parseInt(numberOfArgs), helpStrArray, copyCommandArray);
@@ -200,6 +191,10 @@ public class Command {
 	
 	public ArrayList<String> getHelpString() {
 		return this.helpString;
+	}
+	
+	public String getPrefixHelpString() {
+		return this.prefixHelpString;
 	}
 	
 }

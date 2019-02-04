@@ -70,7 +70,7 @@ public class AI {
 	}
 	
 	public void outputHelpMessage(Command cmd) {
-		this.outputMessage(cmd.prefixHelpString);
+		this.outputMessage(cmd.getPrefixHelpString());
 		this.outputMessage(cmd.getHelpString().get(0));
 	}
 	

@@ -111,7 +111,7 @@ public class Frame implements Runnable {
 		this.frame.setVisible(true);
 		this.frame.addKeyListener(inputManager);
 		cyrus.setup();
-		Command.setup(cyrus);
+		Command.setup();
 		Button.setup(calc);
 	}
 	/**
