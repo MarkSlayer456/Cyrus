@@ -14,6 +14,7 @@ import main.utilities.Button;
 public class UIManager {
 		
 	InputManager inputManager = InputManager.getInstance();
+	FileManager file = FileManager.getInstance();
 	
 	private Graphics2D graphics;
 	private Dimension size;
@@ -26,7 +27,7 @@ public class UIManager {
 	
 	/**
 	 * Draws the console UI
-	 * @param ai the AI that you want to draw the console for
+	 * @param ai - The AI that you want to draw the console for
 	 */
 	public void drawConsole(AI ai) {
 		///// Command Line /////

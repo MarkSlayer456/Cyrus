@@ -206,11 +206,6 @@ public class FileManager {
 				writeToFile(jokes, "What do you call 500 lawyers at the bottom of the ocean?" + "A good start.", i2++);
 				
 				
-				
-				
-				
-				
-				
 			/*
 			String test = readFileLine(file, 0, "greetings:");
 			test = test.replace(" ", "");

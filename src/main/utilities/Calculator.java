@@ -9,15 +9,12 @@ public class Calculator implements Runnable {
 	private boolean running;
 	private Frame frame;
 	private ArrayList<Button> buttons;
+	private int currentNumb;
 	
 	public Calculator(Boolean r, Frame f, ArrayList<Button> buttons) { // only one of these is ever created
 		this.running = r;
 		this.frame = f;
 		this.buttons = buttons;
-	}
-	
-	public Frame getFrame() {
-		return this.frame;
 	}
 	
 	/**
@@ -69,8 +66,21 @@ public class Calculator implements Runnable {
 	public void addButton(Button button) {
 		this.buttons.add(button);
 	}
+	
+	public void setCurrentNumb(int numb) {
+		this.currentNumb = numb;
+	}
+	
 	///// Getter /////
 	public ArrayList<Button> getButtons() {
 		return this.buttons;
+	}
+	
+	public Frame getFrame() {
+		return this.frame;
+	}
+	
+	public int getCurrentNumb() {
+		return this.currentNumb;
 	}
 }

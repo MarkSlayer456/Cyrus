@@ -46,40 +46,10 @@ public class Command {
 		}
 	}
 	
-	public ArrayList<String> getHelpString() {
-		return this.helpString;
-	}
-	
-	
-	public static Command getCommand(String str) {
-		Command cmd = null;
-		
-		// if it contains any non char value ignore it
-		if(str.contains("?")) str = str.replace("?", " ");
-		if(str.contains(".")) str = str.replace(".", " ");
-		if(str.contains("!")) str = str.replace("!", " ");
-		if(str.contains(",")) str = str.replace(",", " ");
-			
-		for(String s : str.split(" ")) { 
-			if(cmd == null) {
-				if(commands.get(s) != null) {
-				cmd = commands.get(s);
-				cmd.args.clear();
-				} else if(aliasesS.get(s) != null) {
-					cmd = aliasesS.get(s);
-					cmd.args.clear();
-				}
-			} else {
-				cmd.args.add(s);
-			}
-		}
-		return cmd;
-	}
-	
-	public ArrayList<String> getArgs() {
-		return this.args;
-	}
-	
+	/**
+	 * Attempts to execute a command for the given AI
+	 * @param ai - The AI you want to try to execute the command
+	 */
 	public void executeCommand(AI ai) {
 		int argSize = this.args.size(); // 0 being the first arg
 		switch(this.command) {
@@ -149,21 +119,6 @@ public class Command {
 				}
 			}
 			break;
-			
-		case "open":
-			//TODO this command causes issues use at own risk
-			if(argSize > 1) {
-				for(int i = 0; i < argSize; i++) {
-					this.args.set(1, this.args.get(1) + this.args.get(i));
-				}
-			}
-			try {
-				String fileLoc = this.args.get(1);
-				new ProcessBuilder(fileLoc).start();
-			} catch (Exception e) {
-				ai.outputMessage("This program can not be found; are you sure you're looking in the right place!");
-			}
-			break;
 		case "clear":
 			ai.getChatManager().clearConsoleLines();
 			ai.outputMessage("I have cleared the console for you!");
@@ -177,6 +132,11 @@ public class Command {
 			break;
 		}
 	}
+	
+	/**
+	 * Sets up the given AI
+	 * @param ai - The AI you want to setup
+	 */
 	public static void setup(AI ai) { 
 		// need to get a file here
 		String user = System.getProperty("user.name").toString().toLowerCase();
@@ -204,4 +164,42 @@ public class Command {
 			}
 		}
 	}
+	
+	///// Setters /////
+	
+	///// Getters /////
+	
+	public static Command getCommand(String str) {
+		Command cmd = null;
+		
+		// if it contains any non char value ignore it
+		if(str.contains("?")) str = str.replace("?", " ");
+		if(str.contains(".")) str = str.replace(".", " ");
+		if(str.contains("!")) str = str.replace("!", " ");
+		if(str.contains(",")) str = str.replace(",", " ");
+			
+		for(String s : str.split(" ")) { 
+			if(cmd == null) {
+				if(commands.get(s) != null) {
+				cmd = commands.get(s);
+				cmd.args.clear();
+				} else if(aliasesS.get(s) != null) {
+					cmd = aliasesS.get(s);
+					cmd.args.clear();
+				}
+			} else {
+				cmd.args.add(s);
+			}
+		}
+		return cmd;
+	}
+	
+	public ArrayList<String> getArgs() {
+		return this.args;
+	}
+	
+	public ArrayList<String> getHelpString() {
+		return this.helpString;
+	}
+	
 }

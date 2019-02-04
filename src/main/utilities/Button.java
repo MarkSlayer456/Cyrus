@@ -22,6 +22,8 @@ public class Button implements Runnable {
      * @param pos position of the top left corner of the button
      * @param height height of the button
      * @param width width of the button
+     * @param isActive is the button currently on the screen
+     * @param image the image to cover the button
      */
     public Button(Point pos, double height, double width, boolean isActive, Image image) {
         this.pos = pos;

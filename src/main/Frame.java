@@ -22,7 +22,6 @@ public class Frame implements Runnable {
 	
 	//TODO try to get rid of lots of the static methods
 	///// Static Variables /////
-	public static Thread cyrusT;
 	public static Thread mainFrameT;
 	public static Thread cyrusCalc;
 	
@@ -64,10 +63,7 @@ public class Frame implements Runnable {
 		calcFrame = new Frame(new Dimension(600, 500), "Calculator");
 		calc = new Calculator(false, calcFrame, new ArrayList<Button>());
 		cyrus = new AI("Cyrus", new ChatManager(50, 10, 0, 25)); // Creating Cyrus
-		cyrusT = new Thread(cyrus, "cyrus");
 		cyrusCalc = new Thread(calc, "cyrus");
-		cyrusT.setPriority(5); // 10 is max priority
-		cyrusT.start();
 		mainFrameT = new Thread(mainFrame, "frame");
 		mainFrameT.setPriority(5);
 		mainFrameT.start();
@@ -101,7 +97,6 @@ public class Frame implements Runnable {
 	public void draw() { // What to display from Cyrus thoughts
 		setupBufferStrategy();
 		////////////////////////////////////
-		cyrus.greet();
 		this.uiManager.drawConsole(cyrus);
 		////////////////////////////////////
 		disposeAndShow();
@@ -115,6 +110,7 @@ public class Frame implements Runnable {
 		fileManager.setup();
 		this.frame.setVisible(true);
 		this.frame.addKeyListener(inputManager);
+		cyrus.setup();
 		Command.setup(cyrus);
 		Button.setup(calc);
 	}

@@ -1,6 +1,5 @@
 package main.managers;
 
-import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -26,11 +25,6 @@ public class InputManager implements KeyListener, MouseListener {
 		this.currentCharacters = new ArrayList<Character>();
 		this.currentCommand = "";
 	}
-	
-	public ArrayList<Character> getCurrentChars() {
-		return this.currentCharacters;
-	}
-	
 	
 	public void clearCurrentChars() {
 		this.currentCharacters.clear();
@@ -124,6 +118,5 @@ public class InputManager implements KeyListener, MouseListener {
 	
 	public String getCurrentCommand() {
 		return this.currentCommand;
-	}
-	
+	}	
 }
