@@ -1,10 +1,12 @@
 package main.utilities;
 
+import java.awt.Point;
 import java.util.ArrayList;
 
 import main.Frame;
 
 public class Calculator implements Runnable {
+	
 	
 	private boolean running;
 	private Frame frame;
@@ -15,6 +17,19 @@ public class Calculator implements Runnable {
 		this.running = r;
 		this.frame = f;
 		this.buttons = buttons;
+		
+		//TODO add images
+		Button plus = new Button(new Point(475, 150), 75, 50, true, null);
+    	Button sub = new Button(new Point(475, 205), 75, 50, true, null);
+    	Button mult = new Button(new Point(475, 260), 75, 50, true, null);
+    	Button div = new Button(new Point(475, 315), 75, 50, true, null);
+    	Button equal = new Button(new Point(475, 370), 75, 50, true, null);
+    	
+    	buttons.add(plus);
+    	buttons.add(sub);
+    	buttons.add(mult);
+    	buttons.add(div);
+    	buttons.add(equal);
 	}
 	
 	/**

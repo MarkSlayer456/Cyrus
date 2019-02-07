@@ -20,7 +20,6 @@ public class Frame implements Runnable {
 	FileManager fileManager = FileManager.getInstance();
 	InputManager inputManager = InputManager.getInstance();
 	
-	//TODO try to get rid of lots of the static methods
 	///// Static Variables /////
 	public static Thread mainFrameT;
 	public static Thread cyrusCalc;
@@ -58,9 +57,10 @@ public class Frame implements Runnable {
 		this.frame.setMinimumSize(new Dimension(800, 300));
 	}
 	
+	//TODO move to main class
 	 public static void main(String[] args) { // Program begins
 		mainFrame = new Frame(new Dimension(800, 300), "Cyrus"); //TODO get screen size but this will do for now
-		calcFrame = new Frame(new Dimension(600, 500), "Calculator");
+		calcFrame = new Frame(new Dimension(800, 500), "Calculator");
 		calc = new Calculator(false, calcFrame, new ArrayList<Button>());
 		cyrus = new AI("Cyrus", new ChatManager(50, 10, 0, 25)); // Creating Cyrus
 		cyrusCalc = new Thread(calc, "cyrus");
@@ -77,6 +77,9 @@ public class Frame implements Runnable {
 		}
 	}
 
+	/**
+	 * Sets up the buffer strategy
+	 */
 	public void setupBufferStrategy() { //TODO maybe move to UIManager
 		if(this.getBS() == null) { this.getJFrame().createBufferStrategy(3); }
 		this.setBS(this.getJFrame().getBufferStrategy());
@@ -85,6 +88,9 @@ public class Frame implements Runnable {
 		this.getGraphics().clearRect(0, 0, this.getWidth(), this.getHeight());
 	}
 	
+	/**
+	 * Disposes the current frame and shows the next frame
+	 */
 	public void disposeAndShow() {
 		this.g.dispose();
 		this.bs.show();
@@ -111,8 +117,7 @@ public class Frame implements Runnable {
 		this.frame.setVisible(true);
 		this.frame.addKeyListener(inputManager);
 		cyrus.setup();
-		Command.setup();
-		Button.setup(calc);
+		Command.discoverCommands();
 	}
 	/**
      * Quits the program, closing all open windows and shutting down

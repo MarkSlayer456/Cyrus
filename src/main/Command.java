@@ -10,13 +10,14 @@ import main.managers.FileManager;
 
 public class Command {
     
-	
 	private static FileManager fileManager = FileManager.getInstance();
+	
+	private final String prefixHelpString = "Use the command like this:";
 	
 	//this could be attached to cyrus if you don't want it to be static but just testing for right now
 	private static HashMap<String, Command> commands = new HashMap<>();
 	private static HashMap<String, Command> aliasesS = new HashMap<>();
-	private ArrayList<String> aliases = new ArrayList<>();
+	private ArrayList<String> aliases = new ArrayList<>(); //TODO maybe remove this
 	
 	// Not sure how to deal with needing the AI information on all these methods yet will find a work around
 	private String command;
@@ -24,7 +25,6 @@ public class Command {
 	private ArrayList<String> helpString = new ArrayList<>();
 	private int amountOfArgs; // how many arguments the command needs. 0 being just the command -1 being unlimited
 	
-	private final String prefixHelpString = "Use the command like this:";
 	
 	public Command(String cmd, int aoa, ArrayList<String> help, ArrayList<String> a) {
 		this.command = cmd;
@@ -127,10 +127,9 @@ public class Command {
 	}
 	
 	/**
-	 * Sets up the given AI
-	 * @param ai - The AI you want to setup
+	 * Detects all the commands in the file
 	 */
-	public static void setup() {
+	public static void discoverCommands() {
 		String user = System.getProperty("user.name").toString().toLowerCase();
 		File file = new File("C:\\Users\\" + user + "\\AppData\\Local\\Cyrus\\commands.cy");
 		for(int k = 0; k < fileManager.readFullFile(file).size(); k++) {

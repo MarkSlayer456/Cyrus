@@ -18,6 +18,7 @@ Todo:
 	- Make it so the cy files are not able to be edited
 	- Add scroll functionality
 		- Add help command to list all commands should be done after scroll is added
+	- Update all objects to use better local var names
 	
 Finished:
 	+ Add a randomizer so Cyrus gives different error messages

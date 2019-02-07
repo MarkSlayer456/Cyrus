@@ -4,12 +4,22 @@ import java.awt.Image;
 import java.awt.Point;
 import java.awt.geom.Rectangle2D;
 
+import main.managers.ImageLoader;
+
 /**
  *
  * @author Mark
  */
 public class Button implements Runnable {
     
+	public static ImageLoader imageManager = ImageLoader.getInstance();
+	
+	//TODO add paths
+	public static final Image PLUS = imageManager.getImage("");
+	public static final Image SUB = imageManager.getImage("");
+	public static final Image MULTI = imageManager.getImage("");
+	public static final Image DIVIDE = imageManager.getImage("");
+	
     private Point pos;
     private final double height;
     private final double width;
@@ -44,29 +54,6 @@ public class Button implements Runnable {
      */
     public void doLogic() {
         //TODO gonna have to create mouse listener before this can be completed
-    }
-    
-    
-    /**
-     * All button creation will be executed here
-     */
-    public static void setup(Calculator calc) { // TODO Get rid of the Calculator variable here
-    	///// Calc /////
-    	
-    	Button plus = new Button(new Point(475, 150), 50, 50, false, null);
-    	Button sub = new Button(new Point(475, 205), 50, 50, false, null);
-    	Button mult = new Button(new Point(475, 260), 50, 50, false, null);
-    	Button div = new Button(new Point(475, 315), 50, 50, false, null);
-    	Button equal = new Button(new Point(475, 370), 50, 50, false, null);
-    	
-    	calc.addButton(plus);
-    	calc.addButton(sub);
-    	calc.addButton(mult);
-    	calc.addButton(div);
-    	calc.addButton(equal);
-    	
-    	/////////////////
-    	
     }
     
     ///// setters /////

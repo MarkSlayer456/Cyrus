@@ -67,6 +67,9 @@ public class UIManager {
 		for(int i = 0; i < buttons.size(); i++) { //TODO will be updated
 			this.graphics.fill(buttons.get(i).getRect());
 		}
+		this.graphics.setColor(Color.WHITE);
+		this.graphics.setFont(new Font("Calculator Numbers", 1, 25));
+		this.graphics.drawString("0", Frame.mainFrame.getJFrame().getWidth() - 100, 75);
 		
 		
 		

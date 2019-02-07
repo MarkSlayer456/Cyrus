@@ -19,7 +19,13 @@ public class ChatManager {
 		this.consoleLines = new ArrayList<String>();
 	}
 	
-	public void seperateLines(String s) {
+	/**
+	 * separates the string given, using the numberOfCharsPerLine
+	 * @param s - The string you want to seperate into lines
+	 * @return - a Array of all the lines
+	 */
+	public ArrayList<String> separateLines(String s) {
+				ArrayList<String> lines = new ArrayList<>();
                 int maxChars = this.numberOfCharsPerLine; // TODO change the name of number of chars to this
                 String line = "";
                 String currentWord = "";
@@ -30,13 +36,23 @@ public class ChatManager {
                         line += currentWord + " ";
                         i++;
                     } else {
-                        this.consoleLines.add(line);
+                        //this.consoleLines.add(line);
+                    	lines.add(line);
                         line = "";
                     }
                     if(words.length == i) {
-                        this.consoleLines.add(line);
+                        lines.add(line);
                     }
             }
+            return lines;
+	}
+	
+	/**
+	 * Adds a line to the console to be displayed
+	 * @param line
+	 */
+	public void addConsoleLine(String line) {
+		this.consoleLines.add(line);
 	}
 	
 	public void clearConsoleLines() {

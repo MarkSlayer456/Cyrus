@@ -63,10 +63,12 @@ public class AI {
 	
 	/**
 	 * 
-	 * @param str - What you want to output to the console
+	 * @param message - What you want to output to the console
 	 */
-	public void outputMessage(String str) {
-		this.getChatManager().seperateLines(str);
+	public void outputMessage(String message) {
+		ArrayList<String> line = this.getChatManager().separateLines(message);
+		for(String l : line) 
+			this.getChatManager().addConsoleLine(l);
 	}
 	
 	public void outputHelpMessage(Command cmd) {
