@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 import main.managers.ChatManager;
 import main.managers.FileManager;
+import main.managers.FrameRateManager;
 import main.managers.InputManager;
 import main.managers.UIManager;
 import main.utilities.Button;
@@ -17,8 +18,8 @@ import main.utilities.Calculator;
 
 public class Frame implements Runnable {
 	
-	FileManager fileManager = FileManager.getInstance();
-	InputManager inputManager = InputManager.getInstance();
+	private FileManager fileManager = FileManager.getInstance();
+	private InputManager inputManager = InputManager.getInstance();
 	
 	///// Static Variables /////
 	public static Thread mainFrameT;
@@ -37,16 +38,15 @@ public class Frame implements Runnable {
 	
 	private final Dimension size; // this will be able to change later
 	private final JFrame frame;
-	private UIManager uiManager;
-	
+	private final UIManager uiManager;
 	
 	@SuppressWarnings("static-access")
-	public Frame(Dimension s, String name) {
+	public Frame(Dimension s, String name, FrameRateManager frManager) {
 		this.g = null;
 		this.bs = null;
 		this.size = s;
 		this.frame = new JFrame(name);
-		this.uiManager = new UIManager(s, null);
+		this.uiManager = new UIManager(s, null, frManager);
 		this.frame.setSize(size.width, size.height);
 		this.frame.setLocation(Toolkit.getDefaultToolkit().getScreenSize().width - size.width, 0);
 		this.frame.setUndecorated(false);
@@ -59,8 +59,8 @@ public class Frame implements Runnable {
 	
 	//TODO move to main class
 	 public static void main(String[] args) { // Program begins
-		mainFrame = new Frame(new Dimension(800, 300), "Cyrus"); //TODO get screen size but this will do for now
-		calcFrame = new Frame(new Dimension(800, 500), "Calculator");
+		mainFrame = new Frame(new Dimension(800, 300), "Cyrus", new FrameRateManager()); //TODO get screen size but this will do for now
+		calcFrame = new Frame(new Dimension(800, 500), "Calculator", new FrameRateManager());
 		calc = new Calculator(false, calcFrame, new ArrayList<Button>());
 		cyrus = new AI("Cyrus", new ChatManager(50, 10, 0, 25)); // Creating Cyrus
 		cyrusCalc = new Thread(calc, "cyrus");
@@ -71,7 +71,7 @@ public class Frame implements Runnable {
 	 /**
       * Contains all the logic for the given frame
       */
-	public void doLogic() { 
+	public void doLogic() {
 		if(!this.frame.isShowing()) { // is program still running
 			quit();
 		}
@@ -131,8 +131,8 @@ public class Frame implements Runnable {
 	public void run() {
 		this.setup();
 		while(drawing) {
-			draw();
-			doLogic();
+				draw();
+				doLogic();
 		}
 		
 	}

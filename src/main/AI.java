@@ -12,7 +12,6 @@ public class AI {
 	
 	FileManager fileManager = FileManager.getInstance();
 	
-	
 	private String name;
 	private boolean hasGreeted; // has Cyrus introduced himself
 	private Color color; // will implement later

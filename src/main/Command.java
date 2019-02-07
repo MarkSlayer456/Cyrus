@@ -103,6 +103,7 @@ public class Command {
 			
 		case "math":
 			if(!Frame.calc.isRunning()) {
+				Frame.cyrusCalc.setPriority(5);
 				Frame.cyrusCalc.start();
 			} else {
 				if(Frame.calcFrame.getJFrame().isVisible()) {

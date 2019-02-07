@@ -18,11 +18,12 @@ public class UIManager {
 	
 	private Graphics2D graphics;
 	private Dimension size;
+	private FrameRateManager frManager;
 	
-	
-	public UIManager(Dimension size, Graphics2D graphics) {
+	public UIManager(Dimension size, Graphics2D graphics, FrameRateManager frManager) {
 		this.size = size;
 		this.graphics = graphics;
+		this.frManager = frManager;
 	}
 	
 	/**
@@ -30,6 +31,10 @@ public class UIManager {
 	 * @param ai - The AI that you want to draw the console for
 	 */
 	public void drawConsole(AI ai) {
+		///// Frame Rate Limiter /////
+		this.frManager.canExecute();
+		this.frManager.setStartingTime(System.currentTimeMillis());
+		/////////////////////////////
 		///// Command Line /////
 		// what the user is typing on
 		this.graphics.setFont(new Font("Cyrus Commandline", 1, 20));
@@ -58,9 +63,14 @@ public class UIManager {
 		this.graphics.setFont(new Font("Cyrus Version", 1, 25));
 		this.graphics.drawString(Frame.mainFrame.getVersion(), Frame.mainFrame.getJFrame().getWidth() - 300, 75);
 		///////////////////////////////////////
+		this.frManager.setEndingTime(System.currentTimeMillis());
 	}
 	
 	public void drawCalc(ArrayList<Button> buttons) { // TODO needs to adjust with frame
+		///// Frame Rate Limiter /////
+		this.frManager.canExecute();
+		this.frManager.setStartingTime(System.currentTimeMillis());
+		/////////////////////////////		
 		this.getGraphics().setColor(Color.BLACK);
 		this.getGraphics().fillRect(0, 0, Frame.calcFrame.getWidth(), Frame.calcFrame.getHeight());
 		this.getGraphics().setColor(Color.WHITE);
@@ -78,6 +88,7 @@ public class UIManager {
 		this.getGraphics().fillRect(77, 100, 75, 50);
 		this.getGraphics().fillRect(153, 100, 75, 50);
 		
+		this.frManager.setEndingTime(System.currentTimeMillis());
 	}
 	
 	///// Setter /////
@@ -96,5 +107,9 @@ public class UIManager {
 	
 	public Dimension getSize() {
 		return this.size;
+	}
+	
+	public FrameRateManager getFrManager() {
+		return this.frManager;
 	}
 }
