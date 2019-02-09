@@ -12,14 +12,6 @@ import main.managers.ImageLoader;
  */
 public class Button implements Runnable {
     
-	public static ImageLoader imageManager = ImageLoader.getInstance();
-	
-	//TODO add paths
-	public static final Image PLUS = imageManager.getImage("");
-	public static final Image SUB = imageManager.getImage("");
-	public static final Image MULTI = imageManager.getImage("");
-	public static final Image DIVIDE = imageManager.getImage("");
-	
     private Point pos;
     private final double height;
     private final double width;

@@ -12,11 +12,11 @@ public class ChatManager {
 	private ArrayList<String> consoleLines;
 	
 	public ChatManager(Integer charsPerLine, Integer ml, Integer cl, Integer sil) {
-		this.numberOfCharsPerLine = charsPerLine;
-		this.maxLines = ml;
-		this.currentLine = cl;
-		this.spaceInbetweenLines = sil;
-		this.consoleLines = new ArrayList<String>();
+	    this.numberOfCharsPerLine = charsPerLine;
+	    this.maxLines = ml;
+	    this.currentLine = cl;
+	    this.spaceInbetweenLines = sil;
+	    this.consoleLines = new ArrayList<String>();
 	}
 	
 	/**
@@ -25,7 +25,7 @@ public class ChatManager {
 	 * @return - a Array of all the lines
 	 */
 	public ArrayList<String> separateLines(String s) {
-				ArrayList<String> lines = new ArrayList<>();
+		ArrayList<String> lines = new ArrayList<>();
                 int maxChars = this.numberOfCharsPerLine; // TODO change the name of number of chars to this
                 String line = "";
                 String currentWord = "";

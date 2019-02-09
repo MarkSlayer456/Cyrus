@@ -1,35 +1,67 @@
 package main.utilities;
 
+import java.awt.Image;
 import java.awt.Point;
 import java.util.ArrayList;
 
 import main.Frame;
+import main.managers.ImageLoader;
 
 public class Calculator implements Runnable {
 	
+	public static ImageLoader imageManager = ImageLoader.getInstance();
+	
+	//TODO add paths could be moved to imageLoader
+	private final Image PLUS = imageManager.getImage("");
+	private final Image SUB = imageManager.getImage("");
+	private final Image MULTI = imageManager.getImage("");
+	private final Image DIVIDE = imageManager.getImage("");
+	private final Image EQUALS = imageManager.getImage("");
+	private final Image ONE = imageManager.getImage("");
+	private final Image TWO = imageManager.getImage("");
+	private final Image THREE = imageManager.getImage("");
+	private final Image FOUR = imageManager.getImage("");
+	private final Image FIVE = imageManager.getImage("");
+	private final Image SIX = imageManager.getImage("");
+	private final Image SEVEN = imageManager.getImage("");
+	private final Image EIGHT = imageManager.getImage("");
+	private final Image NINE = imageManager.getImage("");
+	private final Image ZERO = imageManager.getImage("");
 	
 	private boolean running;
 	private Frame frame;
 	private ArrayList<Button> buttons;
 	private int currentNumb;
 	
-	public Calculator(Boolean r, Frame f, ArrayList<Button> buttons) { // only one of these is ever created
+	public Calculator(Boolean r, Frame f) { // only one of these is ever created
 		this.running = r;
 		this.frame = f;
-		this.buttons = buttons;
+	    this.buttons = new ArrayList<>();
+		createButtons();
+	}
+	
+	//TODO find out how to solve this
+	private void createButtons() {
+		buttons.add(new Button(new Point(this.frame.getWidth() - 100, 150), 75, 50, true, PLUS));
+    	buttons.add(new Button(new Point(this.frame.getWidth() - 100, 205), 75, 50, true, SUB));
+    	buttons.add(new Button(new Point(this.frame.getWidth() - 100, 260), 75, 50, true, MULTI));
+    	buttons.add(new Button(new Point(this.frame.getWidth() - 100, 315), 75, 50, true, DIVIDE));
+    	buttons.add(new Button(new Point(this.frame.getWidth() - 100, 370), 75, 50, true, EQUALS));
 		
-		//TODO add images
-		Button plus = new Button(new Point(475, 150), 75, 50, true, null);
-    	Button sub = new Button(new Point(475, 205), 75, 50, true, null);
-    	Button mult = new Button(new Point(475, 260), 75, 50, true, null);
-    	Button div = new Button(new Point(475, 315), 75, 50, true, null);
-    	Button equal = new Button(new Point(475, 370), 75, 50, true, null);
-    	
-    	buttons.add(plus);
-    	buttons.add(sub);
-    	buttons.add(mult);
-    	buttons.add(div);
-    	buttons.add(equal);
+		buttons.add(new Button(new Point(this.frame.getWidth() - 200, 400), 75, 50, true, ONE));
+    	buttons.add(new Button(new Point(this.frame.getWidth() - 280, 400), 75, 50, true, TWO));
+		buttons.add(new Button(new Point(this.frame.getWidth() - 360, 400), 75, 50, true, THREE));
+		buttons.add(new Button(new Point(this.frame.getWidth() - 440, 400), 75, 50, true, FOUR));
+		buttons.add(new Button(new Point(this.frame.getWidth() - 520, 400), 75, 50, true, FIVE));
+		buttons.add(new Button(new Point(this.frame.getWidth() - 200, 315), 75, 50, true, SIX));
+		buttons.add(new Button(new Point(this.frame.getWidth() - 280, 315), 75, 50, true, SEVEN));
+		buttons.add(new Button(new Point(this.frame.getWidth() - 360, 315), 75, 50, true, EIGHT));
+		buttons.add(new Button(new Point(this.frame.getWidth() - 440, 315), 75, 50, true, NINE));
+		buttons.add(new Button(new Point(this.frame.getWidth() - 520, 315), 75, 50, true, ZERO));
+	}
+	
+	private void updateButtonsLocation() {
+		
 	}
 	
 	/**
@@ -70,6 +102,7 @@ public class Calculator implements Runnable {
 		while(this.running) {
 			this.getFrame().setupBufferStrategy();
 			////////////////////////////////////////////
+			this.updateButtonsLocation();
 			this.getFrame().getUIManager().drawCalc(this.buttons);
 			////////////////////////////////////////////
 			this.getFrame().disposeAndShow();
