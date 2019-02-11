@@ -72,7 +72,7 @@ public class UIManager {
 		this.frManager.setStartingTime(System.currentTimeMillis());
 		/////////////////////////////		
 		this.getGraphics().setColor(Color.BLACK);
-		this.getGraphics().fillRect(0, 0, Frame.calcFrame.getWidth(), Frame.calcFrame.getHeight());
+		this.getGraphics().fillRect(0, 0, 8000, 8000); //TODO change these
 		this.getGraphics().setColor(Color.WHITE);
 		for(int i = 0; i < buttons.size(); i++) { //TODO will be updated
 			this.graphics.fill(buttons.get(i).getRect());
