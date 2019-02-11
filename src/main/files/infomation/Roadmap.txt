@@ -22,7 +22,7 @@ Project Start Date: 10/1/18
     - Add email functionality
 	- Allow Cyrus to email people
 1.6.0 - Alpha:
-	- Make another AI
+	- Create Cyrus server
 1.2.2 - Alpha: 
     - Add Roadmap.txt
     - Change README.txt to be more useful
