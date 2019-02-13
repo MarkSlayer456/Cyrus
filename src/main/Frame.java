@@ -10,6 +10,7 @@ import javax.swing.JFrame;
 import main.managers.ChatManager;
 import main.managers.FileManager;
 import main.managers.FrameRateManager;
+import main.managers.ImageLoader;
 import main.managers.InputManager;
 import main.managers.UIManager;
 import main.utilities.Button;
@@ -20,6 +21,7 @@ public class Frame implements Runnable {
 	
 	private FileManager fileManager = FileManager.getInstance();
 	private InputManager inputManager = InputManager.getInstance();
+	private ImageLoader imageLoader = ImageLoader.getInstance();
 	
 	///// Static Variables /////
 	public static Thread mainFrameT;
@@ -52,6 +54,11 @@ public class Frame implements Runnable {
 		this.frame.setUndecorated(false);
 		if(this.frame.getName().equalsIgnoreCase("Cyrus")) this.frame.setDefaultCloseOperation(this.frame.EXIT_ON_CLOSE);
 		else this.frame.setDefaultCloseOperation(this.frame.HIDE_ON_CLOSE);
+		
+		System.out.println("setting icon image");
+		this.frame.setIconImage(imageLoader.getImage("logo.png"));
+		this.frame.setTitle(name);
+		
 		//this.frame.setVisible(true);
 		this.frame.setResizable(true);
 		this.frame.setMinimumSize(new Dimension(800, 300));
