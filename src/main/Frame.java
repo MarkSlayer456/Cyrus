@@ -4,7 +4,6 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Toolkit;
 import java.awt.image.BufferStrategy;
-import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import main.managers.ChatManager;
@@ -13,7 +12,6 @@ import main.managers.FrameRateManager;
 import main.managers.ImageLoader;
 import main.managers.InputManager;
 import main.managers.UIManager;
-import main.utilities.Button;
 import main.utilities.Calculator;
 
 
@@ -58,7 +56,7 @@ public class Frame implements Runnable {
 		System.out.println("setting icon image");
 		this.frame.setIconImage(imageLoader.getImage("logo.png"));
 		this.frame.setTitle(name);
-		
+
 		//this.frame.setVisible(true);
 		this.frame.setResizable(true);
 		this.frame.setMinimumSize(new Dimension(800, 300));
