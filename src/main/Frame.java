@@ -53,6 +53,8 @@ public class Frame implements Runnable {
 		if(this.frame.getName().equalsIgnoreCase("Cyrus")) this.frame.setDefaultCloseOperation(this.frame.EXIT_ON_CLOSE);
 		else this.frame.setDefaultCloseOperation(this.frame.HIDE_ON_CLOSE);
 		
+		//SystemTray.getSystemTray().add(trayIcon); neat
+		
 		//System.out.println("setting icon image");
 		//this.frame.setIconImage(imageLoader.getImage("logo.png"));
 		this.frame.setTitle(name);

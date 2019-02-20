@@ -20,9 +20,10 @@ public class ChatManager {
 	}
 	
 	/**
-	 * separates the string given, using the numberOfCharsPerLine
+	 * Separates the string given, using the numberOfCharsPerLine as the maximum characters for
+	 * each line.
 	 * @param s - The string you want to seperate into lines
-	 * @return - a Array of all the lines
+	 * @return - A array of all the lines
 	 */
 	public ArrayList<String> separateLines(String s) {
 		ArrayList<String> lines = new ArrayList<>();
@@ -48,13 +49,16 @@ public class ChatManager {
 	}
 	
 	/**
-	 * Adds a line to the console to be displayed
+	 * Adds a line to the console to be displayed.
 	 * @param line
 	 */
 	public void addConsoleLine(String line) {
 		this.consoleLines.add(line);
 	}
 	
+	/**
+	 * Clears all the current lines on the console; removing them from memory.
+	 */
 	public void clearConsoleLines() {
 		this.consoleLines.clear();
 	}

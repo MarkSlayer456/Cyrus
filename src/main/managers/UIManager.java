@@ -27,12 +27,11 @@ public class UIManager {
 	}
 	
 	/**
-	 * Draws the console UI
+	 * Draws the console UI.
 	 * @param ai - The AI that you want to draw the console for
 	 */
 	public void drawConsole(AI ai) {
 		///// Frame Rate Limiter /////
-		this.frManager.canExecute();
 		this.frManager.setStartingTime(System.currentTimeMillis());
 		/////////////////////////////
 		///// Command Line /////
@@ -66,9 +65,12 @@ public class UIManager {
 		this.frManager.setEndingTime(System.currentTimeMillis());
 	}
 	
+	/**
+	 * Draws the calculator
+	 * @param buttons - array of buttons to display on the calculator.
+	 */
 	public void drawCalc(ArrayList<Button> buttons) { // TODO needs to adjust with frame
 		///// Frame Rate Limiter /////
-		this.frManager.canExecute();
 		this.frManager.setStartingTime(System.currentTimeMillis());
 		/////////////////////////////		
 		this.getGraphics().setColor(Color.BLACK);

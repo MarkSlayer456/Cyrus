@@ -26,6 +26,9 @@ public class InputManager implements KeyListener, MouseListener {
 		this.currentCommand = "";
 	}
 	
+	/**
+	 * Clears all the currently stored characters that the user has typed
+	 */
 	public void clearCurrentChars() {
 		this.currentCharacters.clear();
 	}

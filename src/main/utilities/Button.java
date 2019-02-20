@@ -40,7 +40,7 @@ public class Button implements Runnable {
   		public static final Image ZERO = imageManager.getImage("");
     
     /**
-     * 
+     * Creates a Button
      * @param pos position of the top left corner of the button
      * @param height height of the button
      * @param width width of the button
