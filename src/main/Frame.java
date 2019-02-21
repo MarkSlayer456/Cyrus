@@ -145,24 +145,39 @@ public class Frame implements Runnable {
 	}
 	
 	///// Setters /////
-	
+	/**
+	 * Set the width of the frame
+	 * @param width - The width you want to set
+	 */
 	public void setWidth(int width) {
 		this.size.width = width;
 		this.uiManager.setSize(width, this.uiManager.getSize().height);
 	}
-	
+	/**
+	 * Set the height of the frame
+	 * @param height - The height you want to set
+	 */
 	public void setHeight(int height) {
 		this.size.height = height;
 	}
-	
+	/**
+	 * Sets the BufferStategy for the frame
+	 * @param bufferStr - The buffer strategy you want to set
+	 */
 	public void setBS(BufferStrategy bufferStr) {
 		this.bs = bufferStr;
 	}
-	
+	/**
+	 * Sets the graphcis for the frame
+	 * @param graphics - The graphics you want to use
+	 */
 	public void setGraphics(Graphics2D graphics) {
 		this.g = graphics;
 	}
-	
+	/**
+	 * Sets the window to visible to the user or not
+	 * @param bool - true visible; false invisible
+	 */
 	public void setVisible(boolean bool) {
 		this.frame.setVisible(bool);
 	}
@@ -177,33 +192,52 @@ public class Frame implements Runnable {
 	
 	///// Getters /////
 	
+	/**
+	 * Gets width
+	 * @return - The length of the width of the frame
+	 */
 	public int getWidth() {
 		return this.size.width;
 	}
-	
+	/**
+	 * Gets height
+	 * @return - The length of the height of the frame
+	 */
 	public int getHeight() {
 		return this.size.height;
 	}
-	
+	/**
+	 * Gets BufferStrategy
+	 * @return - The BufferStrategy for the given frame  
+	 */
 	public BufferStrategy getBS() {
 		return this.bs;
 	}
-	
+	/**
+	 * Gets JFrame
+	 * @return - The JFrame for the given frame
+	 */
 	public JFrame getJFrame() {
 		return this.frame;
 	}
-	
+	/**
+	 * Gets graphics
+	 * @return - The 2DGraphics for the given frame
+	 */
 	public Graphics2D getGraphics() {
 		return this.g;
 	}
-	
+	/**
+	 * Gets UIManager
+	 * @return - The UIManager for the given frame
+	 */
 	public UIManager getUIManager() {
 		return this.uiManager;
 	}
 	
 	/**
-	 * 
-	 * @return the version of the program is currently running 
+	 * Gets version
+	 * @return - The version the program is currently running 
 	 */
 	public String getVersion() {
 		return version;

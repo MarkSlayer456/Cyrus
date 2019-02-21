@@ -24,11 +24,11 @@ public class AI {
 	 * @param name - Name of the AI
 	 * @param chat - ChatManager for the AI to display the console
 	 */
-	public AI(String n, ChatManager chat) {
-		this.name = n;
+	public AI(String name, ChatManager chat) {
+		this.name = name;
 		this.hasGreeted = false;
 		this.color = Color.CYAN;
-		this.args = new ArrayList<String>();
+		this.args = new ArrayList<>();
 		this.chatManager = chat;
 	}
 	
@@ -96,11 +96,17 @@ public class AI {
 	
 	
 	///// Getters /////
-	
+	/**
+	 * Gets name
+	 * @return - The name of the AI
+	 */
 	public String getName() {
 		return this.name;
 	}
-	
+	/**
+	 * Gets ChatManager
+	 * @return - The ChatManager for the AI
+	 */
 	public ChatManager getChatManager() {
 		return this.chatManager;
 	}

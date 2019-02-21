@@ -25,7 +25,13 @@ public class Command {
 	private ArrayList<String> helpString = new ArrayList<>();
 	private int amountOfArgs; // how many arguments the command needs. 0 being just the command -1 being unlimited
 	
-	
+	/**
+	 * Creates a command
+	 * @param cmd - The name of the command
+	 * @param aoa - The amount of arguments
+	 * @param help - The help string for the command
+	 * @param a - All the aliases for the command
+	 */
 	public Command(String cmd, int aoa, ArrayList<String> help, ArrayList<String> a) {
 		this.command = cmd;
 		this.amountOfArgs = aoa;
@@ -159,7 +165,11 @@ public class Command {
 	///// Setters /////
 	
 	///// Getters /////
-	
+	/**
+	 * Gets command
+	 * @param str - The name of the command
+	 * @return - The command if the name given is a command
+	 */
 	public static Command getCommand(String str) {
 		Command cmd = null;
 		
@@ -184,15 +194,24 @@ public class Command {
 		}
 		return cmd;
 	}
-	
+	/**
+	 * Gets arguments for command
+	 * @return - An array of the arguments for the command
+	 */
 	public ArrayList<String> getArgs() {
 		return this.args;
 	}
-	
+	/**
+	 * Gets the help string
+	 * @return - An array of the help string of the command
+	 */
 	public ArrayList<String> getHelpString() {
 		return this.helpString;
 	}
-	
+	/**
+	 * Gets prefix help string
+	 * @return - The help string to prefix most help messages
+	 */
 	public String getPrefixHelpString() {
 		return this.prefixHelpString;
 	}
