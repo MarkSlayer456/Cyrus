@@ -70,28 +70,47 @@ public class Button implements Runnable {
     
     ///// setters /////
     // Don't need to change the height and width ever so setters are not useful
+	/**
+	 * Sets the position of the button
+	 * @param point - The point of the location you want to use for the new position
+	 */
     public void setPos(Point point) {
         this.pos = point;
     }
         
     ///// getters /////
-    
+    /**
+	 * Gets position of the button
+	 * @return - The position of the button
+	 */
     public Point getPos() {
         return this.pos;
     }
-    
+    /**
+	 * Gets height
+	 * @return - The height of the button
+	 */
     public double getHeight() {
         return this.height;
     }
-    
+    /**
+	 * Gets width
+	 * @return - The width of the button
+	 */
     public double getWidth() {
         return this.width;
     }
-    
+    /**
+	 * Gets rectangle
+	 * @return - The rectangle that is the button
+	 */
     public Rectangle2D.Double getRect() {
         return this.rect;
     }
-    
+    /**
+	 * Checks to see if the button is active, can be seen and interacted with
+	 * @return - True if the current button is active; false otherwise
+	 */
     public boolean isActive() {
     	return this.isActive;
     }

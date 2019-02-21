@@ -14,7 +14,11 @@ public class Calculator implements Runnable {
 	private Frame frame;
 	private ArrayList<Button> buttons;
 	private int currentNumb;
-	
+	/**
+	 * Creates Calculator
+	 * @param r - Is the calculator running, typically false
+	 * @param f - The frame for the calculator
+	 */
 	public Calculator(Boolean r, Frame f) { // only one of these is ever created
 		this.running = r;
 		this.frame = f;
@@ -22,6 +26,9 @@ public class Calculator implements Runnable {
 		createButtons();
 	}
 	
+	/**
+	 * Updates all the buttons locations
+	 */
 	private void updateButtonLocation() {
 		 for(Button b : this.buttons) {
 		  b.getRect().setRect(this.frame.getJFrame().getWidth() - b.getPos().getX(), this.frame.getJFrame().getHeight() - b.getPos().getY(), b.getWidth(), b.getHeight());

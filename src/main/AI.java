@@ -76,7 +76,7 @@ public class AI {
 	}
 	
 	public void outputErrorMessage() {
-		String user = System.getProperty("user.name").toString().toLowerCase();
+		String user = System.getProperty("user.name").toLowerCase();
 		File file = fileManager.getFile("C:\\Users\\" + user + "\\AppData\\Local\\Cyrus\\error messages.cy");
 		Random r = new Random();
 		int ran = r.nextInt(fileManager.readFullFile(file).size());
