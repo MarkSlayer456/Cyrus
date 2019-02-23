@@ -119,7 +119,7 @@ public class Frame implements Runnable {
 	 * Setups the program, adding listeners and setting visibility if needed
      */
 	private void setup() {
-        setVersion("Version: 1.2.2 Pre-Alpha");
+        setVersion("Version: 1.3.0 Pre-Alpha");
 		fileManager.setup();
 		this.frame.setVisible(true);
 		this.frame.addKeyListener(inputManager);
