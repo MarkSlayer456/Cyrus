@@ -1,12 +1,15 @@
 package main;
 
 import java.awt.Dimension;
-import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Toolkit;
 import java.awt.image.BufferStrategy;
+
 import javax.swing.JFrame;
 import main.managers.ChatManager;
 import main.managers.FileManager;
+import main.managers.FrameRateManager;
+import main.managers.ImageLoader;
 import main.managers.InputManager;
 import main.managers.UIManager;
 import main.utilities.Calculator;
@@ -14,9 +17,11 @@ import main.utilities.Calculator;
 
 public class Frame implements Runnable {
 	
-	//TODO try to get rid of lots of the static methods
+	private FileManager fileManager = FileManager.getInstance();
+	private InputManager inputManager = InputManager.getInstance();
+	private ImageLoader imageLoader = ImageLoader.getInstance();
+	
 	///// Static Variables /////
-	public static Thread cyrusT;
 	public static Thread mainFrameT;
 	public static Thread cyrusCalc;
 	
@@ -26,149 +31,105 @@ public class Frame implements Runnable {
 	public static Calculator calc;
 	//////////////////////////////////////////////
 	
-	private Graphics g;
+	private Graphics2D g;
 	private BufferStrategy bs;
 	private static String version;
 	private boolean drawing = true; // Used if you ever want to stop drawing for some reason	
 	
-	private Dimension size; // this will be able to change later
+	private final Dimension size; // this will be able to change later
 	private final JFrame frame;
+	private final UIManager uiManager;
 	
-	
-	
-	// add the private vars on to the frame class
 	@SuppressWarnings("static-access")
-	public Frame(Dimension s, Boolean cb, String name) {
-		this.size = s;
+	public Frame(Dimension s, String name, FrameRateManager frManager) {
 		this.g = null;
 		this.bs = null;
+		this.size = s;
 		this.frame = new JFrame(name);
-                
+		this.uiManager = new UIManager(s, null, frManager);
 		this.frame.setSize(size.width, size.height);
 		this.frame.setLocation(Toolkit.getDefaultToolkit().getScreenSize().width - size.width, 0);
-		this.frame.setUndecorated(false); //TODO setting this to true because I like it
+		this.frame.setUndecorated(false);
 		if(this.frame.getName().equalsIgnoreCase("Cyrus")) this.frame.setDefaultCloseOperation(this.frame.EXIT_ON_CLOSE);
 		else this.frame.setDefaultCloseOperation(this.frame.HIDE_ON_CLOSE);
+		
+		//SystemTray.getSystemTray().add(trayIcon); neat
+		
+		//System.out.println("setting icon image");
+		//this.frame.setIconImage(imageLoader.getImage("logo.png"));
+		this.frame.setTitle(name);
+
 		//this.frame.setVisible(true);
-		this.frame.setResizable(false);
+		this.frame.setResizable(true);
+		this.frame.setMinimumSize(new Dimension(800, 300));
 	}
 	
-	//TODO add the rest of the getters and setters
-	
-	public int getWidth() {
-		return this.size.width;
-	}
-	
-	public int getHeight() {
-		return this.size.height;
-	}
-	
-	public void setBS(BufferStrategy bufferStr) {
-		this.bs = bufferStr;
-	}
-	
-	public BufferStrategy getBS() {
-		return this.bs;
-	}
-	
-	public void setGraphics(Graphics graphics) {
-		this.g = graphics;
-	}
-	
-	
-	public JFrame getJFrame() {
-		return this.frame;
-	}
-	
-	public void setVisible(boolean bool) {
-		this.frame.setVisible(bool);
-	}
-	
-	public JFrame getFrame() {
-		return this.frame;
-	}
-	
-	public Dimension getSize()  {
-		return this.size;
-	}
-	
-	public Graphics getGraphics() {
-		return this.g;
-	}
-	
-	
+	//TODO move to main class
 	 public static void main(String[] args) { // Program begins
-		mainFrame = new Frame(new Dimension(800, 300), false, "Cyrus"); //TODO get screen size but this will do for now
-		calcFrame = new Frame(new Dimension(600, 500), true, "Calculator");
+		mainFrame = new Frame(new Dimension(800, 300), "Cyrus", new FrameRateManager()); //TODO get screen size but this will do for now
+		calcFrame = new Frame(new Dimension(800, 500), "Calculator", new FrameRateManager());
 		calc = new Calculator(false, calcFrame);
-		cyrus = new AI("Cyrus", new InputManager(), new UIManager(), new ChatManager(50, 10, 0, 25), new FileManager(), calc); // Creating Cyrus
-		cyrusT = new Thread(cyrus, "cyrus");
+		cyrus = new AI("Cyrus", new ChatManager(50, 10, 0, 25)); // Creating Cyrus
 		cyrusCalc = new Thread(calc, "cyrus");
-		cyrusT.setPriority(5); // 10 is max priority
-		cyrusT.start();
 		mainFrameT = new Thread(mainFrame, "frame");
 		mainFrameT.setPriority(5);
 		mainFrameT.start();
 	}
 	 /**
-          * Contains all the logic for the given frame
-          */
-	public void doLogic() { 
-	// check if program is still running	
-		if(!this.frame.isShowing()) { 
-			//TODO don't use static make each thread check back to see if main thread is still running
+      * Contains all the logic for the given frame
+      */
+	public void doLogic() {
+		if(!this.frame.isShowing()) { // is program still running
 			quit();
-			/*drawing = false;
-			AI.thinking = false;
-			Calculator.running = false;*/
 		}
-	}
-	
-        /**
-         * Draws all the information for the given frame
-         */
-	public void draw() { // What to display from Cyrus thoughts
-                   if(this.getBS() == null) { this.getJFrame().createBufferStrategy(3); }
-                    this.setBS(this.getJFrame().getBufferStrategy());
-                    this.setGraphics(this.getBS().getDrawGraphics());
-                    this.getGraphics().clearRect(0, 0, this.getWidth(), this.getHeight());
-                        // removed try statement here
-			/*if(this.frame.getBufferStrategy() == null) { this.frame.createBufferStrategy(3); }
-			this.bs = this.frame.getBufferStrategy();
-			this.g = bs.getDrawGraphics();
-			this.g.clearRect(0, 0, this.size.width, this.size.height);*/
-			//////////////////////////////////// 
-			// all drawing should be done between these /'s
-			cyrus.greet();
-			cyrus.getUIManager().drawUI(this.g, cyrus);
-			/*if(calc.isRunning()) {
-				calc.drawCalc();
-			}*/
-			/*if(this.calcB) { // won't this need to be on the frame class and no the calc class for this to work
-				calc.drawCalc(g, this);
-			} else {
-				cyrus.greet();
-				cyrus.getUIManager().drawUI(this.g, cyrus);
-			}*/
-			////////////////////////////////////
-			this.g.dispose();
-			this.bs.show();
 	}
 
 	/**
-         * Setups the program, adding listeners and setting visibility if needed
-         */
+	 * Sets up the buffer strategy
+	 */
+	public void setupBufferStrategy() { //TODO maybe move to UIManager
+		if(this.getBS() == null) { this.getJFrame().createBufferStrategy(3); }
+		this.setBS(this.getJFrame().getBufferStrategy());
+		this.setGraphics((Graphics2D) this.getBS().getDrawGraphics());
+		this.uiManager.setGraphics(this.getGraphics());
+		this.getGraphics().clearRect(0, 0, this.getWidth(), this.getHeight());
+	}
+	
+	/**
+	 * Disposes the current frame and shows the next frame
+	 */
+	public void disposeAndShow() {
+		this.g.dispose();
+		this.bs.show();
+	}
+	
+	
+	 /**
+      * Draws all the information for the given frame
+      */
+	public void draw() { // What to display from Cyrus thoughts
+		setupBufferStrategy();
+		////////////////////////////////////
+		this.uiManager.drawConsole(cyrus);
+		////////////////////////////////////
+		disposeAndShow();
+	}
+
+	/**
+	 * Setups the program, adding listeners and setting visibility if needed
+     */
 	private void setup() {
-                setVersion("Version: 1.2.2 Pre-Alpha");
-		cyrus.getFileManager().setup();
+        setVersion("Version: 1.3.0 Pre-Alpha");
+		fileManager.setup();
 		this.frame.setVisible(true);
-		this.frame.addKeyListener(cyrus.getInputManager());
-		Command.setup(cyrus);
+		this.frame.addKeyListener(inputManager);
+		cyrus.setup();
+		Command.discoverCommands();
 	}
 	/**
-         * Quits the program, closing all open windows and shutting down
-         * the process
-         */
+     * Quits the program, closing all open windows and shutting down
+     * the process
+     */
 	public static void quit() { // very useful
 		System.exit(0);
 	}
@@ -177,26 +138,109 @@ public class Frame implements Runnable {
 	public void run() {
 		this.setup();
 		while(drawing) {
-			draw();
-			doLogic();
+				draw();
+				doLogic();
 		}
 		
 	}
-
-        /**
-         * 
-         * @return the version of the program is currently running 
-         */
+	
+	///// Setters /////
+	/**
+	 * Set the width of the frame
+	 * @param width - The width you want to set
+	 */
+	public void setWidth(int width) {
+		this.size.width = width;
+		this.uiManager.setSize(width, this.uiManager.getSize().height);
+	}
+	/**
+	 * Set the height of the frame
+	 * @param height - The height you want to set
+	 */
+	public void setHeight(int height) {
+		this.size.height = height;
+	}
+	/**
+	 * Sets the BufferStategy for the frame
+	 * @param bufferStr - The buffer strategy you want to set
+	 */
+	public void setBS(BufferStrategy bufferStr) {
+		this.bs = bufferStr;
+	}
+	/**
+	 * Sets the graphcis for the frame
+	 * @param graphics - The graphics you want to use
+	 */
+	public void setGraphics(Graphics2D graphics) {
+		this.g = graphics;
+	}
+	/**
+	 * Sets the window to visible to the user or not
+	 * @param bool - true visible; false invisible
+	 */
+	public void setVisible(boolean bool) {
+		this.frame.setVisible(bool);
+	}
+	
+	/**
+     * Changes the version number of the program
+     * @param newVersion the version you want to change too
+     */
+    public void setVersion(String newVersion) {
+        version = newVersion;
+    }
+	
+	///// Getters /////
+	
+	/**
+	 * Gets width
+	 * @return - The length of the width of the frame
+	 */
+	public int getWidth() {
+		return this.size.width;
+	}
+	/**
+	 * Gets height
+	 * @return - The length of the height of the frame
+	 */
+	public int getHeight() {
+		return this.size.height;
+	}
+	/**
+	 * Gets BufferStrategy
+	 * @return - The BufferStrategy for the given frame  
+	 */
+	public BufferStrategy getBS() {
+		return this.bs;
+	}
+	/**
+	 * Gets JFrame
+	 * @return - The JFrame for the given frame
+	 */
+	public JFrame getJFrame() {
+		return this.frame;
+	}
+	/**
+	 * Gets graphics
+	 * @return - The 2DGraphics for the given frame
+	 */
+	public Graphics2D getGraphics() {
+		return this.g;
+	}
+	/**
+	 * Gets UIManager
+	 * @return - The UIManager for the given frame
+	 */
+	public UIManager getUIManager() {
+		return this.uiManager;
+	}
+	
+	/**
+	 * Gets version
+	 * @return - The version the program is currently running 
+	 */
 	public String getVersion() {
 		return version;
 	}
-        
-        /**
-         * Changes the version number of the program
-         * @param newVersion the version you want to change too
-         */
-        public void setVersion(String newVersion) {
-            version = newVersion;
-        }
-
+	
 }

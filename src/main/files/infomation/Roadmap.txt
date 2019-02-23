@@ -14,10 +14,15 @@ Project Start Date: 10/1/18
     - Add Documentation to all methods
 1.4.0 - Alpha:
     - Add Basic Calculator functionality
-    - Add Schedule functionality
+    - Add Schedule structure
+    - Add settings.cy to allow user to change Cyrus color and maybe font size
 1.5.0 - Alpha:
+    - Add Schedule functionality
+    - Add music playback functionality
     - Add email functionality
-        - Allow Cyrus to email people
+	- Allow Cyrus to email people
+1.6.0 - Alpha:
+	- Create Cyrus server
 1.2.2 - Alpha: 
     - Add Roadmap.txt
     - Change README.txt to be more useful

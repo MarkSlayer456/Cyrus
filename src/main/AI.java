@@ -7,90 +7,80 @@ import java.util.Random;
 
 import main.managers.ChatManager;
 import main.managers.FileManager;
-import main.managers.InputManager;
-import main.managers.UIManager;
-import main.utilities.Calculator;
 
-public class AI implements Runnable {
-	public static boolean thinking; // is Cyrus doing any computations at all
+public class AI {
+	
+	FileManager fileManager = FileManager.getInstance();
+	
 	private String name;
 	private boolean hasGreeted; // has Cyrus introduced himself
 	private Color color; // will implement later
 	private ArrayList<String> args;
-	private final InputManager inputManager;
-	private final UIManager uiManager;
 	private final ChatManager chatManager;
-	private final FileManager fileManager;
-	private final Calculator calc;
 	
-	public AI(String n, InputManager input, UIManager ui, ChatManager chat, FileManager file, Calculator c) { // Only create one AI
-		this.name = n;
+	
+	/**
+	 * 
+	 * @param name - Name of the AI
+	 * @param chat - ChatManager for the AI to display the console
+	 */
+	public AI(String name, ChatManager chat) {
+		this.name = name;
 		this.hasGreeted = false;
 		this.color = Color.CYAN;
-		this.args = new ArrayList<String>();
-		this.inputManager = input;
-		this.uiManager = ui;
+		this.args = new ArrayList<>();
 		this.chatManager = chat;
-		this.fileManager = file;
-		this.calc = c;
-                
-                // static vars //
-                thinking = true;
 	}
 	
-	public FileManager getFileManager() {
-		return this.fileManager;
-	}
 	
-	public ChatManager getChatManager() {
-		return this.chatManager;
-	}
-	
-	public UIManager getUIManager() {
-		return this.uiManager;
-	}
-	
-	public InputManager getInputManager() {
-		return this.inputManager;
-	}
 	
 	public void setup() {
+		this.greet("Hello, my name is " + this.name + ", this message is brought to you from the AI.java file under the greet method!");
 		//TODO ask for name
 		// check if setup file exists and make sure nothing is invalid
+		/*if(!(fileManager.getFile("settings.cy").exists())) { // TODO finish this
+			File settings = fileManager.createFile("settings");
+			int i = 0;
+			fileManager.writeToFile(settings, "color: red", i++);
+			// no other settings at the moment
+		}*/
 	}
 	
-	public void greet() {
+	
+	/**
+	 * @param message - The greet message for the AI
+	 */
+	public void greet(String message) {
 		//TODO this is just for testing
 		if(!this.hasGreeted) {
 			this.hasGreeted = true;
-			outputMessage("Hello, my name is " + this.name + ", this message is brought to you from the AI.java file under the greet method!");
+			outputMessage(message);
 		}
 	}
 	
-	public String getName() {
-		return this.name;
-	}
-
-	public void logic() { // The thinking method
-                    this.greet();
-	}
 	
-	public void outputMessage(String str) { // output a message to Cyrus/console
-		//TODO finish this
-		this.getChatManager().seperateLines(str);
+	
+	/**
+	 * 
+	 * @param message - What you want to output to the console
+	 */
+	public void outputMessage(String message) {
+		ArrayList<String> line = this.getChatManager().separateLines(message);
+		for(String l : line) 
+			this.getChatManager().addConsoleLine(l);
 	}
 	
 	public void outputHelpMessage(Command cmd) {
-		this.outputMessage(cmd.prefixHelpString);
+		this.outputMessage(cmd.getPrefixHelpString());
 		this.outputMessage(cmd.getHelpString().get(0));
 	}
 	
 	public void outputErrorMessage() {
-		String user = System.getProperty("user.name").toString().toLowerCase();
-		File file = this.getFileManager().getFile("C:\\Users\\" + user + "\\AppData\\Local\\Cyrus\\error messages.cy");
+		String user = System.getProperty("user.name").toLowerCase();
+		File file = fileManager.getFile("C:\\Users\\" + user + "\\AppData\\Local\\Cyrus\\error messages.cy");
 		Random r = new Random();
-		int ran = r.nextInt(this.getFileManager().readFullFile(file).size());
-		this.outputMessage(this.getFileManager().readFileLine(file, ran));
+		int ran = r.nextInt(fileManager.readFullFile(file).size());
+		this.outputMessage(fileManager.readFileLine(file, ran));
 	}
 	
 	public void interpret(String cmd) {
@@ -101,18 +91,36 @@ public class AI implements Runnable {
 		}
 	}
 	
-	@Override
-	public void run() { // Cyrus thought process
-		while(thinking) {
-			this.logic(); //TODO Cyrus logic doesn't do anything
-		}
+	///// Setters /////
+	
+	
+	
+	///// Getters /////
+	/**
+	 * Gets name
+	 * @return - The name of the AI
+	 */
+	public String getName() {
+		return this.name;
+	}
+	/**
+	 * Gets ChatManager
+	 * @return - The ChatManager for the AI
+	 */
+	public ChatManager getChatManager() {
+		return this.chatManager;
 	}
 	
 	
 	
-	///// Methods that Cyrus responds to /////
-	// Just test methods at the moment to test if cyrus is working
-	public String speak() { // Method is mostly for testing will be changed later as the starting message
-		return null;
-	}	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
