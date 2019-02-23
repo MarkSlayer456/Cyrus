@@ -19,7 +19,12 @@ public class UIManager {
 	private Graphics2D graphics;
 	private Dimension size;
 	private FrameRateManager frManager;
-	
+	/**
+	 * Creates UIManager
+	 * @param size - The size of the frame
+	 * @param graphics - The graphics 
+	 * @param frManager - The frameRateManager
+	 */
 	public UIManager(Dimension size, Graphics2D graphics, FrameRateManager frManager) {
 		this.size = size;
 		this.graphics = graphics;
@@ -94,23 +99,41 @@ public class UIManager {
 	}
 	
 	///// Setter /////
+	/**
+	 * Sets the graphics for the given UIManager.
+	 * @param graphics - The graphics you want to set 
+	 */
 	public void setGraphics(Graphics2D graphics) {
 		this.graphics = graphics;
 	}
-	
+	/**
+	 * Sets the size of the 
+	 * @param width
+	 * @param height 
+	 */
 	public void setSize(int width, int height) {
 		this.size = new Dimension(width, height);
 	}
 	
 	///// Getter /////
+	/**
+	 * Gets the graphics for the current given UIManager
+	 * @return - The graphics for the current UIManager
+	 */
 	public Graphics getGraphics() {
 		return this.graphics;
 	}
-	
+	/**
+	 * 
+	 * @return 
+	 */
 	public Dimension getSize() {
 		return this.size;
 	}
-	
+	/**
+	 * 
+	 * @return 
+	 */
 	public FrameRateManager getFrManager() {
 		return this.frManager;
 	}

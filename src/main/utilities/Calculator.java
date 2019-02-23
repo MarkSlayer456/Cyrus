@@ -34,7 +34,9 @@ public class Calculator implements Runnable {
 		  b.getRect().setRect(this.frame.getJFrame().getWidth() - b.getPos().getX(), this.frame.getJFrame().getHeight() - b.getPos().getY(), b.getWidth(), b.getHeight());
 		 }
 	}
-	
+	/**
+	 * Creates all the buttons for the calculator
+	 */
 	private void createButtons() {
 		buttons.add(new Button(new Point(100, 400), 75, 50, true, Button.PLUS, this.frame.getJFrame()));
     	buttons.add(new Button(new Point(100, 345), 75, 50, true, Button.SUB, this.frame.getJFrame()));
@@ -56,38 +58,58 @@ public class Calculator implements Runnable {
 	
 	/**
 	 * Adds two numbers together
-	 * @param num1 the first number to add
-	 * @param num2 the second number to add
+	 * @param num1- The first number to add
+	 * @param num2 - The second number to add
 	 * @return the numbers added together
 	 */
 	public double add(int num1, int num2) {
 		return num1 + num2;
 	}
-	
+	/**
+	 * Subtracts two numbers.
+	 * @param num1 - The base number
+	 * @param num2 - The number you want to subtract
+	 * @return - The answer
+	 */
 	public double sub(int num1, int num2) {
 		return num1 - num2;
 	}
-	
+	/**
+	 * Multiplies two numbers.
+	 * @param num1 - The base number
+	 * @param num2 - The number you want to multiply by
+	 * @return - The answer
+	 */
 	public double mult(int num1, int num2) {
 		return num1 * num2;
 	}
-	
+	/**
+	 * Divides two numbers.
+	 * @param num1 - The base number
+	 * @param num2 - The number you want to divide by
+	 * @return - The answer
+	 */
 	public double div(int num1, int num2) {
 		return num1 / num2;
 	}
-
+	/**
+	 * Is the calculator currently running.
+	 * @return - True if the calculator is running; false otherwise
+	 */
 	public boolean isRunning() {
 		return this.running;
 	}
-	
-	public void setup() {
+	/**
+	 * Sets the frame to visible
+	 */
+	public void makeVisible() {
 		Frame.calcFrame.getJFrame().setVisible(true);
 	}
 	
 	
 	@Override
 	public void run() {
-		this.setup();
+		this.makeVisible();
 		this.running = true;
 		while(this.running) {
 			this.getFrame().setupBufferStrategy();
@@ -101,23 +123,41 @@ public class Calculator implements Runnable {
 	}
 	
 	///// Setter /////
+	/**
+	 * Adds a button to the calculator. 
+	 * @param button - The button you wish to add to the calculator
+	 */
 	public void addButton(Button button) {
 		this.buttons.add(button);
 	}
-	
+	/**
+	 * Set's the current number displayed on the calculator.
+	 * @param numb - The number you want to set it to
+	 */
 	public void setCurrentNumb(int numb) {
 		this.currentNumb = numb;
 	}
 	
 	///// Getter /////
+	/**
+	 * Gets all the buttons the calculator has.
+	 * @return - A array of buttons for the given calculator
+	 */
 	public ArrayList<Button> getButtons() {
 		return this.buttons;
 	}
-	
+	/**
+	 * Gets the frame for the given calculator.
+	 * @return - The frame for the given calculator
+	 */
 	public Frame getFrame() {
 		return this.frame;
 	}
 	
+	/**
+	 * Gets the current number displayed on calculator.
+	 * @return - The current display number
+	 */
 	public int getCurrentNumb() {
 		return this.currentNumb;
 	}
