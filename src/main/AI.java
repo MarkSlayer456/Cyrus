@@ -69,7 +69,10 @@ public class AI {
 		for(String l : line) 
 			this.getChatManager().addConsoleLine(l);
 	}
-	
+	/**
+         * Outpus help message
+         * @param cmd - The command's help message you want to use
+         */
 	public void outputHelpMessage(Command cmd) {
 		this.outputMessage(cmd.getPrefixHelpString());
 		this.outputMessage(cmd.getHelpString().get(0));
