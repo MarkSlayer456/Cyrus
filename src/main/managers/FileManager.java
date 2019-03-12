@@ -17,15 +17,18 @@ public class FileManager {
 		return fileManager;
 	}
 	
+	private final String os = System.getProperty("os.name").toLowerCase();
+	private final String user = System.getProperty("user.name").toLowerCase();
+	
+	public static final String COMMANDFILE = "commands.cy";
+	public static final String JOKEFILE = "jokes.cy";
+	public static final String ERRORMESSAGEFILE = "error messages.cy";
+	public static final String COMMONQUESTIONFILE = "commonly asked questions.cy";
 	
 	private ArrayList<File> files = new ArrayList<File>(); // All the files the ai knows about
 	
 	public FileManager() {
 		
-	}
-	
-	public ArrayList<File> getFiles() { // This seems like it's unused
-		return this.files;
 	}
 	
 	/**
@@ -38,9 +41,17 @@ public class FileManager {
 		try {
 			File file;
 			if(name.contains(".")) { // there is an extension
-				file = new File(name);
+				if(os.equalsIgnoreCase("windows 10")) {
+					file = new File("C:\\Users\\" + user + "\\AppData\\Local\\Cyrus\\" + name);
+				} else {
+					file = new File("/usr/cyrus/" + name);
+				}
 			} else {
-				file = new File(name + ".cy"); // the default extension
+				if(os.equalsIgnoreCase("windows 10")) {
+					file = new File("C:\\Users\\" + user + "\\AppData\\Local\\Cyrus\\" + name + ".cy"); // the default extension
+				} else {
+					file = new File("/usr/cyrus/" + name + ".cy"); // the default extension
+				}
 			}
 			if(file != null) {
 				return file;
@@ -178,8 +189,21 @@ public class FileManager {
 	 */
 	public void setup() {
 		try {
-			String user = System.getProperty("user.name").toLowerCase();
-			File command = createFile("C:\\Users\\" + user + "\\AppData\\Local\\Cyrus\\commands");
+			File command;
+			File errorMessages;
+			File commonQuestions;
+			File jokes;
+			if(os.equalsIgnoreCase("windows 10")) {
+				command = createFile("C:\\Users\\" + user + "\\AppData\\Local\\Cyrus\\" + COMMANDFILE);
+				errorMessages = createFile("C:\\Users\\" + user + "\\AppData\\Local\\Cyrus\\" + ERRORMESSAGEFILE);
+				commonQuestions = createFile("C:\\Users\\" + user + "\\AppData\\Local\\Cyrus\\" + COMMONQUESTIONFILE);
+				jokes = createFile("C:\\Users\\" + user + "\\AppData\\Local\\Cyrus\\" + JOKEFILE);
+			} else {
+				command = createFile("/usr/cyrus/" + COMMANDFILE);
+				errorMessages = createFile("/usr/cyrus/" + ERRORMESSAGEFILE);
+				commonQuestions = createFile("/usr/cyrus/" + COMMONQUESTIONFILE);
+				jokes = createFile("/usr/cyrus/" + JOKEFILE);
+			}
 			int i = 0;
 				writeToFile(command, "- hi", i++);
 				writeToFile(command, "  - <hi/hey/hello/hola>", i++); // this would be the help string
@@ -199,7 +223,7 @@ public class FileManager {
 				writeToFile(command, "- math", i++);
 				writeToFile(command, "  - <math>", i++);
 				writeToFile(command, "    - 0", i++);
-				writeToFile(command, "      -calc, calculator", i++);
+				writeToFile(command, "      - calc, calculator", i++);
 				
 				writeToFile(command, "- how", i++);
 				writeToFile(command, "  - <how/how's/how'd> <question>", i++);
@@ -222,22 +246,23 @@ public class FileManager {
 				writeToFile(command, "      -", i++);
 				
 				
-				File errorMessages = createFile("C:\\Users\\" + user + "\\AppData\\Local\\Cyrus\\error messages");
+				
 				int j = 0;
+				
 				writeToFile(errorMessages, "I'm sorry I don't understand what you are trying to say.", j++);
 				writeToFile(errorMessages, "Are you sure your words make sense?", j++);
 				writeToFile(errorMessages, "ERROR: please check your command and make sure it is correct!", j++);
 				writeToFile(errorMessages, "This is an unknown word or phrase sorry I can't help you!", j++);
 			
 				int i1 = 0;
-				File commonQuestions = createFile("C:\\Users\\" + user + "\\AppData\\Local\\Cyrus\\commonly asked questions");
+				
 				writeToFile(commonQuestions, "", i1++);
 				writeToFile(commonQuestions, "", i1++);
 				writeToFile(commonQuestions, "", i1++);
 				writeToFile(commonQuestions, "", i1++);
 				
 				int i2 = 0;
-				File jokes = createFile("C:\\Users\\" + user + "\\AppData\\Local\\Cyrus\\jokes");
+				
 				writeToFile(jokes, "Yo' mama so stupid, she walked into an antique shop and asked, \"What's new?\"", i2++);
 				writeToFile(jokes, "Your Mama's so fat that when she went to school she sat next to the whole class!", i2++);
 				writeToFile(jokes, "Yo mamma's so fat, she tripped on 4th Avenue and landed on 12th.", i2++);

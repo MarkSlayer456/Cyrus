@@ -1,8 +1,11 @@
 package main;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Random;
 
@@ -80,8 +83,8 @@ public class Command {
 				} else if(this.args.contains("favorite") && this.args.contains("game")) {
 					ai.outputMessage("I hate all games they just seem to be too easy to me!");
 				} else if(this.args.contains("time")) {
-					ai.outputMessage("<insert system time here>");
-				} else if(this.args.contains("you") && this.args.contains("doing")) {
+					ai.outputMessage(new SimpleDateFormat("HH:mm:ss dd/MM/yyyy").format(Calendar.getInstance().getTime()));
+				} else if(this.args.contains("you") && (this.args.contains("doing")) || (this.args.contains("up") && this.args.contains("to"))) {
 					ai.outputMessage("I'm helping you of course!");
 				} else if(this.args.contains("happening") || this.args.contains("up")) {
 					ai.outputMessage("<insert the news>");
@@ -124,8 +127,7 @@ public class Command {
 			ai.outputMessage("I have cleared the console for you!");
 			break;
 		case "joke":
-			String user = System.getProperty("user.name").toString().toLowerCase();
-			File file = fileManager.getFile("C:\\Users\\" + user + "\\AppData\\Local\\Cyrus\\jokes.cy");
+			File file = fileManager.getFile(FileManager.JOKEFILE);
 			Random r = new Random();
 			int ran = r.nextInt(fileManager.readFullFile(file).size());
 			ai.outputMessage(fileManager.readFileLine(file, ran));
@@ -137,8 +139,7 @@ public class Command {
 	 * Detects all the commands in the file
 	 */
 	public static void discoverCommands() {
-		String user = System.getProperty("user.name").toString().toLowerCase();
-		File file = new File("C:\\Users\\" + user + "\\AppData\\Local\\Cyrus\\commands.cy");
+		File file = fileManager.getFile(FileManager.COMMANDFILE);
 		for(int k = 0; k < fileManager.readFullFile(file).size(); k++) {
 			String command = fileManager.readFileLine(file, k);
 			if(command.startsWith("- ")) { // make sure it's the command

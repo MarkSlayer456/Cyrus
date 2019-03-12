@@ -115,7 +115,7 @@ public class Calculator implements Runnable {
 			this.getFrame().setupBufferStrategy();
 			////////////////////////////////////////////
 			this.updateButtonLocation();
-			this.getFrame().getUIManager().drawCalc(this.buttons);
+			this.getFrame().getUIManager().draw(this.buttons);
 			////////////////////////////////////////////
 			this.getFrame().disposeAndShow();
 		}

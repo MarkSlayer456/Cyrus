@@ -110,7 +110,7 @@ public class Frame implements Runnable {
 	public void draw() { // What to display from Cyrus thoughts
 		setupBufferStrategy();
 		////////////////////////////////////
-		this.uiManager.drawConsole(cyrus);
+		this.uiManager.draw(cyrus);
 		////////////////////////////////////
 		disposeAndShow();
 	}
