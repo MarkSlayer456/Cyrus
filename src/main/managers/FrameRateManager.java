@@ -2,7 +2,7 @@ package main.managers;
 
 public class FrameRateManager {
 	
-	private final double oneFrameInterval = 33.3333334; 
+	private final double oneFrameInterval = 16.66667; 
 	private double startingTime, endingTime;
 	private boolean firstTime = false;
 	

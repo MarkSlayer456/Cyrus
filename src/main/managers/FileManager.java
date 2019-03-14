@@ -245,7 +245,28 @@ public class FileManager {
 				writeToFile(command, "    - 0", i++);
 				writeToFile(command, "      -", i++);
 				
+				// TODO None of the commands below this line are implemented 
+				////////////////////////////////////////////////////////////////////////////////////
+				writeToFile(command, "- todo", i++);
+				writeToFile(command, "  - <todo> <add/remove> <task> <reminder time> <reminder interval>", i++);
+				writeToFile(command, "    - 0", i++);
+				writeToFile(command, "      - td", i++);
 				
+				writeToFile(command, "- set", i++);
+				writeToFile(command, "  - <set> <timer/countdown> <length>", i++);
+				writeToFile(command, "    - 0", i++);
+				writeToFile(command, "      - create", i++);
+				
+				writeToFile(command, "- ls", i++);
+				writeToFile(command, "  - <ls> <directory>", i++);
+				writeToFile(command, "    - 0", i++);
+				writeToFile(command, "      - list", i++);
+				
+				writeToFile(command, "- cd", i++);
+				writeToFile(command, "  - <cd> <directory>", i++);
+				writeToFile(command, "    - 0", i++);
+				writeToFile(command, "      - changedirectory", i++);
+				/////////////////////////////////////////////////////////////////////////////////////
 				
 				int j = 0;
 				
