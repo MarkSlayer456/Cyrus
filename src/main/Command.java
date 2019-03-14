@@ -64,7 +64,7 @@ public class Command {
 			break;
 			
 		case "quit":
-			Frame.quit();
+			CyrusMain.quit();
 			break;
 		case "createkeybind": // needs to args
 			if(argSize == 2) {
@@ -111,16 +111,19 @@ public class Command {
 			break;
 			
 		case "math":
-			if(!Frame.calc.isRunning()) {
-				Frame.cyrusCalc.setPriority(5);
-				Frame.cyrusCalc.start();
-			} else {
-				if(Frame.calcFrame.getJFrame().isVisible()) {
-					ai.outputMessage("There is already a calculator open!");
-				} else {
-					Frame.calcFrame.getJFrame().setVisible(true);
-				}
-			}
+				CyrusMain.calcFrame.setDrawing(true);
+				CyrusMain.calc.makeVisible();
+//			if(!CyrusMain.calc.isRunning()) {
+//				CyrusMain.calcFrame.setDrawing(true);
+////				CyrusMain.cyrusCalc.setPriority(5);
+////				CyrusMain.cyrusCalc.start();
+//			} else {
+//				if(CyrusMain.calcFrame.getJFrame().isVisible()) {
+//					ai.outputMessage("There is already a calculator open!");
+//				} else {
+//					CyrusMain.calcFrame.getJFrame().setVisible(true);
+//				}
+//			}
 			break;
 		case "clear":
 			ai.getChatManager().clearConsoleLines();

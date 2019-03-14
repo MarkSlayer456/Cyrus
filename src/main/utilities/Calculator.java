@@ -3,10 +3,11 @@ package main.utilities;
 import java.awt.Point;
 import java.util.ArrayList;
 
+import main.CyrusMain;
 import main.Frame;
 import main.managers.ImageLoader;
 
-public class Calculator implements Runnable {
+public class Calculator {
 	
 	public static ImageLoader imageManager = ImageLoader.getInstance();
 	
@@ -103,23 +104,16 @@ public class Calculator implements Runnable {
 	 * Sets the frame to visible
 	 */
 	public void makeVisible() {
-		Frame.calcFrame.getJFrame().setVisible(true);
+			CyrusMain.calcFrame.getJFrame().setVisible(true);
 	}
 	
-	
-	@Override
-	public void run() {
-		this.makeVisible();
-		this.running = true;
-		while(this.running) {
-			this.getFrame().setupBufferStrategy();
-			////////////////////////////////////////////
-			this.updateButtonLocation();
-			this.getFrame().getUIManager().draw(this.buttons);
-			////////////////////////////////////////////
-			this.getFrame().disposeAndShow();
-		}
-		
+	public void update () {
+		this.getFrame().setupBufferStrategy();
+		////////////////////////////////////////////
+		this.updateButtonLocation();
+		this.getFrame().getUIManager().draw(this.buttons);
+		////////////////////////////////////////////
+		this.getFrame().disposeAndShow();
 	}
 	
 	///// Setter /////

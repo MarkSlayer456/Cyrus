@@ -6,7 +6,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
-import main.Frame;
+import main.CyrusMain;
 
 public class InputManager implements KeyListener, MouseListener {
 
@@ -56,7 +56,7 @@ public class InputManager implements KeyListener, MouseListener {
 				this.currentCommand += ("    ");
 				break;
 			case 10:
-				Frame.cyrus.interpret(this.currentCommand);
+				CyrusMain.cyrus.interpret(this.currentCommand);
 				this.clearCurrentChars();
 				System.out.println("You typed: " + this.currentCommand); //TODO remove later
 				this.currentCommand = "";

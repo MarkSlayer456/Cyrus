@@ -8,6 +8,7 @@ import java.awt.Graphics2D;
 import java.util.ArrayList;
 
 import main.AI;
+import main.CyrusMain;
 import main.Frame;
 import main.utilities.Button;
 
@@ -44,28 +45,28 @@ public class UIManager {
 		this.graphics.setFont(new Font("Cyrus Commandline", 1, 20));
 		//g.setFont(normal);
 		this.graphics.setColor(Color.BLACK);
-		this.graphics.fillRect(0, 0, Frame.mainFrame.getJFrame().getWidth(), Frame.mainFrame.getJFrame().getHeight());
+		this.graphics.fillRect(0, 0, CyrusMain.mainFrame.getJFrame().getWidth(), CyrusMain.mainFrame.getJFrame().getHeight());
 		this.graphics.setColor(new Color(153, 0, 255));
-		this.graphics.drawString("--/>", 20, Frame.mainFrame.getJFrame().getHeight() - 25);
+		this.graphics.drawString("--/>", 20, CyrusMain.mainFrame.getJFrame().getHeight() - 25);
 		this.graphics.setColor(new Color(153, 0, 255));
 		int iterator = 0;
 		for(int j = ai.getChatManager().getConsoleLines().size() - 1; j >= 0; j--) { // drawing the string
 			iterator++;
 			String str = ai.getChatManager().getConsoleLines().get(j);
-			this.graphics.drawString(str, 50, Frame.mainFrame.getJFrame().getHeight() - 25 - iterator*ai.getChatManager().getSpaceInbetweenLines());
+			this.graphics.drawString(str, 50, CyrusMain.mainFrame.getJFrame().getHeight() - 25 - iterator*ai.getChatManager().getSpaceInbetweenLines());
 		}
 		String temp = "";
 		for(int i = 0; i < inputManager.getCurrentCharacters().size(); i++) {
 			char z = inputManager.getCurrentCharacters().get(i);
 			temp += z;
-			this.graphics.drawString(temp, 53, Frame.mainFrame.getJFrame().getHeight() - 25);
+			this.graphics.drawString(temp, 53, CyrusMain.mainFrame.getJFrame().getHeight() - 25);
 		}
 		//////////////////////////////////////
 		
 		///// Version /////
 		this.graphics.setColor(Color.WHITE);
 		this.graphics.setFont(new Font("Cyrus Version", 1, 25));
-		this.graphics.drawString(Frame.mainFrame.getVersion(), Frame.mainFrame.getJFrame().getWidth() - 300, 75);
+		this.graphics.drawString(CyrusMain.VERSION, CyrusMain.mainFrame.getJFrame().getWidth() - 300, 75);
 		///////////////////////////////////////
 		this.frManager.setEndingTime(System.currentTimeMillis());
 	}
@@ -86,7 +87,7 @@ public class UIManager {
 		}
 		this.graphics.setColor(Color.WHITE);
 		this.graphics.setFont(new Font("Calculator Numbers", 1, 25));
-		this.graphics.drawString("0", Frame.mainFrame.getJFrame().getWidth() - 100, 75);
+		this.graphics.drawString("0", CyrusMain.mainFrame.getJFrame().getWidth() - 100, 75);
 		
 		
 		
