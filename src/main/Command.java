@@ -2,7 +2,6 @@ package main;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -113,17 +112,6 @@ public class Command {
 		case "math":
 				CyrusMain.calcFrame.setDrawing(true);
 				CyrusMain.calc.makeVisible();
-//			if(!CyrusMain.calc.isRunning()) {
-//				CyrusMain.calcFrame.setDrawing(true);
-////				CyrusMain.cyrusCalc.setPriority(5);
-////				CyrusMain.cyrusCalc.start();
-//			} else {
-//				if(CyrusMain.calcFrame.getJFrame().isVisible()) {
-//					ai.outputMessage("There is already a calculator open!");
-//				} else {
-//					CyrusMain.calcFrame.getJFrame().setVisible(true);
-//				}
-//			}
 			break;
 		case "clear":
 			ai.getChatManager().clearConsoleLines();

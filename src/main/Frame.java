@@ -30,7 +30,7 @@ public class Frame {
 		this.frame.setSize(size.width, size.height);
 		this.frame.setLocation(Toolkit.getDefaultToolkit().getScreenSize().width - size.width, 0);
 		this.frame.setUndecorated(false);
-		if(this.frame.getName().equalsIgnoreCase("Cyrus")) this.frame.setDefaultCloseOperation(this.frame.EXIT_ON_CLOSE);
+		if(this.frame.getName().equalsIgnoreCase("Cyrus")) this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		else this.frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		
 		//SystemTray.getSystemTray().add(trayIcon); neat

@@ -9,7 +9,6 @@ import java.util.ArrayList;
 
 import main.AI;
 import main.CyrusMain;
-import main.Frame;
 import main.utilities.Button;
 
 public class UIManager {
