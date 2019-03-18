@@ -6,7 +6,6 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
-
 import main.AI;
 import main.CyrusMain;
 import main.utilities.Button;
@@ -27,7 +26,7 @@ public class UIManager {
 	 */
 	public UIManager(Dimension size, Graphics2D graphics, FrameRateManager frManager) {
 		this.size = size;
-		this.graphics = graphics;
+		this.graphics = null;
 		this.frManager = frManager;
 	}
 	
@@ -137,4 +136,5 @@ public class UIManager {
 	public FrameRateManager getFrManager() {
 		return this.frManager;
 	}
+	
 }
