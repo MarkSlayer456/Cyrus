@@ -79,13 +79,19 @@ public class UIManager {
 		/////////////////////////////		
 		this.getGraphics().setColor(Color.BLACK);
 		this.getGraphics().fillRect(0, 0, 8000, 8000); //TODO change these
-		this.getGraphics().setColor(Color.WHITE);
+		int fontSize = 25;
+		this.graphics.setFont(new Font("Calculator Numbers", 1, fontSize));
 		for(int i = 0; i < buttons.size(); i++) { //TODO will be updated
-			this.graphics.fill(buttons.get(i).getRect());
+			Button b = buttons.get(i);
+			this.getGraphics().setColor(Color.WHITE);
+			this.graphics.fill(b.getRect());
+			this.getGraphics().setColor(Color.ORANGE);
+//			this.getGraphics().drawString(b.getText(), (int) (b.getRect().x + b.getRect().getWidth() / 2), (int) (b.getRect().getY() + b.getRect().getHeight() / 2)); 
+			this.graphics.drawString(b.getText(), (float) (b.getRect().getX() + b.getRect().getWidth() / 2 - 8),(float) (b.getRect().getY() + (b.getRect().getHeight() / 2) + 8));
+			
 		}
-		this.graphics.setColor(Color.WHITE);
-		this.graphics.setFont(new Font("Calculator Numbers", 1, 25));
-		this.graphics.drawString("0", CyrusMain.mainFrame.getJFrame().getWidth() - 100, 75);
+		this.graphics.setColor(Color.ORANGE);
+		this.graphics.drawString(CyrusMain.calc.getCurrentNumb() + "", CyrusMain.mainFrame.getJFrame().getWidth() - 100, 75);
 		
 		
 		

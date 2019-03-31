@@ -199,4 +199,8 @@ public class Frame {
 		return this.drawing;
 	}
 	
+	public boolean isActive() {
+		return this.getJFrame().isActive();
+	}
+	
 }

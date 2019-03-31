@@ -11,6 +11,16 @@ import main.utilities.Calculator;
 
 public class CyrusMain implements Runnable {
 	
+	/* Notes:
+	 * Each frame needs to have it's own inputmanager other wise they will get confused and
+	 * when you are in one window it will allow you to type on the other
+	 * 
+	 * 
+	 */
+	
+	
+	
+	
 	public final static String VERSION = "Version: 1.3.0 Pre-Alpha";
 	
 	private FileManager fileManager = FileManager.getInstance();
@@ -23,6 +33,8 @@ public class CyrusMain implements Runnable {
 	public static Frame mainFrame;
 	public static Frame calcFrame;
 	public static Calculator calc;
+	
+	public static Frame activeFrame;
 	
 	private boolean running;
 	
@@ -38,6 +50,9 @@ public class CyrusMain implements Runnable {
 		fileManager.setup();
 		mainFrame.getJFrame().setVisible(true);
 		mainFrame.getJFrame().addKeyListener(inputManager);
+		calc.getFrame().getJFrame().addKeyListener(inputManager); // this makes it so you can still type while the calculator is open
+		calc.getFrame().getJFrame().addMouseListener(inputManager);
+		mainFrame.getJFrame().addMouseListener(inputManager);
 		cyrus.setup();
 		Command.discoverCommands();
 	}
@@ -50,10 +65,19 @@ public class CyrusMain implements Runnable {
 		System.exit(0);
 	}
 	
+	private void doLogic() {
+		if(mainFrame.isActive()) {
+			activeFrame = mainFrame; // hope this makes a pointer
+		} else {
+			activeFrame = calc.getFrame(); // hope this makes a pointer
+		}
+	}
+	
 	@Override
 	public void run() {
 		this.init();
 		while(this.running) {
+			doLogic();
 			if(mainFrame.isDrawing()) {
 				mainFrame.draw();
 				mainFrame.doLogic();

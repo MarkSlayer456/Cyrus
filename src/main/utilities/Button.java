@@ -21,6 +21,7 @@ public class Button implements Runnable {
     private Rectangle2D.Double rect;
     private final boolean isActive;
     private final Image image;
+    private String text;
     
     	//TODO add paths could be moved to imageLoader
   		public static final Image PLUS = imageManager.getImage("");
@@ -47,13 +48,15 @@ public class Button implements Runnable {
      * @param isActive is the button currently on the screen
      * @param image the image to cover the button
      */
-    public Button(Point pos, double width, double height, boolean isActive, Image image, Frame frame) {
+    public Button(Point pos, double width, 
+    		double height, boolean isActive, Image image, Frame frame, String text) {
         this.pos = pos;
         this.height = height;
         this.width = width;
         this.rect = new Rectangle2D.Double(frame.getWidth() - this.pos.getX(), frame.getHeight() - this.pos.getY(), this.width, this.height);
         this.isActive = isActive;
         this.image = image;
+        this.text = text;
     }
     
     @Override
@@ -113,6 +116,14 @@ public class Button implements Runnable {
 	 */
     public boolean isActive() {
     	return this.isActive;
+    }
+    
+    /**
+     * Gets text on button 
+     * @return - The text displayed on the button 
+     */
+    public String getText() {
+    	return this.text;
     }
     
     
