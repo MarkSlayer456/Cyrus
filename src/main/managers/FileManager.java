@@ -26,7 +26,9 @@ public class FileManager {
 	public static final String COMMONQUESTIONFILE = "commonly asked questions.cy";
 	
 	private ArrayList<File> files = new ArrayList<File>(); // All the files the ai knows about
-	
+	/**
+	 * Creates FileManager, this method is empty.
+	 */
 	public FileManager() {
 		
 	}

@@ -33,7 +33,10 @@ public class AI {
 	}
 	
 	
-	
+	/**
+	 * Sets up the AI.
+	 * This method currently just greets the user.
+	 */
 	public void setup() {
 		this.greet("Hello, my name is " + this.name + ", this message is brought to you from the AI.java file under the greet method!");
 		//TODO ask for name

@@ -191,17 +191,17 @@ public class Frame {
 	}
 	
 	/**
-	 * Gets version
-	 * @return - The version the program is currently running 
+	 * Checks to see if the given frame is drawing to the screen or not.
+	 * @return - True if drawing, false if not
 	 */
-//	public String getVersion() {
-//		return version;
-//	}
-	
 	public boolean isDrawing() {
 		return this.drawing;
 	}
 	
+	/**
+	 * Checks to see if the frame is active.
+	 * @return - True if the frame is active, false if not
+	 */
 	public boolean isActive() {
 		return this.getJFrame().isActive();
 	}

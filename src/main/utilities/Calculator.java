@@ -46,7 +46,7 @@ public class Calculator {
 	 * @param b - button to click
 	 */
 	public void clickButton(Button b) {
-		switch(b.getText()) {
+		switch(b.getText().toLowerCase()) {
 		case "0":
 			this.setCurrentNumb(0);
 			this.updateDisplayText(this.getDisplayText() + this.getCurrentNumb() + "");
@@ -98,6 +98,10 @@ public class Calculator {
 			break;
 		case "/":
 			this.updateDisplayText(this.getDisplayText() + " / ");
+			break;
+		case "c":
+			this.updateDisplayText("");
+			break;
 		default:
 			break;
 		}
@@ -252,10 +256,18 @@ public class Calculator {
 		return this.currentNumb;
 	}
 	
+	/**
+	 * Update display text.
+	 * @param str - The display text
+	 */
 	public void updateDisplayText(String str) {
 		this.displayText = str;
 	}
 	
+	/**
+	 * Gets the current display text.
+	 * @return - The current display text
+	 */
 	public String getDisplayText() {
 		return this.displayText;
 	}

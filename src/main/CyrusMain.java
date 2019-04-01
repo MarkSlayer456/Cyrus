@@ -81,6 +81,10 @@ public class CyrusMain implements Runnable {
 		System.exit(0);
 	}
 	
+	/**
+	 * Calculates all the logic in the program.
+	 * At the moment this just does logic for the main class
+	 */
 	private void doLogic() {
 		if(mainFrame.isActive()) {
 			activeFrame = mainFrame; // hope this makes a pointer
@@ -112,18 +116,34 @@ public class CyrusMain implements Runnable {
 	}
 	
 	///// Getters /////
+	/**
+	 * Gets the main calculator object.
+	 * @return - The main calculator object
+	 */
 	public Calculator getCalc() {
 		return this.calc;
 	}
 	
+	/**
+	 * Gets the active frame, the frame that is currently focused.
+	 * @return - The active frame
+	 */
 	public Frame getActiveFrame() {
 		return this.activeFrame;
 	}
 	
+	/**
+	 * Gets the mainFrame of the program.
+	 * @return - The mainFrame object
+	 */
 	public Frame getMainFrame() {
 		return this.mainFrame;
 	}
 	
+	/**
+	 * Gets the main AI, cyrus.
+	 * @return - The cyrus object
+	 */
 	public AI getCyrus() {
 		return this.cyrus;
 	}

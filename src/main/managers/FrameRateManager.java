@@ -6,14 +6,17 @@ public class FrameRateManager {
 	private double startingTime, endingTime;
 	private boolean firstTime = false;
 	
+	/**
+	 * Creates FrameRateManager.
+	 */
 	public FrameRateManager() {
 		this.startingTime = 0;
 		this.endingTime = 0;
 	}
 	
 	/**
-	 * Only runs the first time the FrameRateManager used.
-	 * Setups the starting and ending time variables
+	 * Only runs the first time the FrameRateManager is used.
+	 * Setups the starting and ending time variables.
 	 */
 	private void firstTime() {
 		this.startingTime = System.currentTimeMillis();
@@ -41,6 +44,10 @@ public class FrameRateManager {
 	}
 	
 	///// Setters /////
+	/**
+	 * Sets the start time of the frame.
+	 * @param amount - The time in milliseconds
+	 */
 	public void setStartingTime(double amount) {
 		if(this.firstTime == false)
 			firstTime();
@@ -48,7 +55,10 @@ public class FrameRateManager {
 			this.startingTime = amount;
 		}
 	}
-	
+	/**
+	 * Sets the end time of the frame
+	 * @param amount - The time in milliseconds
+	 */
 	public void setEndingTime(double amount) {
 		if(this.firstTime == false)
 			firstTime();

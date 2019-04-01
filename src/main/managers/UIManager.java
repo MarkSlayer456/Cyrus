@@ -142,15 +142,15 @@ public class UIManager {
 		return this.graphics;
 	}
 	/**
-	 * 
-	 * @return 
+	 * Gets the size of the frame
+	 * @return - The size of the frame
 	 */
 	public Dimension getSize() {
 		return this.size;
 	}
 	/**
-	 * 
-	 * @return 
+	 * Gets the frame rate manager
+	 * @return - The framerate manager
 	 */
 	public FrameRateManager getFrManager() {
 		return this.frManager;
