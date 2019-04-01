@@ -13,6 +13,7 @@ import main.managers.FileManager;
 public class Command {
     
 	private static FileManager fileManager = FileManager.getInstance();
+	private CyrusMain cyrusMain;
 	
 	private final String prefixHelpString = "Use the command like this:";
 	
@@ -45,6 +46,7 @@ public class Command {
 				aliasesS.put(s, this);
 			}
 		}
+		cyrusMain = CyrusMain.getInstance();
 	}
 	
 	/**
@@ -110,8 +112,8 @@ public class Command {
 			break;
 			
 		case "math":
-				CyrusMain.calcFrame.setDrawing(true);
-				CyrusMain.calc.makeVisible();
+				cyrusMain.getCalc().getFrame().setDrawing(true);
+				cyrusMain.getCalc().makeVisible();
 			break;
 		case "clear":
 			ai.getChatManager().clearConsoleLines();

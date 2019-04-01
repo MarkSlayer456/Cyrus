@@ -12,6 +12,8 @@ import main.managers.UIManager;
 
 public class Frame {
 	
+	private CyrusMain cyrusMain;
+	
 	private Graphics2D g;
 	private BufferStrategy bs;
 	
@@ -42,6 +44,7 @@ public class Frame {
 		//this.frame.setVisible(true);
 		this.frame.setResizable(true);
 		this.frame.setMinimumSize(new Dimension(800, 300));
+		cyrusMain = CyrusMain.getInstance();
 	}
 	
 	 /**
@@ -82,7 +85,7 @@ public class Frame {
 	public void draw() { // What to display from Cyrus thoughts
 		setupBufferStrategy();
 		////////////////////////////////////
-		this.uiManager.draw(CyrusMain.cyrus);
+		this.uiManager.draw(cyrusMain.getCyrus());
 		////////////////////////////////////
 		disposeAndShow();
 	}

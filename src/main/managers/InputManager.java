@@ -14,7 +14,8 @@ import main.utilities.Calculator;
 
 public class InputManager implements KeyListener, MouseListener {
 
-	public static InputManager inputManager = new InputManager();
+	public static InputManager inputManager;
+	private CyrusMain cyrusMain;
 
 	public static InputManager getInstance() {
 		return inputManager;
@@ -28,6 +29,7 @@ public class InputManager implements KeyListener, MouseListener {
 		this.keysDown = new ArrayList<Integer>();
 		this.currentCharacters = new ArrayList<Character>();
 		this.currentCommand = "";
+		cyrusMain = CyrusMain.getInstance();
 	}
 	
 	/**
@@ -44,8 +46,8 @@ public class InputManager implements KeyListener, MouseListener {
 	
 	@Override
 	public void keyPressed(KeyEvent e) {
-		Frame activeFrame = CyrusMain.activeFrame;
-		if(activeFrame == CyrusMain.mainFrame) {
+		Frame activeFrame = cyrusMain.getActiveFrame();
+		if(activeFrame == cyrusMain.getMainFrame()) {
 			this.keysDown.add(e.getKeyCode());
 			int keyCode = e.getKeyCode();
 			for(int i = 0; i < this.keysDown.size(); i++) {
@@ -62,7 +64,7 @@ public class InputManager implements KeyListener, MouseListener {
 					this.currentCommand += ("    ");
 					break;
 				case 10:
-					CyrusMain.cyrus.interpret(this.currentCommand);
+					cyrusMain.getCyrus().interpret(this.currentCommand);
 					this.clearCurrentChars();
 					System.out.println("You typed: " + this.currentCommand); //TODO remove later
 					this.currentCommand = "";
@@ -108,15 +110,15 @@ public class InputManager implements KeyListener, MouseListener {
 	public void mouseReleased(MouseEvent e) {
 		int mx = e.getX(); // mouse x
 		int my = e.getY(); // mouse y
-		Calculator calc = CyrusMain.calc;
-		Frame activeFrame = CyrusMain.activeFrame;
+		Calculator calc = cyrusMain.getCalc();
+		Frame activeFrame = cyrusMain.getActiveFrame();
 		if(activeFrame == calc.getFrame()) {
 			for(Button b : calc.getButtons()) {
 				if(b.getRect().contains(new Point(mx, my))) {
 					calc.clickButton(b);
 				}
 			}
-		} else if(activeFrame == CyrusMain.mainFrame) {
+		} else if(activeFrame == cyrusMain.getMainFrame()) {
 			
 		} else {
 			System.out.println("ERROR unknown window dectected!");

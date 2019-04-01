@@ -10,11 +10,14 @@ import main.managers.ImageLoader;
 public class Calculator {
 	
 	public static ImageLoader imageManager = ImageLoader.getInstance();
+	private CyrusMain cyrusMain;
+	
 	
 	private boolean running;
 	private Frame frame;
 	private ArrayList<Button> buttons;
 	private int currentNumb;
+	private String displayText;
 	/**
 	 * Creates Calculator
 	 * @param r - Is the calculator running, typically false
@@ -24,7 +27,9 @@ public class Calculator {
 		this.running = r;
 		this.frame = f;
 	    this.buttons = new ArrayList<>();
+	    this.displayText = "";
 		createButtons();
+		cyrusMain = CyrusMain.getInstance();
 	}
 	
 	/**
@@ -44,34 +49,55 @@ public class Calculator {
 		switch(b.getText()) {
 		case "0":
 			this.setCurrentNumb(0);
+			this.updateDisplayText(this.getDisplayText() + this.getCurrentNumb() + "");
 			break;
 		case "1":
 			this.setCurrentNumb(1);
+			this.updateDisplayText(this.getDisplayText() + this.getCurrentNumb() + "");
 			break;
 		case "2":
 			this.setCurrentNumb(2);
+			this.updateDisplayText(this.getDisplayText() + this.getCurrentNumb() + "");
 			break;
 		case "3":
 			this.setCurrentNumb(3);
+			this.updateDisplayText(this.getDisplayText() + this.getCurrentNumb() + "");
 			break;
 		case "4":
 			this.setCurrentNumb(4);
+			this.updateDisplayText(this.getDisplayText() + this.getCurrentNumb() + "");
 			break;
 		case "5":
 			this.setCurrentNumb(5);
+			this.updateDisplayText(this.getDisplayText() + this.getCurrentNumb() + "");
 			break;
 		case "6":
 			this.setCurrentNumb(6);
+			this.updateDisplayText(this.getDisplayText() + this.getCurrentNumb() + "");
 			break;
 		case "7":
 			this.setCurrentNumb(7);
+			this.updateDisplayText(this.getDisplayText() + this.getCurrentNumb() + "");
 			break;
 		case "8":
 			this.setCurrentNumb(8);
+			this.updateDisplayText(this.getDisplayText() + this.getCurrentNumb() + "");
 			break;
 		case "9":
 			this.setCurrentNumb(9);
+			this.updateDisplayText(this.getDisplayText() + this.getCurrentNumb() + "");
 			break;
+		case "+":
+			this.updateDisplayText(this.getDisplayText() + " + ");
+			break;
+		case "-":
+			this.updateDisplayText(this.getDisplayText() + " - ");
+			break;
+		case "*":
+			this.updateDisplayText(this.getDisplayText() + " * ");
+			break;
+		case "/":
+			this.updateDisplayText(this.getDisplayText() + " / ");
 		default:
 			break;
 		}
@@ -81,6 +107,9 @@ public class Calculator {
 	 * Creates all the buttons for the calculator
 	 */
 	private void createButtons() {
+		
+		buttons.add(new Button(new Point(440, 400), 75, 50, true, Button.PLUS, this.frame.getJFrame(), "C"));
+		
 		buttons.add(new Button(new Point(100, 400), 75, 50, true, Button.PLUS, this.frame.getJFrame(), "+"));
     	buttons.add(new Button(new Point(100, 345), 75, 50, true, Button.SUB, this.frame.getJFrame(), "-"));
     	buttons.add(new Button(new Point(100, 290), 75, 50, true, Button.MULTI, this.frame.getJFrame(), "*"));
@@ -97,6 +126,8 @@ public class Calculator {
 		buttons.add(new Button(new Point(280, 290), 75, 50, true, Button.TWO, this.frame.getJFrame(), "2"));
 		buttons.add(new Button(new Point(360, 290), 75, 50, true, Button.ONE, this.frame.getJFrame(), "1"));
 		buttons.add(new Button(new Point(280, 235), 75, 50, true, Button.ZERO, this.frame.getJFrame(), "0"));
+		
+		
 	}
 	
 	/**
@@ -146,7 +177,7 @@ public class Calculator {
 	 * Sets the frame to visible
 	 */
 	public void makeVisible() {
-			CyrusMain.calcFrame.getJFrame().setVisible(true);
+			cyrusMain.getCalc().getFrame().getJFrame().setVisible(true);
 	}
 	
 	public void update () {
@@ -204,6 +235,7 @@ public class Calculator {
 	public ArrayList<Button> getButtons() {
 		return this.buttons;
 	}
+	
 	/**
 	 * Gets the frame for the given calculator.
 	 * @return - The frame for the given calculator
@@ -218,5 +250,13 @@ public class Calculator {
 	 */
 	public int getCurrentNumb() {
 		return this.currentNumb;
+	}
+	
+	public void updateDisplayText(String str) {
+		this.displayText = str;
+	}
+	
+	public String getDisplayText() {
+		return this.displayText;
 	}
 }

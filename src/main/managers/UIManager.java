@@ -8,12 +8,15 @@ import java.awt.Graphics2D;
 import java.util.ArrayList;
 import main.AI;
 import main.CyrusMain;
+import main.Frame;
 import main.utilities.Button;
+import main.utilities.Calculator;
 
 public class UIManager {
 		
-	InputManager inputManager = InputManager.getInstance();
-	FileManager file = FileManager.getInstance();
+	private InputManager inputManager;
+	private FileManager file = FileManager.getInstance();
+	private CyrusMain cyrusMain;
 	
 	private Graphics2D graphics;
 	private Dimension size;
@@ -28,6 +31,8 @@ public class UIManager {
 		this.size = size;
 		this.graphics = null;
 		this.frManager = frManager;
+		this.cyrusMain = CyrusMain.getInstance();
+		this.inputManager = InputManager.getInstance();
 	}
 	
 	/**
@@ -42,29 +47,31 @@ public class UIManager {
 		// what the user is typing on
 		this.graphics.setFont(new Font("Cyrus Commandline", 1, 20));
 		//g.setFont(normal);
+		Frame mainFrame = cyrusMain.getMainFrame();
+		
 		this.graphics.setColor(Color.BLACK);
-		this.graphics.fillRect(0, 0, CyrusMain.mainFrame.getJFrame().getWidth(), CyrusMain.mainFrame.getJFrame().getHeight());
+		this.graphics.fillRect(0, 0, mainFrame.getJFrame().getWidth(), mainFrame.getJFrame().getHeight());
 		this.graphics.setColor(new Color(153, 0, 255));
-		this.graphics.drawString("--/>", 20, CyrusMain.mainFrame.getJFrame().getHeight() - 25);
+		this.graphics.drawString("--/>", 20, mainFrame.getJFrame().getHeight() - 25);
 		this.graphics.setColor(new Color(153, 0, 255));
 		int iterator = 0;
 		for(int j = ai.getChatManager().getConsoleLines().size() - 1; j >= 0; j--) { // drawing the string
 			iterator++;
 			String str = ai.getChatManager().getConsoleLines().get(j);
-			this.graphics.drawString(str, 50, CyrusMain.mainFrame.getJFrame().getHeight() - 25 - iterator*ai.getChatManager().getSpaceInbetweenLines());
+			this.graphics.drawString(str, 50, mainFrame.getJFrame().getHeight() - 25 - iterator*ai.getChatManager().getSpaceInbetweenLines());
 		}
 		String temp = "";
 		for(int i = 0; i < inputManager.getCurrentCharacters().size(); i++) {
 			char z = inputManager.getCurrentCharacters().get(i);
 			temp += z;
-			this.graphics.drawString(temp, 53, CyrusMain.mainFrame.getJFrame().getHeight() - 25);
+			this.graphics.drawString(temp, 53, mainFrame.getJFrame().getHeight() - 25);
 		}
 		//////////////////////////////////////
 		
 		///// Version /////
 		this.graphics.setColor(Color.WHITE);
 		this.graphics.setFont(new Font("Cyrus Version", 1, 25));
-		this.graphics.drawString(CyrusMain.VERSION, CyrusMain.mainFrame.getJFrame().getWidth() - 300, 75);
+		this.graphics.drawString(CyrusMain.VERSION, mainFrame.getJFrame().getWidth() - 300, 75);
 		///////////////////////////////////////
 		this.frManager.setEndingTime(System.currentTimeMillis());
 	}
@@ -76,7 +83,10 @@ public class UIManager {
 	public void draw(ArrayList<Button> buttons) { // TODO needs to adjust with frame
 		///// Frame Rate Limiter /////
 		this.frManager.setStartingTime(System.currentTimeMillis());
-		/////////////////////////////		
+		/////////////////////////////
+		Frame mainFrame = cyrusMain.getMainFrame();
+		Calculator calc = cyrusMain.getCalc();
+		
 		this.getGraphics().setColor(Color.BLACK);
 		this.getGraphics().fillRect(0, 0, 8000, 8000); //TODO change these
 		int fontSize = 25;
@@ -86,12 +96,15 @@ public class UIManager {
 			this.getGraphics().setColor(Color.WHITE);
 			this.graphics.fill(b.getRect());
 			this.getGraphics().setColor(Color.ORANGE);
-//			this.getGraphics().drawString(b.getText(), (int) (b.getRect().x + b.getRect().getWidth() / 2), (int) (b.getRect().getY() + b.getRect().getHeight() / 2)); 
-			this.graphics.drawString(b.getText(), (float) (b.getRect().getX() + b.getRect().getWidth() / 2 - 8),(float) (b.getRect().getY() + (b.getRect().getHeight() / 2) + 8));
+			int widthOfText = this.graphics.getFontMetrics().stringWidth(b.getText());
+			int heightOfText = this.graphics.getFontMetrics().getHeight();
+			this.graphics.drawString(b.getText(), (float) (b.getRect().getX() + b.getRect().getWidth() / 2 - widthOfText / 2),
+					(float) (b.getRect().getY() + (b.getRect().getHeight() / 2) + (heightOfText / 2) / 2));
 			
 		}
 		this.graphics.setColor(Color.ORANGE);
-		this.graphics.drawString(CyrusMain.calc.getCurrentNumb() + "", CyrusMain.mainFrame.getJFrame().getWidth() - 100, 75);
+		this.graphics.drawString(calc.getDisplayText(), 
+				mainFrame.getJFrame().getWidth() - (100 + this.graphics.getFontMetrics().stringWidth(calc.getDisplayText())), 75);
 		
 		
 		

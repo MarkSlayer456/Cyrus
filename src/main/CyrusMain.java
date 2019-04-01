@@ -18,35 +18,51 @@ public class CyrusMain implements Runnable {
 	 * 
 	 */
 	
+	public static CyrusMain cyrusMain;
 	
+	public static CyrusMain getInstance() {
+		return cyrusMain;
+	}
 	
 	
 	public final static String VERSION = "Version: 1.3.0 Pre-Alpha";
 	
 	private FileManager fileManager = FileManager.getInstance();
-	private InputManager inputManager = InputManager.getInstance();
+	private InputManager inputManager;
 	private ImageLoader imageLoader = ImageLoader.getInstance();
 	
-	public static Thread mainThread;
+	private static Thread mainThread;
 	
-	public static AI cyrus;
-	public static Frame mainFrame;
-	public static Frame calcFrame;
-	public static Calculator calc;
+	private AI cyrus;
+	private Frame mainFrame;
+//	public static Frame calcFrame;
+	private Calculator calc;
 	
-	public static Frame activeFrame;
+	private Frame activeFrame;
 	
 	private boolean running;
 	
 	
 	public CyrusMain() {
-		running = true;
+		
 	}
 	
 	/**
 	 * Setups the program, adding listeners and setting visibility if needed
      */
-	public void init() {
+	private void init() {
+		// This code can't be used in constuctor because the frames use the getinstance and the 
+		// CyrusMain object needs to be created for that to work properly
+		InputManager.inputManager = new InputManager();
+		inputManager = InputManager.getInstance();
+		
+		this.mainFrame = new Frame(new Dimension(800, 300), "Cyrus", new FrameRateManager(), true); //TODO get screen size but this will do for now
+		Frame calcFrame = new Frame(new Dimension(800, 500), "Calculator", new FrameRateManager(), false);
+		this.calc = new Calculator(false, calcFrame);
+		this.cyrus = new AI("Cyrus", new ChatManager(50, 10, 0, 25)); // Creating Cyrus
+		running = true;
+		
+		
 		fileManager.setup();
 		mainFrame.getJFrame().setVisible(true);
 		mainFrame.getJFrame().addKeyListener(inputManager);
@@ -82,21 +98,36 @@ public class CyrusMain implements Runnable {
 				mainFrame.draw();
 				mainFrame.doLogic();
 			}
-			if(calcFrame.isDrawing()) {
+			if(calc.getFrame().isDrawing()) {
 				calc.update();
 			}
 		}
 	}
 	
 	public static void main(String[] args) {
-		CyrusMain cyrusMain = new CyrusMain();
-		mainFrame = new Frame(new Dimension(800, 300), "Cyrus", new FrameRateManager(), true); //TODO get screen size but this will do for now
-		calcFrame = new Frame(new Dimension(800, 500), "Calculator", new FrameRateManager(), false);
-		calc = new Calculator(false, calcFrame);
-		cyrus = new AI("Cyrus", new ChatManager(50, 10, 0, 25)); // Creating Cyrus
+		cyrusMain = new CyrusMain();
 		mainThread = new Thread(cyrusMain, "main");
 		mainThread.setPriority(5);
 		mainThread.start();
 	}
+	
+	///// Getters /////
+	public Calculator getCalc() {
+		return this.calc;
+	}
+	
+	public Frame getActiveFrame() {
+		return this.activeFrame;
+	}
+	
+	public Frame getMainFrame() {
+		return this.mainFrame;
+	}
+	
+	public AI getCyrus() {
+		return this.cyrus;
+	}
+	
+	///// Setter ///// 
 	
 }
