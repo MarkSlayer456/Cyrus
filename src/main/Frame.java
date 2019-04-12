@@ -6,52 +6,34 @@ import java.awt.Toolkit;
 import java.awt.image.BufferStrategy;
 
 import javax.swing.JFrame;
-import main.managers.ChatManager;
-import main.managers.FileManager;
 import main.managers.FrameRateManager;
-import main.managers.ImageLoader;
-import main.managers.InputManager;
 import main.managers.UIManager;
-import main.utilities.Calculator;
 
 
-public class Frame implements Runnable {
+public class Frame {
 	
-	private FileManager fileManager = FileManager.getInstance();
-	private InputManager inputManager = InputManager.getInstance();
-	private ImageLoader imageLoader = ImageLoader.getInstance();
-	
-	///// Static Variables /////
-	public static Thread mainFrameT;
-	public static Thread cyrusCalc;
-	
-	public static AI cyrus;
-	public static Frame mainFrame;
-	public static Frame calcFrame;
-	public static Calculator calc;
-	//////////////////////////////////////////////
+	private CyrusMain cyrusMain;
 	
 	private Graphics2D g;
 	private BufferStrategy bs;
-	private static String version;
-	private boolean drawing = true; // Used if you ever want to stop drawing for some reason	
 	
 	private final Dimension size; // this will be able to change later
 	private final JFrame frame;
 	private final UIManager uiManager;
+	private boolean drawing;
 	
-	@SuppressWarnings("static-access")
-	public Frame(Dimension s, String name, FrameRateManager frManager) {
+	public Frame(Dimension s, String name, FrameRateManager frManager, boolean drawing) {
 		this.g = null;
 		this.bs = null;
 		this.size = s;
+		this.drawing = drawing;
 		this.frame = new JFrame(name);
-		this.uiManager = new UIManager(s, null, frManager);
+		this.uiManager = new UIManager(s, frManager);
 		this.frame.setSize(size.width, size.height);
 		this.frame.setLocation(Toolkit.getDefaultToolkit().getScreenSize().width - size.width, 0);
 		this.frame.setUndecorated(false);
-		if(this.frame.getName().equalsIgnoreCase("Cyrus")) this.frame.setDefaultCloseOperation(this.frame.EXIT_ON_CLOSE);
-		else this.frame.setDefaultCloseOperation(this.frame.HIDE_ON_CLOSE);
+		if(this.frame.getName().equalsIgnoreCase("Cyrus")) this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		else this.frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		
 		//SystemTray.getSystemTray().add(trayIcon); neat
 		
@@ -62,25 +44,15 @@ public class Frame implements Runnable {
 		//this.frame.setVisible(true);
 		this.frame.setResizable(true);
 		this.frame.setMinimumSize(new Dimension(800, 300));
+		cyrusMain = CyrusMain.getInstance();
 	}
 	
-	//TODO move to main class
-	 public static void main(String[] args) { // Program begins
-		mainFrame = new Frame(new Dimension(800, 300), "Cyrus", new FrameRateManager()); //TODO get screen size but this will do for now
-		calcFrame = new Frame(new Dimension(800, 500), "Calculator", new FrameRateManager());
-		calc = new Calculator(false, calcFrame);
-		cyrus = new AI("Cyrus", new ChatManager(50, 10, 0, 25)); // Creating Cyrus
-		cyrusCalc = new Thread(calc, "cyrus");
-		mainFrameT = new Thread(mainFrame, "frame");
-		mainFrameT.setPriority(5);
-		mainFrameT.start();
-	}
 	 /**
       * Contains all the logic for the given frame
       */
 	public void doLogic() {
 		if(!this.frame.isShowing()) { // is program still running
-			quit();
+			CyrusMain.quit();
 		}
 	}
 
@@ -88,7 +60,10 @@ public class Frame implements Runnable {
 	 * Sets up the buffer strategy
 	 */
 	public void setupBufferStrategy() { //TODO maybe move to UIManager
-		if(this.getBS() == null) { this.getJFrame().createBufferStrategy(3); }
+		if(this.getBS() == null) { 
+			this.frame.setVisible(true); // this stops an error from occuring
+			this.getJFrame().createBufferStrategy(3);
+		}
 		this.setBS(this.getJFrame().getBufferStrategy());
 		this.setGraphics((Graphics2D) this.getBS().getDrawGraphics());
 		this.uiManager.setGraphics(this.getGraphics());
@@ -110,41 +85,21 @@ public class Frame implements Runnable {
 	public void draw() { // What to display from Cyrus thoughts
 		setupBufferStrategy();
 		////////////////////////////////////
-		this.uiManager.drawConsole(cyrus);
+		this.uiManager.draw(cyrusMain.getCyrus());
 		////////////////////////////////////
 		disposeAndShow();
 	}
 
-	/**
-	 * Setups the program, adding listeners and setting visibility if needed
-     */
-	private void setup() {
-        setVersion("Version: 1.3.0 Pre-Alpha");
-		fileManager.setup();
-		this.frame.setVisible(true);
-		this.frame.addKeyListener(inputManager);
-		cyrus.setup();
-		Command.discoverCommands();
-	}
-	/**
-     * Quits the program, closing all open windows and shutting down
-     * the process
-     */
-	public static void quit() { // very useful
-		System.exit(0);
-	}
+	//////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////////////
 	
-	@Override
-	public void run() {
-		this.setup();
-		while(drawing) {
-				draw();
-				doLogic();
-		}
-		
-	}
 	
 	///// Setters /////
+	public void setDrawing(boolean bool) {
+		this.drawing = bool;
+	}
+	
 	/**
 	 * Set the width of the frame
 	 * @param width - The width you want to set
@@ -186,9 +141,9 @@ public class Frame implements Runnable {
      * Changes the version number of the program
      * @param newVersion the version you want to change too
      */
-    public void setVersion(String newVersion) {
-        version = newVersion;
-    }
+//    public void setVersion(String newVersion) {
+//        version = newVersion;
+//    }
 	
 	///// Getters /////
 	
@@ -236,11 +191,19 @@ public class Frame implements Runnable {
 	}
 	
 	/**
-	 * Gets version
-	 * @return - The version the program is currently running 
+	 * Checks to see if the given frame is drawing to the screen or not.
+	 * @return - True if drawing, false if not
 	 */
-	public String getVersion() {
-		return version;
+	public boolean isDrawing() {
+		return this.drawing;
+	}
+	
+	/**
+	 * Checks to see if the frame is active.
+	 * @return - True if the frame is active, false if not
+	 */
+	public boolean isActive() {
+		return this.getJFrame().isActive();
 	}
 	
 }

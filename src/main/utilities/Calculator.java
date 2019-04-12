@@ -3,17 +3,21 @@ package main.utilities;
 import java.awt.Point;
 import java.util.ArrayList;
 
+import main.CyrusMain;
 import main.Frame;
 import main.managers.ImageLoader;
 
-public class Calculator implements Runnable {
+public class Calculator {
 	
 	public static ImageLoader imageManager = ImageLoader.getInstance();
+	private CyrusMain cyrusMain;
+	
 	
 	private boolean running;
 	private Frame frame;
 	private ArrayList<Button> buttons;
 	private int currentNumb;
+	private String displayText;
 	/**
 	 * Creates Calculator
 	 * @param r - Is the calculator running, typically false
@@ -23,7 +27,9 @@ public class Calculator implements Runnable {
 		this.running = r;
 		this.frame = f;
 	    this.buttons = new ArrayList<>();
+	    this.displayText = "";
 		createButtons();
+		cyrusMain = CyrusMain.getInstance();
 	}
 	
 	/**
@@ -31,29 +37,101 @@ public class Calculator implements Runnable {
 	 */
 	private void updateButtonLocation() {
 		 for(Button b : this.buttons) {
-		  b.getRect().setRect(this.frame.getJFrame().getWidth() - b.getPos().getX(), this.frame.getJFrame().getHeight() - b.getPos().getY(), b.getWidth(), b.getHeight());
+			 b.getRect().setRect(this.frame.getJFrame().getWidth() - b.getPos().getX(), this.frame.getJFrame().getHeight() - b.getPos().getY(), b.getWidth(), b.getHeight());
 		 }
 	}
+	
+	/**
+	 * Activates button given and does action
+	 * @param b - button to click
+	 */
+	public void clickButton(Button b) {
+		switch(b.getText().toLowerCase()) {
+		case "0":
+			this.setCurrentNumb(0);
+			this.updateDisplayText(this.getDisplayText() + this.getCurrentNumb() + "");
+			break;
+		case "1":
+			this.setCurrentNumb(1);
+			this.updateDisplayText(this.getDisplayText() + this.getCurrentNumb() + "");
+			break;
+		case "2":
+			this.setCurrentNumb(2);
+			this.updateDisplayText(this.getDisplayText() + this.getCurrentNumb() + "");
+			break;
+		case "3":
+			this.setCurrentNumb(3);
+			this.updateDisplayText(this.getDisplayText() + this.getCurrentNumb() + "");
+			break;
+		case "4":
+			this.setCurrentNumb(4);
+			this.updateDisplayText(this.getDisplayText() + this.getCurrentNumb() + "");
+			break;
+		case "5":
+			this.setCurrentNumb(5);
+			this.updateDisplayText(this.getDisplayText() + this.getCurrentNumb() + "");
+			break;
+		case "6":
+			this.setCurrentNumb(6);
+			this.updateDisplayText(this.getDisplayText() + this.getCurrentNumb() + "");
+			break;
+		case "7":
+			this.setCurrentNumb(7);
+			this.updateDisplayText(this.getDisplayText() + this.getCurrentNumb() + "");
+			break;
+		case "8":
+			this.setCurrentNumb(8);
+			this.updateDisplayText(this.getDisplayText() + this.getCurrentNumb() + "");
+			break;
+		case "9":
+			this.setCurrentNumb(9);
+			this.updateDisplayText(this.getDisplayText() + this.getCurrentNumb() + "");
+			break;
+		case "+":
+			this.updateDisplayText(this.getDisplayText() + " + ");
+			break;
+		case "-":
+			this.updateDisplayText(this.getDisplayText() + " - ");
+			break;
+		case "*":
+			this.updateDisplayText(this.getDisplayText() + " * ");
+			break;
+		case "/":
+			this.updateDisplayText(this.getDisplayText() + " / ");
+			break;
+		case "c":
+			this.updateDisplayText("");
+			break;
+		default:
+			break;
+		}
+	}
+	
 	/**
 	 * Creates all the buttons for the calculator
 	 */
 	private void createButtons() {
-		buttons.add(new Button(new Point(100, 400), 75, 50, true, Button.PLUS, this.frame.getJFrame()));
-    	buttons.add(new Button(new Point(100, 345), 75, 50, true, Button.SUB, this.frame.getJFrame()));
-    	buttons.add(new Button(new Point(100, 290), 75, 50, true, Button.MULTI, this.frame.getJFrame()));
-    	buttons.add(new Button(new Point(100, 235), 75, 50, true, Button.DIVIDE, this.frame.getJFrame()));
-    	buttons.add(new Button(new Point(100, 180), 75, 50, true, Button.EQUALS, this.frame.getJFrame()));
 		
-		buttons.add(new Button(new Point(200, 400), 75, 50, true, Button.ONE, this.frame.getJFrame()));
-    	buttons.add(new Button(new Point(280, 400), 75, 50, true, Button.TWO, this.frame.getJFrame()));
-		buttons.add(new Button(new Point(360, 400), 75, 50, true, Button.THREE, this.frame.getJFrame()));
-		buttons.add(new Button(new Point(200, 345), 75, 50, true, Button.FOUR, this.frame.getJFrame()));
-		buttons.add(new Button(new Point(280, 345), 75, 50, true, Button.FIVE, this.frame.getJFrame()));
-		buttons.add(new Button(new Point(360, 345), 75, 50, true, Button.SIX, this.frame.getJFrame()));
-		buttons.add(new Button(new Point(200, 290), 75, 50, true, Button.SEVEN, this.frame.getJFrame()));
-		buttons.add(new Button(new Point(280, 290), 75, 50, true, Button.EIGHT, this.frame.getJFrame()));
-		buttons.add(new Button(new Point(360, 290), 75, 50, true, Button.NINE, this.frame.getJFrame()));
-		buttons.add(new Button(new Point(280, 235), 75, 50, true, Button.ZERO, this.frame.getJFrame()));
+		buttons.add(new Button(new Point(440, 400), 75, 50, true, Button.PLUS, this.frame.getJFrame(), "C"));
+		
+		buttons.add(new Button(new Point(100, 400), 75, 50, true, Button.PLUS, this.frame.getJFrame(), "+"));
+    	buttons.add(new Button(new Point(100, 345), 75, 50, true, Button.SUB, this.frame.getJFrame(), "-"));
+    	buttons.add(new Button(new Point(100, 290), 75, 50, true, Button.MULTI, this.frame.getJFrame(), "*"));
+    	buttons.add(new Button(new Point(100, 235), 75, 50, true, Button.DIVIDE, this.frame.getJFrame(), "/"));
+    	buttons.add(new Button(new Point(100, 180), 75, 50, true, Button.EQUALS, this.frame.getJFrame(), "="));
+		
+		buttons.add(new Button(new Point(200, 400), 75, 50, true, Button.NINE, this.frame.getJFrame(), "9"));
+    	buttons.add(new Button(new Point(280, 400), 75, 50, true, Button.EIGHT, this.frame.getJFrame(), "8"));
+		buttons.add(new Button(new Point(360, 400), 75, 50, true, Button.SEVEN, this.frame.getJFrame(), "7"));
+		buttons.add(new Button(new Point(200, 345), 75, 50, true, Button.SIX, this.frame.getJFrame(), "6"));
+		buttons.add(new Button(new Point(280, 345), 75, 50, true, Button.FIVE, this.frame.getJFrame(), "5"));
+		buttons.add(new Button(new Point(360, 345), 75, 50, true, Button.FOUR, this.frame.getJFrame(), "4"));
+		buttons.add(new Button(new Point(200, 290), 75, 50, true, Button.THREE, this.frame.getJFrame(), "3"));
+		buttons.add(new Button(new Point(280, 290), 75, 50, true, Button.TWO, this.frame.getJFrame(), "2"));
+		buttons.add(new Button(new Point(360, 290), 75, 50, true, Button.ONE, this.frame.getJFrame(), "1"));
+		buttons.add(new Button(new Point(280, 235), 75, 50, true, Button.ZERO, this.frame.getJFrame(), "0"));
+		
+		
 	}
 	
 	/**
@@ -103,23 +181,16 @@ public class Calculator implements Runnable {
 	 * Sets the frame to visible
 	 */
 	public void makeVisible() {
-		Frame.calcFrame.getJFrame().setVisible(true);
+			cyrusMain.getCalc().getFrame().getJFrame().setVisible(true);
 	}
 	
-	
-	@Override
-	public void run() {
-		this.makeVisible();
-		this.running = true;
-		while(this.running) {
-			this.getFrame().setupBufferStrategy();
-			////////////////////////////////////////////
-			this.updateButtonLocation();
-			this.getFrame().getUIManager().drawCalc(this.buttons);
-			////////////////////////////////////////////
-			this.getFrame().disposeAndShow();
-		}
-		
+	public void update () {
+		this.getFrame().setupBufferStrategy();
+		////////////////////////////////////////////
+		this.updateButtonLocation();
+		this.getFrame().getUIManager().draw(this.buttons);
+		////////////////////////////////////////////
+		this.getFrame().disposeAndShow();
 	}
 	
 	///// Setter /////
@@ -138,6 +209,28 @@ public class Calculator implements Runnable {
 		this.currentNumb = numb;
 	}
 	
+	
+	/**
+	 * Adds to current number
+	 * @param numb - The number you want to add
+	 * @return - Returns the new current number
+	 */
+	private int addCurrentNumb(int numb) {
+		this.currentNumb += numb;
+		return this.currentNumb;
+	}
+	
+	/**
+	 * Subtracts from current number
+	 * @param numb - The number you want to subtract
+	 * @return - Return the new current number
+	 */
+	private int subCurrentNumb(int numb) {
+		this.currentNumb -= numb;
+		return this.currentNumb;
+	}
+	
+	
 	///// Getter /////
 	/**
 	 * Gets all the buttons the calculator has.
@@ -146,6 +239,7 @@ public class Calculator implements Runnable {
 	public ArrayList<Button> getButtons() {
 		return this.buttons;
 	}
+	
 	/**
 	 * Gets the frame for the given calculator.
 	 * @return - The frame for the given calculator
@@ -160,5 +254,21 @@ public class Calculator implements Runnable {
 	 */
 	public int getCurrentNumb() {
 		return this.currentNumb;
+	}
+	
+	/**
+	 * Update display text.
+	 * @param str - The display text
+	 */
+	public void updateDisplayText(String str) {
+		this.displayText = str;
+	}
+	
+	/**
+	 * Gets the current display text.
+	 * @return - The current display text
+	 */
+	public String getDisplayText() {
+		return this.displayText;
 	}
 }

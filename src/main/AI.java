@@ -33,7 +33,10 @@ public class AI {
 	}
 	
 	
-	
+	/**
+	 * Sets up the AI.
+	 * This method currently just greets the user.
+	 */
 	public void setup() {
 		this.greet("Hello, my name is " + this.name + ", this message is brought to you from the AI.java file under the greet method!");
 		//TODO ask for name
@@ -69,15 +72,17 @@ public class AI {
 		for(String l : line) 
 			this.getChatManager().addConsoleLine(l);
 	}
-	
+	/**
+         * Outpus help message
+         * @param cmd - The command's help message you want to use
+         */
 	public void outputHelpMessage(Command cmd) {
 		this.outputMessage(cmd.getPrefixHelpString());
 		this.outputMessage(cmd.getHelpString().get(0));
 	}
 	
 	public void outputErrorMessage() {
-		String user = System.getProperty("user.name").toLowerCase();
-		File file = fileManager.getFile("C:\\Users\\" + user + "\\AppData\\Local\\Cyrus\\error messages.cy");
+		File file = fileManager.getFile(FileManager.ERRORMESSAGEFILE);
 		Random r = new Random();
 		int ran = r.nextInt(fileManager.readFullFile(file).size());
 		this.outputMessage(fileManager.readFileLine(file, ran));

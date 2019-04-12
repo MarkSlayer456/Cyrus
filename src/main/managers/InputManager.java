@@ -1,16 +1,21 @@
 package main.managers;
 
+import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
+import main.CyrusMain;
 import main.Frame;
+import main.utilities.Button;
+import main.utilities.Calculator;
 
 public class InputManager implements KeyListener, MouseListener {
 
-	public static InputManager inputManager = new InputManager();
+	public static InputManager inputManager;
+	private CyrusMain cyrusMain;
 
 	public static InputManager getInstance() {
 		return inputManager;
@@ -24,6 +29,7 @@ public class InputManager implements KeyListener, MouseListener {
 		this.keysDown = new ArrayList<Integer>();
 		this.currentCharacters = new ArrayList<Character>();
 		this.currentCommand = "";
+		cyrusMain = CyrusMain.getInstance();
 	}
 	
 	/**
@@ -40,40 +46,43 @@ public class InputManager implements KeyListener, MouseListener {
 	
 	@Override
 	public void keyPressed(KeyEvent e) {
-		this.keysDown.add(e.getKeyCode());
-		int keyCode = e.getKeyCode();
-		for(int i = 0; i < this.keysDown.size(); i++) {
-			if(this.keysDown.get(i) == 17 || keyCode == 17) { // probably a better way to do this but still works
-				return;
-			}
-		}
-		if(keyCode != 8 && keyCode != 10 && keyCode != 9 && keyCode != 16) { // checks for tab(9), enter(10), backspace(8), shift(16)
-			this.currentCommand += (e.getKeyChar() + "");
-			this.currentCharacters.add(e.getKeyChar());
-		} else {
-			switch(keyCode) {
-			case 9:
-				this.currentCommand += ("    ");
-				break;
-			case 10:
-				Frame.cyrus.interpret(this.currentCommand);
-				this.clearCurrentChars();
-				System.out.println("You typed: " + this.currentCommand); //TODO remove later
-				this.currentCommand = "";
-				break;
-			case 8:
-				if(!(this.currentCharacters.isEmpty())) {
-					this.currentCharacters.remove(this.currentCharacters.size() - 1);
-					this.currentCommand = "";
-					for(int i = 0; i < this.currentCharacters.size(); i++) {
-						char a = this.currentCharacters.get(i);
-						this.currentCommand += a;
-					}
+		Frame activeFrame = cyrusMain.getActiveFrame();
+		if(activeFrame == cyrusMain.getMainFrame()) {
+			this.keysDown.add(e.getKeyCode());
+			int keyCode = e.getKeyCode();
+			for(int i = 0; i < this.keysDown.size(); i++) {
+				if(this.keysDown.get(i) == 17 || keyCode == 17) { // probably a better way to do this but still works
+					return;
 				}
-				break;
-			case 16:
-				// Do nothing
-				break;
+			}
+			if(keyCode != 8 && keyCode != 10 && keyCode != 9 && keyCode != 16) { // checks for tab(9), enter(10), backspace(8), shift(16)
+				this.currentCommand += (e.getKeyChar() + "");
+				this.currentCharacters.add(e.getKeyChar());
+			} else {
+				switch(keyCode) {
+				case 9:
+					this.currentCommand += ("    ");
+					break;
+				case 10:
+					cyrusMain.getCyrus().interpret(this.currentCommand);
+					this.clearCurrentChars();
+					System.out.println("You typed: " + this.currentCommand); //TODO remove later
+					this.currentCommand = "";
+					break;
+				case 8:
+					if(!(this.currentCharacters.isEmpty())) {
+						this.currentCharacters.remove(this.currentCharacters.size() - 1);
+						this.currentCommand = "";
+						for(int i = 0; i < this.currentCharacters.size(); i++) {
+							char a = this.currentCharacters.get(i);
+							this.currentCommand += a;
+						}
+					}
+					break;
+				case 16:
+					// Do nothing
+					break;
+				}
 			}
 		}
 	}
@@ -99,7 +108,21 @@ public class InputManager implements KeyListener, MouseListener {
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		
+		int mx = e.getX(); // mouse x
+		int my = e.getY(); // mouse y
+		Calculator calc = cyrusMain.getCalc();
+		Frame activeFrame = cyrusMain.getActiveFrame();
+		if(activeFrame == calc.getFrame()) {
+			for(Button b : calc.getButtons()) {
+				if(b.getRect().contains(new Point(mx, my))) {
+					calc.clickButton(b);
+				}
+			}
+		} else if(activeFrame == cyrusMain.getMainFrame()) {
+			
+		} else {
+			System.out.println("ERROR unknown window dectected!");
+		}
 	}
 
 	@Override
