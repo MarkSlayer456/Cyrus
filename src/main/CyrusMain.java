@@ -25,7 +25,7 @@ public class CyrusMain implements Runnable {
 	}
 	
 	
-	public final static String VERSION = "Version: 1.3.0 Pre-Alpha";
+	public final static String VERSION = "Version: 1.3.1 Pre-Alpha";
 	
 	private FileManager fileManager = FileManager.getInstance();
 	private InputManager inputManager;
