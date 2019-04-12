@@ -59,7 +59,7 @@ public class CyrusMain implements Runnable {
 		this.mainFrame = new Frame(new Dimension(800, 300), "Cyrus", new FrameRateManager(), true); //TODO get screen size but this will do for now
 		Frame calcFrame = new Frame(new Dimension(800, 500), "Calculator", new FrameRateManager(), false);
 		this.calc = new Calculator(false, calcFrame);
-		this.cyrus = new AI("Cyrus", new ChatManager(50, 10, 0, 25)); // Creating Cyrus
+		this.cyrus = new AI("Cyrus", new ChatManager(50, 10, 0)); // Creating Cyrus
 		running = true;
 		
 		

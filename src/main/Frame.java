@@ -28,7 +28,7 @@ public class Frame {
 		this.size = s;
 		this.drawing = drawing;
 		this.frame = new JFrame(name);
-		this.uiManager = new UIManager(s, null, frManager);
+		this.uiManager = new UIManager(s, frManager);
 		this.frame.setSize(size.width, size.height);
 		this.frame.setLocation(Toolkit.getDefaultToolkit().getScreenSize().width - size.width, 0);
 		this.frame.setUndecorated(false);

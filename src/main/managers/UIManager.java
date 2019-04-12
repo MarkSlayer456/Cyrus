@@ -27,7 +27,7 @@ public class UIManager {
 	 * @param graphics - The graphics 
 	 * @param frManager - The frameRateManager
 	 */
-	public UIManager(Dimension size, Graphics2D graphics, FrameRateManager frManager) {
+	public UIManager(Dimension size, FrameRateManager frManager) {
 		this.size = size;
 		this.graphics = null;
 		this.frManager = frManager;
@@ -48,23 +48,23 @@ public class UIManager {
 		this.graphics.setFont(new Font("Cyrus Commandline", 1, 20));
 		//g.setFont(normal);
 		Frame mainFrame = cyrusMain.getMainFrame();
-		
+		int heightOfText = this.graphics.getFontMetrics().getHeight();
 		this.graphics.setColor(Color.BLACK);
 		this.graphics.fillRect(0, 0, mainFrame.getJFrame().getWidth(), mainFrame.getJFrame().getHeight());
 		this.graphics.setColor(new Color(153, 0, 255));
-		this.graphics.drawString("--/>", 20, mainFrame.getJFrame().getHeight() - 25);
+		this.graphics.drawString("--/>", 20, mainFrame.getJFrame().getHeight() - heightOfText);
 		this.graphics.setColor(new Color(153, 0, 255));
 		int iterator = 0;
 		for(int j = ai.getChatManager().getConsoleLines().size() - 1; j >= 0; j--) { // drawing the string
 			iterator++;
 			String str = ai.getChatManager().getConsoleLines().get(j);
-			this.graphics.drawString(str, 50, mainFrame.getJFrame().getHeight() - 25 - iterator*ai.getChatManager().getSpaceInbetweenLines());
+			this.graphics.drawString(str, 50, mainFrame.getJFrame().getHeight() - heightOfText - iterator*heightOfText);
 		}
 		String temp = "";
 		for(int i = 0; i < inputManager.getCurrentCharacters().size(); i++) {
 			char z = inputManager.getCurrentCharacters().get(i);
 			temp += z;
-			this.graphics.drawString(temp, 53, mainFrame.getJFrame().getHeight() - 25);
+			this.graphics.drawString(temp, 53, mainFrame.getJFrame().getHeight() - heightOfText);
 		}
 		//////////////////////////////////////
 		

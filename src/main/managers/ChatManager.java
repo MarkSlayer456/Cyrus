@@ -7,7 +7,6 @@ public class ChatManager {
 	private final int numberOfCharsPerLine;
 	private final int maxLines; // the maximum number of lines shown at a time
 	private final int currentLine; // which line the user is currently on (will be displayed at the bottom of the console)
-	private final int spaceInbetweenLines;
 	
 	private ArrayList<String> consoleLines;
 	
@@ -18,11 +17,10 @@ public class ChatManager {
 	 * @param currentLine - The current line (unused)
 	 * @param spaceInbetweenLines - Space inbetween each line
 	 */
-	public ChatManager(Integer charsPerLine, Integer maxLines, Integer currentLine, Integer spaceInbetweenLines) {
+	public ChatManager(Integer charsPerLine, Integer maxLines, Integer currentLine) {
 	    this.numberOfCharsPerLine = charsPerLine;
 	    this.maxLines = maxLines;
 	    this.currentLine = currentLine;
-	    this.spaceInbetweenLines = spaceInbetweenLines;
 	    this.consoleLines = new ArrayList<String>();
 	}
 	
@@ -77,12 +75,5 @@ public class ChatManager {
 	 */
 	public ArrayList<String> getConsoleLines() {
 		return this.consoleLines;
-	}
-	/**
-	 * Gets the space between the lines
-	 * @return - The space between the lines as an int
-	 */
-	public int getSpaceInbetweenLines() {
-		return this.spaceInbetweenLines;
 	}
 }
