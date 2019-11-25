@@ -21,12 +21,14 @@ public class Command {
 	private static HashMap<String, Command> commands = new HashMap<>();
 	private static HashMap<String, Command> aliasesS = new HashMap<>();
 	private ArrayList<String> aliases = new ArrayList<>(); //TODO maybe remove this
-	
+	private static ArrayList<String> commandStrings = new ArrayList<>();
 	// Not sure how to deal with needing the AI information on all these methods yet will find a work around
 	private String command;
 	private ArrayList<String> args = new ArrayList<>(); // might be able to remove this but could be used to loop through all valid arguments later
 	private ArrayList<String> helpString = new ArrayList<>();
 	private int amountOfArgs; // how many arguments the command needs. 0 being just the command -1 being unlimited
+	private String manual;
+	
 	
 	/**
 	 * Creates a command
@@ -35,12 +37,15 @@ public class Command {
 	 * @param help - The help string for the command
 	 * @param a - All the aliases for the command
 	 */
-	public Command(String cmd, int aoa, ArrayList<String> help, ArrayList<String> a) {
+	public Command(String cmd, int aoa, ArrayList<String> help, ArrayList<String> a, String manual) {
 		this.command = cmd;
 		this.amountOfArgs = aoa;
 		this.helpString = help;
 		this.aliases = a;
+		this.manual = manual;
 		commands.put(this.command, this);
+		commandStrings.add(cmd);
+		System.out.println(this.command + " was created");
 		if(this.aliases != null) {
 			for(String s : aliases) {
 				aliasesS.put(s, this);
@@ -125,6 +130,11 @@ public class Command {
 			int ran = r.nextInt(fileManager.readFullFile(file).size());
 			ai.outputMessage(fileManager.readFileLine(file, ran));
 			break;
+		case "help":
+			for(String command : commandStrings) {
+				ai.outputMessage(command + " - " + Command.getCommand(command).getManual());
+			}
+			break;
 		}
 	}
 	
@@ -133,7 +143,7 @@ public class Command {
 	 */
 	public static void discoverCommands() {
 		File file = fileManager.getFile(FileManager.COMMANDFILE);
-		for(int k = 0; k < fileManager.readFullFile(file).size(); k++) {
+		for(int k = 0; k < fileManager.readFullFile(file).size(); k += 5) {
 			String command = fileManager.readFileLine(file, k);
 			if(command.startsWith("- ")) { // make sure it's the command
 				String helpStr = fileManager.readFileLine(file, k + 1); // reads the next line which is the help string
@@ -148,10 +158,16 @@ public class Command {
 				copyCommands = copyCommands.replaceAll("-", "");
 				ArrayList<String> copyCommandArray = new ArrayList<>();
 				String[] copyCommandStrings = copyCommands.split(",");
+				String manual = fileManager.readFileLine(file, k + 4);
+				manual = manual.replaceFirst("        ", "");
+				manual = manual.replaceAll("-", "");
+				System.out.println(manual);
+				System.out.println(command);
+				
                 copyCommandArray.addAll(Arrays.asList(copyCommandStrings));
 				command = command.replaceAll("-", "");
 				command = command.replaceAll(" ", "");
-				new Command(command, Integer.parseInt(numberOfArgs), helpStrArray, copyCommandArray);
+				new Command(command, Integer.parseInt(numberOfArgs), helpStrArray, copyCommandArray, manual);
 			}
 		}
 	}
@@ -159,6 +175,15 @@ public class Command {
 	///// Setters /////
 	
 	///// Getters /////
+	
+	/**
+	 * gets the manual page for each command
+	 * @return the manual page for the given command
+	 */
+	public String getManual() {
+		return this.manual;
+	}
+	
 	/**
 	 * Gets command
 	 * @param str - The name of the command
