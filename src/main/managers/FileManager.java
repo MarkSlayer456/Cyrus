@@ -211,41 +211,49 @@ public class FileManager {
 				writeToFile(command, "  - <hi/hey/hello/hola>", i++); // this would be the help string
 				writeToFile(command, "    - 0", i++); // amount of args
 				writeToFile(command, "      - hey, hello, hola", i++);
+				writeToFile(command, "        - This command is used to say hello to cyrus", i++);
 				
 				writeToFile(command, "- createkeybind", i++);
 				writeToFile(command, "  - <createkeybind> <key> <operation>", i++);
 				writeToFile(command, "    - 2", i++);
 				writeToFile(command, "      - ", i++);
+				writeToFile(command, "        - This command is used to create a key bind", i++);
 				
 				writeToFile(command, "- what", i++);
 				writeToFile(command, "  - <what/what's> <question>", i++);
 				writeToFile(command, "    - 1", i++);
 				writeToFile(command, "      - what's", i++);
+				writeToFile(command, "        - This command is used to ask cyrus a question", i++);
 				
 				writeToFile(command, "- math", i++);
 				writeToFile(command, "  - <math>", i++);
 				writeToFile(command, "    - 0", i++);
 				writeToFile(command, "      - calc, calculator", i++);
+				writeToFile(command, "        - This command is used to open the calculator", i++);
 				
 				writeToFile(command, "- how", i++);
 				writeToFile(command, "  - <how/how's/how'd> <question>", i++);
 				writeToFile(command, "    - 1", i++);
 				writeToFile(command, "      - how's, how'd", i++);
+				writeToFile(command, "        - This command is used to ask cyrus a question", i++);
 				
 				writeToFile(command, "- clear", i++);
 				writeToFile(command, "  - <clear>", i++);
 				writeToFile(command, "    - 0", i++);
 				writeToFile(command, "      - cl", i++);
+				writeToFile(command, "        - This command is used to clear the console", i++);
 				
 				writeToFile(command, "- quit", i++);
 				writeToFile(command, "  - <quit>", i++);
 				writeToFile(command, "    - 0", i++);
 				writeToFile(command, "      -", i++);
+				writeToFile(command, "        - This command is used to end the cyrus process", i++);
 				
 				writeToFile(command, "- joke", i++);
 				writeToFile(command, "  - <joke>", i++);
 				writeToFile(command, "    - 0", i++);
 				writeToFile(command, "      -", i++);
+				writeToFile(command, "        - This command is used to have cyrus tell you a joke", i++);
 				
 				// TODO None of the commands below this line are implemented 
 				////////////////////////////////////////////////////////////////////////////////////
@@ -253,21 +261,34 @@ public class FileManager {
 				writeToFile(command, "  - <todo> <add/remove> <task> <reminder time> <reminder interval>", i++);
 				writeToFile(command, "    - 0", i++);
 				writeToFile(command, "      - td", i++);
+				writeToFile(command, "        - This command is used to setup a todo with a timer", i++);
 				
 				writeToFile(command, "- set", i++);
 				writeToFile(command, "  - <set> <timer/countdown> <length>", i++);
 				writeToFile(command, "    - 0", i++);
 				writeToFile(command, "      - create", i++);
+				writeToFile(command, "        - This command is used to set a timer", i++);
 				
 				writeToFile(command, "- ls", i++);
 				writeToFile(command, "  - <ls> <directory>", i++);
 				writeToFile(command, "    - 0", i++);
 				writeToFile(command, "      - list", i++);
+				writeToFile(command, "        - This command is used to list the contents "
+						+ "of your current working direcotry", i++);
 				
 				writeToFile(command, "- cd", i++);
 				writeToFile(command, "  - <cd> <directory>", i++);
 				writeToFile(command, "    - 0", i++);
 				writeToFile(command, "      - changedirectory", i++);
+				writeToFile(command, "        - This command is used to change your current working directory", i++);
+				
+				writeToFile(command, "- help", i++);
+				writeToFile(command, "  - <help>", i++);
+				writeToFile(command, "    - 0", i++);
+				writeToFile(command, "      - man", i++);
+				writeToFile(command, "        - This command is used to find a "
+						+ "manual page about any given comand", i++);
+				
 				/////////////////////////////////////////////////////////////////////////////////////
 				
 				int j = 0;
