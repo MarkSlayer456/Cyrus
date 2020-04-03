@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.Random;
 
 import main.managers.FileManager;
+import main.utilities.Note;
 
 public class Command {
     
@@ -65,6 +66,7 @@ public class Command {
 		default:
 			ai.outputErrorMessage();
 			break;
+			
 		case "hi":
 			ai.outputMessage("Hello!");
 			break;
@@ -72,6 +74,7 @@ public class Command {
 		case "quit":
 			CyrusMain.quit();
 			break;
+			
 		case "createkeybind": // needs to args
 			if(argSize == 2) {
 				
@@ -120,20 +123,56 @@ public class Command {
 				cyrusMain.getCalc().getFrame().setDrawing(true);
 				cyrusMain.getCalc().makeVisible();
 			break;
+			
 		case "clear":
 			ai.getChatManager().clearConsoleLines();
 			ai.outputMessage("I have cleared the console for you!");
 			break;
+			
 		case "joke":
 			File file = fileManager.getFile(FileManager.JOKEFILE);
 			Random r = new Random();
 			int ran = r.nextInt(fileManager.readFullFile(file).size());
 			ai.outputMessage(fileManager.readFileLine(file, ran));
 			break;
+			
 		case "help":
 			for(String command : commandStrings) {
 				ai.outputMessage(command + " - " + Command.getCommand(command).getManual());
 			}
+			break;
+		case "note":
+			ArrayList<Note> notes = ai.getNoteManager().getNotes();
+			if(argSize >= 1) {
+				if(argSize == 2) {
+					if(this.args.get(0).equalsIgnoreCase("remove")) {
+						for(int i = 0; i < ai.getNoteManager().getNotes().size(); i++) {
+							StringBuilder curr = new StringBuilder();
+							curr.append(i);
+							if(this.args.get(1).equalsIgnoreCase(curr.toString()) && 
+									ai.getNoteManager().getNotes().get(i) != null) {
+								ai.outputMessage(ai.getNoteManager().getNotes().get(i).getNote() + ", was removed from your notes");
+								ai.getNoteManager().removeNote(i);
+								
+							}
+						}	
+					}
+				} else {
+					StringBuilder str = new StringBuilder();
+					for(int i = 0; i < argSize; i++) {
+						str.append(this.args.get(i));
+						str.append(" ");
+					}
+					notes.add(new Note(str.toString()));
+					ai.outputMessage("Note added!");
+				}
+			} else if(argSize == 0) {
+				if(notes.isEmpty()) ai.outputMessage("You have no notes!");
+				for(int i = 0; i < notes.size(); i++) {
+					ai.outputMessage(i + " : " + notes.get(i).getNote());
+				}
+			}
+			ai.getNoteManager().saveNotes();
 			break;
 		}
 	}

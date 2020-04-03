@@ -7,6 +7,7 @@ import java.util.Random;
 
 import main.managers.ChatManager;
 import main.managers.FileManager;
+import main.managers.NoteManager;
 
 public class AI {
 	
@@ -17,6 +18,7 @@ public class AI {
 	private Color color; // will implement later
 	private ArrayList<String> args;
 	private final ChatManager chatManager;
+	private NoteManager noteManager;
 	
 	
 	/**
@@ -24,12 +26,14 @@ public class AI {
 	 * @param name - Name of the AI
 	 * @param chat - ChatManager for the AI to display the console
 	 */
-	public AI(String name, ChatManager chat) {
+	public AI(String name, ChatManager chat, NoteManager noteManager) {
 		this.name = name;
 		this.hasGreeted = false;
 		this.color = Color.CYAN;
 		this.args = new ArrayList<>();
 		this.chatManager = chat;
+		this.noteManager = noteManager;
+		this.noteManager.loadNotes();
 	}
 	
 	
@@ -90,7 +94,7 @@ public class AI {
 	
 	public void interpret(String cmd) {
 		if(Command.getCommand(cmd) != null && !cmd.equalsIgnoreCase("")) {
-		Command.getCommand(cmd).executeCommand(this);
+			Command.getCommand(cmd).executeCommand(this);
 		} else {
 			this.outputErrorMessage();
 		}
@@ -114,6 +118,14 @@ public class AI {
 	 */
 	public ChatManager getChatManager() {
 		return this.chatManager;
+	}
+	
+	/**
+	 * Gets Note manager
+	 * @return - The Note manager for the AI
+	 */
+	public NoteManager getNoteManager() {
+		return this.noteManager;
 	}
 	
 	
