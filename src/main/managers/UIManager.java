@@ -21,10 +21,10 @@ public class UIManager {
 	private Graphics2D graphics;
 	private Dimension size;
 	private FrameRateManager frManager;
+	private int offset;
 	/**
 	 * Creates UIManager
 	 * @param size - The size of the frame
-	 * @param graphics - The graphics 
 	 * @param frManager - The frameRateManager
 	 */
 	public UIManager(Dimension size, FrameRateManager frManager) {
@@ -33,6 +33,7 @@ public class UIManager {
 		this.frManager = frManager;
 		this.cyrusMain = CyrusMain.getInstance();
 		this.inputManager = InputManager.getInstance();
+		this.offset = 0;
 	}
 	
 	/**
@@ -55,7 +56,7 @@ public class UIManager {
 		this.graphics.drawString("--/>", 20, mainFrame.getJFrame().getHeight() - heightOfText);
 		this.graphics.setColor(new Color(153, 0, 255));
 		int iterator = 0;
-		for(int j = ai.getChatManager().getConsoleLines().size() - 1; j >= 0; j--) { // drawing the string
+		for(int j = ai.getChatManager().getConsoleLines().size() - 1 - this.offset; j >= 0; j--) { // drawing the string
 			iterator++;
 			String str = ai.getChatManager().getConsoleLines().get(j);
 			this.graphics.drawString(str, 50, mainFrame.getJFrame().getHeight() - heightOfText - iterator*heightOfText);
@@ -154,6 +155,26 @@ public class UIManager {
 	 */
 	public FrameRateManager getFrManager() {
 		return this.frManager;
+	}
+	
+	public int getOffset() {
+		return this.offset;
+	}
+	
+	public void setOffset(int numb) {
+		this.offset = numb;
+	}
+	
+	public void scrollup(AI ai) {
+		if(this.offset != ai.getChatManager().getConsoleLines().size()-1) {
+			this.offset++;	
+		}
+	}
+	
+	public void scrolldown(AI ai) {
+		if(this.offset != 0) {
+			this.offset--;
+		}
 	}
 	
 }

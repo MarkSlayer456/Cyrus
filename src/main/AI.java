@@ -156,16 +156,4 @@ public class AI {
 		return this.commands;
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }

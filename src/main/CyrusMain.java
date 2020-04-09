@@ -68,6 +68,7 @@ public class CyrusMain implements Runnable {
 		fileManager.setup();
 		mainFrame.getJFrame().setVisible(true);
 		mainFrame.getJFrame().addKeyListener(inputManager);
+		mainFrame.getJFrame().addMouseWheelListener(inputManager);
 		calc.getFrame().getJFrame().addKeyListener(inputManager); // this makes it so you can still type while the calculator is open
 		calc.getFrame().getJFrame().addMouseListener(inputManager);
 		mainFrame.getJFrame().addMouseListener(inputManager);

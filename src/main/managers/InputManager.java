@@ -5,6 +5,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +16,7 @@ import main.Frame;
 import main.utilities.Button;
 import main.utilities.Calculator;
 
-public class InputManager implements KeyListener, MouseListener {
+public class InputManager implements KeyListener, MouseListener, MouseWheelListener {
 
 	public static InputManager inputManager;
 	private CyrusMain cyrusMain;
@@ -75,6 +77,7 @@ public class InputManager implements KeyListener, MouseListener {
 					cyrus2.addToCommands(this.currentCommand);
 					cyrus2.setCurrCommand(-1);
 					this.currentCommand = "";
+					main2.getMainFrame().getUIManager().setOffset(0);
 					break;
 				case 8:
 					if(!(this.currentCharacters.isEmpty())) {
@@ -173,6 +176,18 @@ public class InputManager implements KeyListener, MouseListener {
 		
 	}
 
+	@Override
+	public void mouseWheelMoved(MouseWheelEvent e) {
+		int notches = e.getWheelRotation();
+		CyrusMain cyrus = CyrusMain.getInstance();
+		AI ai = cyrus.getCyrus();
+		if(notches > 0) {
+			cyrus.getMainFrame().getUIManager().scrolldown(ai);
+		} else {
+			cyrus.getMainFrame().getUIManager().scrollup(ai);
+		}
+	}	
+	
 	///// Setters /////
 
 	///// Getters /////
@@ -182,5 +197,7 @@ public class InputManager implements KeyListener, MouseListener {
 	
 	public String getCurrentCommand() {
 		return this.currentCommand;
-	}	
+	}
+
+	
 }
