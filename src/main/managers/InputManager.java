@@ -6,7 +6,9 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.util.List;
 
+import main.AI;
 import main.CyrusMain;
 import main.Frame;
 import main.utilities.Button;
@@ -55,7 +57,8 @@ public class InputManager implements KeyListener, MouseListener {
 					return;
 				}
 			}
-			if(keyCode != 8 && keyCode != 10 && keyCode != 9 && keyCode != 16) { // checks for tab(9), enter(10), backspace(8), shift(16)
+			if(keyCode != 8 && keyCode != 10 && keyCode != 9 && keyCode != 16
+					&& keyCode != KeyEvent.VK_UP && keyCode != KeyEvent.VK_DOWN) { // checks for tab(9), enter(10), backspace(8), shift(16)
 				this.currentCommand += (e.getKeyChar() + "");
 				this.currentCharacters.add(e.getKeyChar());
 			} else {
@@ -67,6 +70,10 @@ public class InputManager implements KeyListener, MouseListener {
 					cyrusMain.getCyrus().interpret(this.currentCommand);
 					this.clearCurrentChars();
 					System.out.println("You typed: " + this.currentCommand); //TODO remove later
+					CyrusMain main2 = CyrusMain.getInstance();
+					AI cyrus2 = main2.getCyrus();
+					cyrus2.addToCommands(this.currentCommand);
+					cyrus2.setCurrCommand(-1);
 					this.currentCommand = "";
 					break;
 				case 8:
@@ -77,6 +84,37 @@ public class InputManager implements KeyListener, MouseListener {
 							char a = this.currentCharacters.get(i);
 							this.currentCommand += a;
 						}
+					}
+					break;
+				case KeyEvent.VK_UP:
+					CyrusMain main = CyrusMain.getInstance();
+					AI cyrus = main.getCyrus();
+					List<String> list = cyrus.getCommands();
+					if(!(cyrus.getCurrCommand() >= list.size()-1)) {
+						cyrus.increaseCurrCommand();
+						String command = list.get(cyrus.getCurrCommand());
+						this.currentCommand = command;
+						this.clearCurrentChars();
+						for(int i = 0; i < command.length(); i++) {
+							this.currentCharacters.add(command.charAt(i));
+						}
+					}
+					break;
+				case KeyEvent.VK_DOWN:
+					CyrusMain main1 = CyrusMain.getInstance();
+					AI cyrus1 = main1.getCyrus();
+					if(cyrus1.getCurrCommand() > 0) {
+						cyrus1.decreaseCurrCommand();
+						List<String> list1 = cyrus1.getCommands();
+						String command1 = list1.get(cyrus1.getCurrCommand());
+						this.currentCommand = command1;
+						this.clearCurrentChars();
+						for(int i = 0; i < command1.length(); i++) {
+							this.currentCharacters.add(command1.charAt(i));
+						}
+					} else {
+						this.currentCommand = "";
+						this.clearCurrentChars();
 					}
 					break;
 				case 16:

@@ -3,6 +3,7 @@ package main;
 import java.awt.Color;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import main.managers.ChatManager;
@@ -19,7 +20,8 @@ public class AI {
 	private ArrayList<String> args;
 	private final ChatManager chatManager;
 	private NoteManager noteManager;
-	
+	private List<String> commands; // a list of all commands entered the first item being the last command
+	int currCommand;
 	
 	/**
 	 * 
@@ -34,6 +36,8 @@ public class AI {
 		this.chatManager = chat;
 		this.noteManager = noteManager;
 		this.noteManager.loadNotes();
+		this.commands = new ArrayList<>();
+		this.currCommand = -1;
 	}
 	
 	
@@ -126,6 +130,30 @@ public class AI {
 	 */
 	public NoteManager getNoteManager() {
 		return this.noteManager;
+	}
+	
+	public int getCurrCommand() {
+		return this.currCommand;
+	}
+	
+	public void increaseCurrCommand() {
+		this.currCommand++;
+	}
+	
+	public void decreaseCurrCommand() {
+		this.currCommand--;
+	}
+	
+	public void setCurrCommand(int numb) {
+		this.currCommand = numb;
+	}
+	
+	public void addToCommands(String cmd) {
+		this.commands.add(0, cmd);
+	}
+	
+	public List<String> getCommands() {
+		return this.commands;
 	}
 	
 	
