@@ -10,6 +10,7 @@ import java.util.Random;
 
 import main.managers.FileManager;
 import main.utilities.Note;
+import main.utilities.Todo;
 
 public class Command {
     
@@ -141,6 +142,39 @@ public class Command {
 			for(String command : commandStrings) {
 				ai.outputMessage(command + " - " + Command.getCommand(command).getManual());
 			}
+			break;
+		case "todo":
+			ArrayList<Todo> todos = ai.getTodoManager().getTodos();
+			if(argSize >= 1) {
+				if(argSize == 2) {
+					if(this.args.get(0).equalsIgnoreCase("remove")) {
+						for(int i = 0; i < ai.getTodoManager().getTodos().size(); i++) {
+							StringBuilder curr = new StringBuilder();
+							curr.append(i);
+							if(this.args.get(1).equalsIgnoreCase(curr.toString()) && 
+									ai.getTodoManager().getTodos().get(i) != null) {
+								ai.outputMessage(ai.getTodoManager().getTodos().get(i).getTodo() + ", was removed from your todos");
+								ai.getTodoManager().removeTodo(i);
+								
+							}
+						}	
+					}
+				} else {
+					StringBuilder str = new StringBuilder();
+					for(int i = 0; i < argSize; i++) {
+						str.append(this.args.get(i));
+						str.append(" ");
+					}
+					todos.add(new Todo(str.toString(), null));
+					ai.outputMessage("Todo added!");
+				}
+			} else if(argSize == 0) {
+				if(todos.isEmpty()) ai.outputMessage("You have no todos!");
+				for(int i = 0; i < todos.size(); i++) {
+					ai.outputMessage(i + " : " + todos.get(i).getTodo());
+				}
+			}
+			ai.getTodoManager().saveTodos();
 			break;
 		case "note":
 			ArrayList<Note> notes = ai.getNoteManager().getNotes();

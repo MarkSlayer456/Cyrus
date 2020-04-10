@@ -8,6 +8,7 @@ import main.managers.FrameRateManager;
 import main.managers.ImageLoader;
 import main.managers.InputManager;
 import main.managers.NoteManager;
+import main.managers.TodoManager;
 import main.utilities.Calculator;
 
 public class CyrusMain implements Runnable {
@@ -57,11 +58,12 @@ public class CyrusMain implements Runnable {
 		InputManager.inputManager = new InputManager();
 		inputManager = InputManager.getInstance();
 		NoteManager noteManager = new NoteManager(fileManager);
+		TodoManager todoManager = new TodoManager(fileManager);
 		
 		this.mainFrame = new Frame(new Dimension(800, 300), "Cyrus", new FrameRateManager(), true); //TODO get screen size but this will do for now
 		Frame calcFrame = new Frame(new Dimension(800, 500), "Calculator", new FrameRateManager(), false);
 		this.calc = new Calculator(false, calcFrame);
-		this.cyrus = new AI("Cyrus", new ChatManager(50, 10, 0), noteManager); // Creating Cyrus
+		this.cyrus = new AI("Cyrus", new ChatManager(50, 10, 0), noteManager, todoManager); // Creating Cyrus
 		running = true;
 		
 		

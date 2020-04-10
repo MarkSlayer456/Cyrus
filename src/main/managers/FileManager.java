@@ -26,6 +26,7 @@ public class FileManager {
 	public static final String ERRORMESSAGEFILE = "error messages.cy";
 	public static final String COMMONQUESTIONFILE = "commonly asked questions.cy";
 	public static final String NOTEFILE = "notes.cy";
+	public static final String TODOFILE = "todo.cy";
 	
 	private ArrayList<File> files = new ArrayList<File>(); // All the files the ai knows about
 	/**
@@ -278,10 +279,16 @@ public class FileManager {
 						+ "manual page about any given comand", i++, append);
 				
 				writeToFile(command, "- note", i++, append);
-				writeToFile(command, "  - <note> <the note>", i++, append);
+				writeToFile(command, "  - <note> <remove> <the note>", i++, append);
 				writeToFile(command, "    - 1", i++, append);
 				writeToFile(command, "      - n", i++, append);
 				writeToFile(command, "        - This command is used to take notes", i++, append);
+				
+				writeToFile(command, "- todo", i++, append);
+				writeToFile(command, "  - <todo> <remove> <todo number>", i++, append);
+				writeToFile(command, "    - 1", i++, append);
+				writeToFile(command, "      - t", i++, append);
+				writeToFile(command, "        - This command is used to make todos", i++, append);
 				/////////////////////////////////////////////////////////////////////////////////////
 				
 				int j = 0;
@@ -324,11 +331,48 @@ public class FileManager {
 		} else {
 			notes = createFile("/usr/cyrus/" + NOTEFILE);
 		}
+		if(noteManager.getNotes().size() == 0) {
+			try { // this is here because we don't want a newline
+	        	FileOutputStream fileOut = new FileOutputStream(notes);
+				fileOut.write("".getBytes());
+				fileOut.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			return;
+		}
 		for(int i = 0; i < noteManager.getNotes().size(); i++) {
 			if(i == 0) {
 				writeToFile(notes, noteManager.getNotes().get(i).getNote(), i, false);
 			} else {
 				writeToFile(notes, noteManager.getNotes().get(i).getNote(), i, true);
+			}
+			
+		}
+	}
+	
+	public void saveTodos(TodoManager todoManager) {
+		File todos;
+		if(os.equalsIgnoreCase("windows 10")) {
+			todos = createFile("C:\\Users\\" + user + "\\AppData\\Local\\Cyrus\\" + TODOFILE);
+		} else {
+			todos = createFile("/usr/cyrus/" + TODOFILE);
+		}
+		if(todoManager.getTodos().size() == 0) {
+			try { // this is here because we don't want a newline
+	        	FileOutputStream fileOut = new FileOutputStream(todos);
+				fileOut.write("".getBytes());
+				fileOut.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			return;
+		}
+		for(int i = 0; i < todoManager.getTodos().size(); i++) {
+			if(i == 0) {
+				writeToFile(todos, todoManager.getTodos().get(i).getTodo(), i, false);
+			} else {
+				writeToFile(todos, todoManager.getTodos().get(i).getTodo(), i, true);
 			}
 			
 		}

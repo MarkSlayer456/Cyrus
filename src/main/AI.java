@@ -9,6 +9,7 @@ import java.util.Random;
 import main.managers.ChatManager;
 import main.managers.FileManager;
 import main.managers.NoteManager;
+import main.managers.TodoManager;
 
 public class AI {
 	
@@ -20,6 +21,7 @@ public class AI {
 	private ArrayList<String> args;
 	private final ChatManager chatManager;
 	private NoteManager noteManager;
+	private TodoManager todoManager;
 	private List<String> commands; // a list of all commands entered the first item being the last command
 	int currCommand;
 	
@@ -28,7 +30,7 @@ public class AI {
 	 * @param name - Name of the AI
 	 * @param chat - ChatManager for the AI to display the console
 	 */
-	public AI(String name, ChatManager chat, NoteManager noteManager) {
+	public AI(String name, ChatManager chat, NoteManager noteManager, TodoManager todoManager) {
 		this.name = name;
 		this.hasGreeted = false;
 		this.color = Color.CYAN;
@@ -38,6 +40,8 @@ public class AI {
 		this.noteManager.loadNotes();
 		this.commands = new ArrayList<>();
 		this.currCommand = -1;
+		this.todoManager = todoManager;
+		this.todoManager.loadTodo();
 	}
 	
 	
@@ -130,6 +134,10 @@ public class AI {
 	 */
 	public NoteManager getNoteManager() {
 		return this.noteManager;
+	}
+	
+	public TodoManager getTodoManager() {
+		return this.todoManager;
 	}
 	
 	public int getCurrCommand() {
